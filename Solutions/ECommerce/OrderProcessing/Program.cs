@@ -1,35 +1,32 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
 
+using System.Collections.Generic;
+using System.Reflection;
+using Transflower.ECommerce.OrderProcessing.Entities;
+using Transflower.ECommerce.OrderProcessing.Repositories.Interfaces;
+using  Transflower.ECommerce.OrderProcessing.Services.Interfaces;
+using  Transflower.ECommerce.OrderProcessing.Services;
+using Transflower.ECommerce.OrderProcessing.Controllers;
+using Transflower.ECommerce.OrderProcessing.Repositories;
 
-OrdersController
-       CancelOrder
-       PlaceOrder
-       GetAllOrders
-       GetOrderDetails
+Order order = new Order();
 
-Entities
-      Order
-             Id
-             OrderDate
-             Customer
-             Status
-             TotalAmount
+Console.WriteLine("Id: "+ order.Id + " OrderDate :" + order.OrderDate + " Customer : " + order.Customer + " Status : " + order.Status + " Total Amount : " + order.TotalAmount);
+ 
 
+IOrderRepository Repo = new OrderServiceRepository();
 
-Services
-IOrderService
-OrderService
-        CancelOrder
-       PlaceOrder
-       GetAllOrders
-       GetOrderDetails
+IOrderService service = new OrderService(Repo);
 
-Repositories
-IOrderRepo
-OrderServiceRepo
-       CancelOrder
-       PlaceOrder
-       GetAllOrders
-       GetOrderDetails
-   
+Console.WriteLine("Check Delay");
+
+Console.WriteLine("Result");
+
+OrderController controller = new OrderController(service);
+List<Order> allOrders = await controller.List();
+
+foreach(Order o in allOrders)
+{
+    Console.WriteLine(o.Id + " " + o.OrderDate + " " + o.Customer + " " + o.Status + " " + o.TotalAmount);
+}
+
