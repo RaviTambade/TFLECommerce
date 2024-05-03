@@ -7,6 +7,11 @@ public class MobilePhoneRepository : IProductRepository
     private List<Product> _products;
     public MobilePhoneRepository(){
         List<Product> products = new List<Product>();
+        
+        //Get data from producs.json file
+        //Create products list using Deserialization concept
+        //return products
+
         products.Add(new Product { Title = "Motog", Description = "Smart Phone Motorola", Category = "flowers", StockAvailable = 4500, UnitPrice = 12 });
         products.Add(new Product { Title = "iPhone10", Description = "Best Phone Apple", Category = "flowers", StockAvailable = 4500, UnitPrice = 12 });
         products.Add(new Product { Title = "Galaxy", Description = "Professional Phone Samsung", Category = "flowers", StockAvailable = 4500, UnitPrice = 12 });
