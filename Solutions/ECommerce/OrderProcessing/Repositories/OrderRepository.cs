@@ -2,12 +2,12 @@ using Transflower.ECommerce.OrderProcessing.Entities;
 using Transflower.ECommerce.OrderProcessing.Repositories.Interfaces;
 namespace Transflower.ECommerce.OrderProcessing.Repositories;
 
-public class OrderServiceRepository : IOrderRepository
+public class OrderRepository : IOrderRepository
 {
     private List<Order> _orders;
     private int Id;
 
-    public OrderServiceRepository(){
+    public OrderRepository(){
         List<Order> orders = new List<Order>();
         orders.Add(new Order { Id = 1, Customer = "Ashish", OrderDate = DateTime.Now, Status = "Processing", TotalAmount = 500});
         orders.Add(new Order { Id = 2, Customer = "Khush", OrderDate = DateTime.Now, Status = "Completed", TotalAmount = 1500});
@@ -22,11 +22,11 @@ public class OrderServiceRepository : IOrderRepository
         return _orders;
     }
 
-    public async Task<List<Order>> GetOrderDetails()
+    public async Task<Order> GetOrderDetails(int id)
     {
         await Task.Delay(1000);
-        Order theOrder = _orders.Find(order => order.Id == Id);
-        return _orders;
+        Order theOrder = _orders.Find(order => order.Id == id);
+        return theOrder;
     }
 
       public async Task<bool> PlaceOrder(Order order)
@@ -45,5 +45,4 @@ public class OrderServiceRepository : IOrderRepository
         }
         return true;
     }
-
 }

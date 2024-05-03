@@ -2,11 +2,11 @@ using Transflower.ECommerce.ProductCatalog.Entities;
 using Transflower.ECommerce.ProductCatalog.Services.Interfaces;
 
 namespace Transflower.ECommerce.ProductCatalog.Controllers;
-public class ProductController{
+public class ProductsController{
 
     private IProductService _productService;
 
-    public ProductController(IProductService productService)
+    public ProductsController(IProductService productService)
     {
         _productService = productService;
     }

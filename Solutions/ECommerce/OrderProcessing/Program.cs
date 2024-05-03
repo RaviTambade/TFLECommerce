@@ -14,14 +14,11 @@ Order order = new Order();
 Console.WriteLine("Id: "+ order.Id + " OrderDate :" + order.OrderDate + " Customer : " + order.Customer + " Status : " + order.Status + " Total Amount : " + order.TotalAmount);
  
 
-IOrderRepository Repo = new OrderServiceRepository();
+IOrderRepository Repo = new OrderRepository();
 
 IOrderService service = new OrderService(Repo);
 
-Console.WriteLine("Check Delay");
-
-Console.WriteLine("Result");
-
+ 
 OrderController controller = new OrderController(service);
 List<Order> allOrders = await controller.List();
 
