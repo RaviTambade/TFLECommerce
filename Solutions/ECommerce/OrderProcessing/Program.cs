@@ -19,7 +19,7 @@ IOrderRepository Repo = new OrderRepository();
 IOrderService service = new OrderService(Repo);
 
  
-OrderController controller = new OrderController(service);
+OrdersController controller = new OrdersController(service);
 List<Order> allOrders = await controller.List();
 
 foreach(Order o in allOrders)

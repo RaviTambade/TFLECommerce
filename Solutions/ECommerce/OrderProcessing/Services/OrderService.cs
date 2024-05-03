@@ -21,9 +21,9 @@ public class OrderService : IOrderService
        return  await _repository.GetAllOrders();
     }
 
-    public async Task<Order> GetOrderDetails(int id)
+    public async Task<Order> GetOrderDetails(int Id)
     {   
-        return await _repository.GetOrderDetails(id);   
+        return await _repository.GetOrderDetails(Id);   
     }
 
     public async Task<bool> PlaceOrder(Order order)
