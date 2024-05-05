@@ -10,8 +10,7 @@ using  Transflower.ECommerce.ProductCatalog.Services;
 using Transflower.ECommerce.ProductCatalog.Controllers;
 int count=45;
 string name= "Transflower";
-bool status= false;
-float Price= 0.0f;
+
 
 
 int [] marks={45,46,46,76,544};
@@ -58,7 +57,7 @@ Console.WriteLine("Please check delay now...");
 Console.WriteLine("Now result is achieved......");
 
 // delegate to Controller
-ProductController controller = new ProductController(service);
+ProductsController controller = new ProductsController(service);
 List<Product> allProducts = await controller.List();
 
 //Presentation logic

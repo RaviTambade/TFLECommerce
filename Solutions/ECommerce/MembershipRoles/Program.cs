@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
-
+/*
 AuthController
        Login
        Register
@@ -26,4 +26,4 @@ MembershipRepo
         Authenticate
        InsertNewUserCredential
        ResetPassword
-   
+   */
