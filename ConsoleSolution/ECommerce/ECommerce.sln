@@ -3,21 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog", "ProductCatalog\ProductCatalog.csproj", "{12128961-ED27-40ED-ADBD-BD31FFD475FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalog", "ProductCatalog\ProductCatalog.csproj", "{12128961-ED27-40ED-ADBD-BD31FFD475FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessing", "OrderProcessing\OrderProcessing.csproj", "{29C7B1D6-F9A8-4708-81AC-7E3DEDEA4E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderProcessing", "OrderProcessing\OrderProcessing.csproj", "{29C7B1D6-F9A8-4708-81AC-7E3DEDEA4E13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment", "Shipment\Shipment.csproj", "{BAFAA8F6-96DC-4025-BA11-8ED4EE1027D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment", "Shipment\Shipment.csproj", "{BAFAA8F6-96DC-4025-BA11-8ED4EE1027D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MembershipRoles", "MembershipRoles\MembershipRoles.csproj", "{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MembershipRoles", "MembershipRoles\MembershipRoles.csproj", "{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "SampleApp\SampleApp.csproj", "{66C3249E-3968-4E78-A6C6-C88008CF57AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample2App", "Sample2App\Sample2App.csproj", "{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{12128961-ED27-40ED-ADBD-BD31FFD475FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +37,19 @@ Global
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C3249E-3968-4E78-A6C6-C88008CF57AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C3249E-3968-4E78-A6C6-C88008CF57AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C3249E-3968-4E78-A6C6-C88008CF57AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C3249E-3968-4E78-A6C6-C88008CF57AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41C07DD9-273F-4964-88B5-9808D7332B67}
 	EndGlobalSection
 EndGlobal
