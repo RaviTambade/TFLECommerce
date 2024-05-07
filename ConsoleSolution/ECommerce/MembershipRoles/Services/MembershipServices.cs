@@ -23,5 +23,20 @@ public class MembershipService : IMembershipService
     {
           return  await _membershipRepo.GetDetails(membershipId);
     }
+
+    public async Task<bool> InsertMemberDetails(Member member)
+    {
+        return  await _membershipRepo.InsertMemberDetails(member);
+    }
+
+    public async Task<bool> MemberDelete(int membershipId)
+    {
+        return  await _membershipRepo.MemberDelete(membershipId);
+    }
+
+    public async Task<bool> UpdateMemberDetails(Member member)
+    {
+       return  await _membershipRepo.UpdateMemberDetails(member);
+    }
 }
 

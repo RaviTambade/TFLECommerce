@@ -9,7 +9,7 @@ public interface IRolesRepository{
 
     public   Task<bool> InsertDetails(Roles roles);
     public   Task<bool> UpdateDetails(Roles roles);
-    public   Task<bool> Delete(int roleId);
+    public   Task<Roles> Delete(int roleId);
 
 
 }

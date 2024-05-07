@@ -84,19 +84,92 @@ public class RolesRepository : IRolesRepository
     public async Task<bool> InsertDetails(Roles roles)
     {
         await Task.Delay(100);
+        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query ="INSERT INTO Roles(title) VALUES("+ roles.Title +");";
+
+            MySqlCommand command = new MySqlCommand(query,connection);
+            
+            try{
+                connection.Open();
+                MySqlDataReader reader=command.ExecuteReader();
+                if(reader.Read()){
+
+                    int id=reader.GetInt32("id");
+                    string title=reader["title"].ToString();
+
+                       
+                
+                }
+                reader.Close();               
+            }
+            catch(Exception ex){
+                        Console.WriteLine(ex.Message);
+                        return false;
+            }
+
+            finally{
+                    connection.Close();
+            }
+
        return true;
     }
 
     public async Task<bool> UpdateDetails(Roles roles)
     {
         await Task.Delay(100);
+        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query ="UPDATE ROLES SET VALUES="+roles.Title+" where id =" + roles.Id;
+
+            MySqlCommand command = new MySqlCommand(query,connection);
+            
+            try{
+                connection.Open();
+                MySqlDataReader reader=command.ExecuteReader();
+                if(reader.Read()){
+
+                    int id=reader.GetInt32("id");
+                    string title=reader["title"].ToString();
+
+                }
+                reader.Close();               
+            }
+            catch(Exception ex){
+                        Console.WriteLine(ex.Message);
+                        return false;
+            }
+
+            finally{
+                    connection.Close();
+            }
         return true;
     }
 
-      public async Task<bool> Delete(int roleId)
+      public async Task<Roles> Delete(int roleId)
     {
-        await Task.Delay(100);
-        return true;
+            await Task.Delay(100);
+            Roles  roles = null;
+            string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query ="DELETE FROM ROLES WHERE ID ="+ roleId;
+
+            MySqlCommand command = new MySqlCommand(query,connection);
+            
+            try{
+                connection.Open();
+                MySqlDataReader reader=command.ExecuteReader();
+                reader.Close();
+            }
+            catch(Exception ex){
+                        Console.WriteLine(ex.Message);
+            }
+
+            finally{
+                    connection.Close();
+            }
+
+        return roles;
     }
 
 }

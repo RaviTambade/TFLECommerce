@@ -8,5 +8,6 @@ public interface IMembershipRepository
 
     public   Task<bool> InsertMemberDetails(Member member);
     public   Task<bool> UpdateMemberDetails(Member member);
-    public   Task<bool> MemberDelete(int membershipId);
+    public   Task<Member> MemberDelete(int membershipId);
+
 }

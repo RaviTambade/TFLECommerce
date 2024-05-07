@@ -1,3 +1,4 @@
+
 namespace Transflower.ECommerce.Entities;
 
 public class Roles
@@ -9,6 +10,11 @@ public class Roles
     public override string ToString()
     {
         return (""+Id+" "+Title);
+    }
+
+    internal void Add(Roles role)
+    {
+        throw new NotImplementedException();
     }
 }
 

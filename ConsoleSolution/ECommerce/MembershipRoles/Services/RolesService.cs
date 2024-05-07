@@ -12,7 +12,8 @@ public class RolesService : IRolesService
 
     public RolesService(IRolesRepository repository){
         _RolesRepo = repository;
-    }
+    }  
+
     public async Task<List<Roles>> GetAllRoles()
     {
        return  await _RolesRepo.GetAllRoles();
@@ -22,6 +23,21 @@ public class RolesService : IRolesService
     public async Task<Roles> GetRoleDetails(int roleId)
     {
           return  await _RolesRepo.GetRoleDetails(roleId);
+    }
+
+    public async Task<bool> InsertDetails(Roles roles)
+    {
+        return await _RolesRepo.InsertDetails(roles);
+    }
+
+    public async Task<bool> UpdateDetails(Roles roles)
+    {
+        return await _RolesRepo.UpdateDetails(roles);
+    }
+
+      public async Task<Roles> Delete(int roleId)
+    {
+        return await _RolesRepo.GetRoleDetails(roleId);
     }
 }
 
