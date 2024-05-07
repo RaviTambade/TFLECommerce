@@ -72,7 +72,7 @@ public class MembershipRepository : IMembershipRepository
                     string contact=reader["contact"].ToString();
 
                     member =new Member();
-                    
+                    member.Id = id;
                     member.FirstName=firstName;    
                     member.LastName=lastName;
                     member.Email=email;
