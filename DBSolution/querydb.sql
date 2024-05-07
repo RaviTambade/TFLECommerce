@@ -1,265 +1,229 @@
--- Active: 1694968636816@@127.0.0.1@3306@tflportal
+-- Active: 1707123530557@@127.0.0.1@3306@assessmentdb
+-- alter user 'root'@'localhost' identified by 'password';
+use assessmentdb;
 
+select * from interviews;
+select * from interviewcriterias;
+select * from interviewresults;
+select questionbank.id,questionbank.title,questionbank.a,questionbank.b,questionbank.c,questionbank.d from questionbank inner join subjects on subjects.id=questionbank.subjectid
+where subjects.title="ADVJAVA";
+select * from test;
+-- Select all questions  beong to ADV JAVA
+select * from questionbank where subjectid=(select id from subjects where title ="ADVJAVA");
+ 
+select * from questionbank inner join testquestions on testquestions.questionbankid = questionbank.id where testquestions.testid=1;
 
--- LeaveManagement
-show TABLES;
+INSERT INTO candidateanswers (candidateid, testquestionid, answerkey) VALUES (@candidateId, @testQuestionId, @answerKey);
 
-SELECT * from projects;
-SELECT * FROM tasks ;
-DESC projectallocations;
-select * from projectallocations;
--- get all leaveapplications
-SELECT * from leaveapplications;
+update candidatetestresults set testendtime =@testendtime where candidateid=@candidateid and testid=@testid;
+update candidatetestresults set testendtime ="2015-11-05 14:35:00" where candidateid=2 and testid=1;
 
--- get leaveapplication details
-SELECT * from leaveapplications where id=10;
 
--- get sanctioned leaves
-SELECT * from leaveapplications where status="sanctioned";
 
--- get leaves of  an employee;
-SELECT * from leaveapplications where employeeid =12;
+select questionbank.id, questionbank.title, subjects.title as subject ,evaluationcriterias.title as criteria
+from questionbank, subjects,evaluationcriterias
+where questionbank.subjectid=subjects.id and questionbank.evaluationcriteriaid=evaluationcriterias.id
+and subjects.id=1 and evaluationcriterias.id=1;
+                            
+select employees.firstname,employees.lastname,interviews.candidateid from employees
+inner join interviews
+where employees.id=interviews.candidateid
+order by interviews.candidateid asc;
 
--- get all leave applications which are applied of employee
-SELECT * from leaveapplications where employeeid =15 and status="applied";
+select interviews.candidateid,interviews.smeid,subjectmatterexperts.subjectid,subjects.id,subjects.title
+from interviews
+inner join subjectmatterexperts
+on interviews.smeid = subjectmatterexperts.id
+inner join subjects on subjectmatterexperts.subjectid=subjects.id;
 
--- get leave application in between .
-SELECT * from leaveapplications where status="sanctioned" and fromdate<="2024-01-14" and todate>="2024-01-15";
+select interviews.candidateid,subjects.title
+from interviews
+inner join subjectmatterexperts
+on interviews.smeid = subjectmatterexperts.id
+inner join subjects on subjectmatterexperts.subjectid=subjects.id
+where interviews.candidateid=2;
 
--- get all leaveallocations
-SELECT * from leaveallocations;
 
--- get leaveallocations of particular role
-SELECT * from leaveallocations where roleid =1;
+ 
+select interviews.id,interviews.interviewdate,interviews.interviewtime,interviews.smeid,
+concat(employees.firstname," ",employees.lastname)as SmeName from interviews
+inner join subjectmatterexperts 
+on interviews.smeid=subjectmatterexperts.id 
+inner join employees
+on subjectmatterexperts.employeeid= employees.id
+where interviews.id=2;
 
--- get leaves allocated of role
-SELECT sick,casual,paid,unpaid from leaveallocations where roleid=2 and financialyear=2023;
+select interviews.candidateid, concat(employees.firstname," ",employees.lastname)as CandidateName from employees
+inner join interviews
+on interviews.candidateid = employees.id
+where interviews.id=2;
 
--- get monthly leave count of an employeeid= 4 , month=4  and year 2023 by leavetype
+select subjects.id, subjects.title from interviews
+inner join subjectmatterexperts
+on interviews.smeid = subjectmatterexperts.id
+inner join subjects
+on subjectmatterexperts.subjectid = subjects.id
+where interviews.id=2;
 
-SELECT leavetype,coalesce(sum(datediff(todate,fromdate)+1),0) as leavecount From leaveapplications
-WHERE employeeid = 10 AND MONTH(fromdate)=1 AND YEAR(fromdate)=2024 AND status="sanctioned" group by leavetype;
+select evaluationcriterias.id, evaluationcriterias.title from interviews
+inner join interviewcriterias
+on interviews.id = interviewcriterias.interviewid
+inner join evaluationcriterias
+on interviewcriterias.evaluationcriteriaid = evaluationcriterias.id
+where interviews.id=2;
+            
+update questionbank set answerkey="c" where id = 1;
 
--- get employee leaveapplication details for year 2024 group by month
-SELECT leavetype,COALESCE(SUM(DATEDIFF(todate, fromdate) + 1), 0) AS consumedleaves,MONTH(fromdate) AS month FROM leaveapplications
-WHERE employeeId = 10 AND status = "sanctioned" AND YEAR(fromdate) = 2024 GROUP BY leavetype,MONTH(fromdate);
 
 
--- get sanctioned leaveapplication details of an employee of belong to project 1
-SELECT projectallocations.employeeid,leaveapplications.status,leaveapplications.leavetype,
-leaveapplications.createdon,leaveapplications.fromdate,leaveapplications.todate from projects
-inner join projectallocations on projects.id=projectallocations.projectid
-inner join leaveapplications on leaveapplications.employeeid=projectallocations.employeeid 
-inner join employees on leaveapplications.employeeid=employees.id where projects.id=1 
-and leaveapplications.status="sanctioned";
 
 
 
--- get consumed leaves of employee
-call getConsumedLeaves(10,2024,@psick,@pcasual,@ppaid,@punpaid);
-select @psick,@pcasual,@ppaid,@punpaid;
 
--- get available leaves of employee
-call getLeavesAvailable(11,2,2024,@psick,@pcasual,@ppaid,@punpaid);
-select @psick,@pcasual,@ppaid,@punpaid;
 
--- PayrollManagement
 
--- get all salary slips of employee
-SELECT * from salaryslips where employeeid=11;
 
--- get salary slip details 
-SELECT * from salaryslips where id=1;
 
--- get employees who have not been paid in month 4 for year 2024
-SELECT employees.* FROM employees 
-LEFT JOIN salaryslips ON employees.id = salaryslips.employeeid
-AND MONTH(salaryslips.paydate) = 1 AND YEAR(salaryslips.paydate) = 2024
-WHERE  salaryslips.employeeid IS NULL;
+----------------------------------------------------------------------------------------------------------------
 
 
--- get all salaryslips  which have been processed  in month=4 and year 2024
-SELECT * from salaryslips where MONTH(paydate)=1 and YEAR(paydate)=2024;
 
--- get leaveallocations details of employee
-SELECT * from salarystructures where employeeid=1;
 
--- calculate month salary
-call calculatesalary(10,1,2024);
--- HRManagement
+-- this query gives the testdetails where testid=1
+select * from tests where id=1;
 
--- get employeedetails 
-SELECT * from employees where id=1;
+-- this query gives the tests createddate between "2023-11-05" and "2023-12-05"
+select * from tests where creationDate  between "2023-11-05" and "2023-12-05";
 
+-- this query gives the tests created by particular subjectmatterexperts
+select * from tests where smeid=1;
 
+select * from testquestions;
+
+-- this query is for add questions into tests
+insert into testquestions(testid,questionBankid) values( 1,1);
+
+-- this query is for delete particular questions from tests
+Delete from testquestions where testid=1 and questionbankid=3;
+
+-- this query is for changing the duration of particular tests
+update tests set duration=@duration where id=@assessmentId;
+
+-- this query is for changing the scheduleddate of particular tests
+update tests set scheduleddate=@scheduledDate where id=@assessmentId;
+
+-- get all questions from questionbank
+select * from questionbank;
+
+-- this query gives the question where subjectid=1
+select questionbank.id as questionid, questionbank.title as question, subjects.title as subject,
+ subjects.id as subjectid from questionbank, subjects 
+ where questionbank.subjectid=subjects.id and subjects.id=1;
+ 
+--  this query gives the questions where subjectid=1 and criteriaid=1;
+select questionbank.id, questionbank.title, subjects.title as subject ,evaluationcriterias.title as criteria
+from questionbank, subjects,evaluationcriterias
+where questionbank.subjectid=subjects.id and questionbank.evaluationcriteriaid=evaluationcriterias.id
+and subjects.id=1 and evaluationcriterias.id=1;
+
+-- this query is for changing the answerkey of particular question
+update questionbank set answerkey="a" where id =1;
+
+-- this query gives the question where questionid=1
+select * from questionbank where id=1;
+
+-- this query is for updating a question
+update questionbank set title=@title,a=@a,b=@b,c=@c,d=@d,answerkey=@answerKey where id =1;
+
+-- this query is for changing evaluationcriteriaid and subjectid where questionid=1
+update questionbank set evaluationcriteriaid=1 ,subjectid=1 where id =1;
+
+-- this query give the score of candidate where candidateid=1 and testid=3;
+select score from candidatetestresults where candidateid=1 and testid=3;
+
+-- get the candidatetestresultdetails
+select candidatetestresults.testid,candidatetestresults.score,candidatetestresults.candidateid
+,employees.firstname,employees.lastname,subjects.title as subject
+from candidatetestresults
+inner join employees
+on employees.id=candidatetestresults.candidateid
+inner join tests
+on candidatetestresults.testid=tests.id
+inner join subjects
+on tests.subjectid=subjects.id
+where candidatetestresults.testid=1;
+
+-- get the appearedcandidates for testid=1
+select candidatetestresults.testid, candidatetestresults.candidateid, employees.firstname, 
+employees.lastname from candidatetestresults 
+inner join employees on employees.id= candidatetestresults.candidateid
+where candidatetestresults.testid=1;
+
+-- get the passedcandidates for testid=1
+select tests.id,candidatetestresults.candidateid,candidatetestresults.score,tests.passinglevel,employees.firstname,employees.lastname
+from tests
+inner join candidatetestresults on tests.id=candidatetestresults.testid
+inner join employees on candidatetestresults.candidateid=employees.id
+where candidatetestresults.score >= tests.passinglevel AND tests.id=1;
+
+-- get the failedcandidates for testid=1
+select tests.id,candidatetestresults.candidateid,candidatetestresults.score,tests.passinglevel,employees.firstname,employees.lastname
+from tests
+inner join candidatetestresults on tests.id=candidatetestresults.testid
+inner join employees on candidatetestresults.candidateid=employees.id
+where candidatetestresults.score < tests.passinglevel AND tests.id=1;
+
+-- get the candidateanswers and correctanswers
+select candidateanswers.testquestionid,testquestions.testid,
+candidateanswers.answerkey as candidateanswer,questionbank.answerkey
+from  candidateanswers
+INNER JOIN   testquestions  on testquestions.questionbankid=candidateanswers.testquestionid
+INNER JOIN   questionbank on questionbank.id=testquestions.questionbankid
+where candidateanswers.candidateid=1 and testquestions.testid=1;
+
+-- get candidatestresultdetails
+select candidatetestresults.testid,candidatetestresults.score,candidatetestresults.candidateid
+,employees.firstname,employees.lastname,subjects.title as subject
+from candidatetestresults inner join employees on employees.id=candidatetestresults.candidateid
+inner join tests on candidatetestresults.testid=tests.id
+inner join subjects on tests.subjectid=subjects.id
+where candidatetestresults.testid=1;
+
+-- get appearedcandidates
+select candidatetestresults.testid, candidatetestresults.candidateid, 
+employees.firstname, employees.lastname
+from candidatetestresults 
+inner join employees 
+on employees.id= candidatetestresults.candidateid
+where candidatetestresults.testid=1;
+
+-- to calculate score of given candidateid and testid;
+call spcandidatetestresult(2,1,@pscore) ;
+select(@pscore);
+
+-- give the candidatetestresultdetails
+CALL spcandidatetestresultdetails(3,2, @pcorrectAnswers, @pincorrectAnswers,@pskippedQuestions);
+select @pcorrectAnswers,@pincorrectAnswers,@pskippedQuestions;
+
+-- get interviewdetails where interviewid=2
+call spinterviewdetails(2);
+
+-- Update passing level by testid
+update tests set passinglevel = 5 where id=1;
+update tests set passinglevel=@passinglevel where id =@id;
+
+-- get test results by passing subjectid=1
+select tests.id,tests.subjectid,candidatetestresults.candidateid,employees.firstname,employees.lastname,candidatetestresults.score
+from tests
+inner join candidatetestresults
+on tests.id=candidatetestresults.testid
+inner join employees
+on candidatetestresults.candidateid=employees.id
+where tests.subjectid=1;
 
---Project  Management Queries
 
--- All assigned employees
-SELECT employees.* from employees
-INNER JOIN  projectallocations on employees.id = projectallocations.employeeid 
-where  projectallocations.status="yes";
 
--- get employee working on project with projectid=4
-SELECT employees.* from employees
-INNER JOIN  projectallocations on employees.id = projectallocations.employeeid 
-where projectallocations.projectid=4  and projectallocations.status="yes";
 
--- get member details inforamtion about project assigned for particular project
-Select * from projectallocations where projectid=1 and status="yes";
 
---  give me  projects of particular empoloyee.
-SELECT projects.id,projects.title ,projects.description,projects.startdate,projects.enddate,projects.status
-FROM projects 
-INNER JOIN projectallocations ON projectallocations.projectid = projects.id 
-WHERE projectallocations.employeeid = 15;
--- give me list of empoyees particular project
-SELECT * from projectallocations where projectid=1;
 
--- get all employees which are not assigend to any project
-SELECT * FROM employees
-WHERE id not in (
-SELECT employeeid FROM projectallocations 
-GROUP BY employeeid HAVING COUNT(CASE WHEN status = 'yes' THEN 1 END) > 0)
 
-
-
--- task releted queries
-
---This query used for get all task.
-SELECT * from tasks;
-
---This query is used for get all task of particular project.
-SELECT * from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE sprints.projectid=1;
-
---This query is used for get all task of project of particular tasktype.
-SELECT * from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE tasks.tasktype='task'and sprints.projectid=1;
-
-
---This query is used to get all task of project of particular member.
-SELECT * from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE tasks.assignedto=10 and sprints.projectid=1;
-
-
---This query is used to get all task of project with particular status and member.
-
-SELECT tasks.* from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE tasks.status="inprogress" and sprints.projectid=1 and tasks.assignedto=10;
-
-
-SELECT tasks.* from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE sprints.projectid=4 and tasks.assignedon<='2024-01-06 'and tasks.status="inprogress"OR tasks.status="todo";
-
-
---This query is used to get all tasks of sprint with particular status and member.
-SELECT * from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE tasks.status="inprogress" and sprints.id=1 and tasks.assignedto=10;
-
-
---This query is used to get all tasks of members.
-SELECT * from tasks where  assignedto =10;
-
---This query is used for get all tasks between particular dates.
-SELECT * FROM tasks where assignedon BETWEEN '2023-01-01' AND '2024-01-01' ORDER BY assignedon;
-
-
---This query is used for get all tasks of members between  particular dates.
-SELECT * FROM tasks where assignedon BETWEEN '2023-01-01' AND '2024-01-01' And assignedto=10 ORDER BY assignedon;
-
---getTaskCountByStatus for project Id (IN)
-
---BI releted queries
-SELECT 
-        COUNT(CASE WHEN status = 'todo' THEN 1 END) AS todo,
-        COUNT(CASE WHEN status = 'inprogress' THEN 1 END) AS inprogress,
-        COUNT(CASE WHEN status = 'completed' THEN 1 END) AS completed
-    FROM tasks INNER join sprinttasks on sprinttasks.taskid=tasks.id
-    INNER join sprints on sprints.id=sprinttasks.sprintid WHERE sprints.projectid=4;
-
---getTaskCountByStatus for emp Id (IN)
-
-SELECT 
-        COUNT(CASE WHEN status = 'todo' THEN 1 END) AS todo,
-        COUNT(CASE WHEN status = 'inprogress' THEN 1 END) AS inprogress,
-        COUNT(CASE WHEN status = 'completed' THEN 1 END) AS completed
-    FROM tasks INNER join sprinttasks on sprinttasks.taskid=tasks.id
-    INNER join sprints on sprints.id=sprinttasks.sprintid WHERE sprints.projectid=4 AND tasks.assignedto=15;
-
-
--- sprint releted query
-
--- get all tasks of sprint with id=1
-SELECT * from tasks INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid
-INNER join sprints on sprints.id=sprinttasks.sprintid WHERE sprints.id=1;
-
-
---this query is used for get all sprints of project between particular dates.
-SELECT * FROM sprints WHERE projectid=1 AND sprints.startdate<='2024-01-01' AND sprints.enddate>='2024-01-07';
-
---This query is used for get all sprints of projects.
-SELECT * FROM sprints where projectid=1;
-
-
---project releted queries
-
-
---This query is used to get particular project data.
-SELECT * from projects where id =1;
-
--- timesheet
-
-
--- get timesheets of employee between dates
-SELECT timesheets.* , COALESCE(SUM(timesheetentries.hours),0) AS time_in_hour from timesheets
-LEFT JOIN timesheetentries on timesheetentries.timesheetid=timesheets.id
-WHERE  createdby =11  AND createdon BETWEEN '2024-01-01' AND '2024-01-09' 
-GROUP BY createdon;
-
--- get timesheets for approval
-SELECT timesheets.* ,COALESCE(SUM(timesheetentries.hours),0) AS totalhours  FROM timesheets
-INNER JOIN timesheetentries on timesheetentries.timesheetid=timesheets.id
-WHERE  status ="submitted" AND createdon BETWEEN '2024-01-01' AND '2024-01-13'
-AND  timesheets.createdby IN (
-SELECT projectallocations.employeeid from projectallocations
-WHERE projectallocations.status='yes'  
-AND projectid IN (SELECT projectid from projectallocations WHERE employeeid=7 
-AND title='manager' ))GROUP BY createdon;
-
-
--- get timesheet of employee by date
-SELECT *, COALESCE(SUM(timesheetentries.hours),0) AS time_in_hour
-FROM timesheets
-LEFT JOIN timesheetentries on timesheetentries.timesheetid=timesheets.id    
-WHERE timesheets.createdon = '2024-01-12' AND timesheets.createdby = 10
-GROUP BY timesheetid;
-
--- get timesheet of employee by timesheetId
-SELECT timesheets.*, COALESCE(SUM(timesheetentries.hours),0) AS time_in_hour
-FROM timesheets
-INNER JOIN timesheetentries on timesheetentries.timesheetid=timesheets.id    
-WHERE timesheets.id = 15
-GROUP BY timesheetid;
-
--- get timesheet entries of a timesheet
-SELECT * FROM timesheetentries
-WHERE timesheetentries.timesheetid=4;
-
--- get timesheet entry by Id
-SELECT * FROM timesheetentries WHERE timesheetentries.id=22;
-
--- get working days of employee of a month
-SELECT COUNT(*) AS WorkingDays FROM timesheets WHERE createdby=10
-AND status='approved' AND MONTH(createdon)=1 AND YEAR(createdon)=2024;
-
-
-
-select * from tasks 
-INNER JOIN sprinttasks on tasks.id=sprinttasks.taskid 
-INNER join sprints on sprints.id=sprinttasks.sprintid 
-WHERE sprints.projectid=4 and tasks.status="inprogress";
-
-SELECT * from tasks;
-
-SELECT * from projects;

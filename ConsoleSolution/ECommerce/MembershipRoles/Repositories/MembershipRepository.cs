@@ -92,4 +92,22 @@ public class MembershipRepository : IMembershipRepository
             return member;   
 
         }
+
+    public async Task<bool> InsertMemberDetails(Member member)
+    {
+        await Task.Delay(100);
+        return true;
     }
+
+    public async Task<bool> MemberDelete(int membershipId)
+    {
+        await Task.Delay(100);
+        return true;
+    }
+
+    public async Task<bool> UpdateMemberDetails(Member member)
+    {
+        await Task.Delay(100);
+        return true;
+    }
+}

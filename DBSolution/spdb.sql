@@ -1,172 +1,170 @@
+-- Active: 1707123530557@@127.0.0.1@3306@assessmentdb
 
--- Active: 1709025691659@@127.0.0.1@3306@tflportal
+-- get candidate test results
 
-DROP PROCEDURE IF EXISTS spGetWorkUtilization;
--- get task type wise work hours of an employee 
+drop procedure if exists spcandidatetestresult;
 
-CREATE PROCEDURE spGetWorkUtilization(IN pempId INT,IN pfromDate DATETIME,ptoDate DATETIME,IN pProjectId INT)
-BEGIN
-
-   IF pProjectId =0 THEN
-      SELECT   tasks.tasktype , SUM(timesheetentries.hours) AS hours
-      FROM timesheetentries
-      INNER JOIN timesheets ON timesheetentries.timesheetid=timesheets.id
-      INNER JOIN tasks ON  timesheetentries.taskid=tasks.id
-      WHERE timesheets.createdby=pempId
-      AND timesheets.createdon BETWEEN pfromDate AND ptoDate
-      GROUP BY tasks.tasktype;
-
-   ELSEIF  pProjectId <> 0 THEN
-      SELECT  tasks.tasktype,SUM(timesheetentries.hours) AS hours
-      FROM timesheetentries
-      INNER JOIN timesheets ON timesheetentries.timesheetid=timesheets.id
-      INNER JOIN tasks ON  timesheetentries.taskid=tasks.id
-      INNER JOIN sprinttasks ON  tasks.id=sprinttasks.taskid
-      INNER JOIN sprints ON  sprinttasks.sprintid=sprints.id
-      WHERE timesheets.createdby=pempId  
-      AND sprints.projectid=pProjectId
-      AND timesheets.createdon BETWEEN pfromDate AND ptoDate
-      GROUP BY tasks.tasktype ;
-   END IF;
-END;
-
-
-CALL spGetWorkUtilization(10,'2024-01-01',"2024-02-21",0);
-
-
-DROP PROCEDURE IF EXISTS spGetHoursWorkedForEachProject;
--- get project wise time spent by an employee
-CREATE procedure spGetHoursWorkedForEachProject(IN pempId INT,IN pfromDate VARCHAR (20),IN ptoDate VARCHAR (20))
- BEGIN
-   SELECT projects.title AS projectname,projects.id as projectid,
-   SUM(timesheetentries.hours) AS hours 
-   FROM timesheetentries
-   INNER JOIN timesheets ON timesheetentries.timesheetid=timesheets.id
-   INNER JOIN tasks ON  timesheetentries.taskid=tasks.id
-   INNER JOIN sprinttasks ON  tasks.id=sprinttasks.taskid
-   INNER JOIN sprints ON  sprinttasks.sprintid=sprints.id
-   INNER JOIN projects ON  sprints.projectid=projects.id
-   WHERE timesheets.createdby=pempId 
-   AND timesheets.createdon BETWEEN pfromDate AND ptoDate
-   GROUP BY projects.id;
-END;
-
-CALL spGetHoursWorkedForEachProject(10,'2024-01-01','2024-01-24');
-
-
-
--- get available leaves of employee
--- get available leaves of employee
 DELIMITER $$
-CREATE PROCEDURE spgetLeavesAvailable
-(IN pempId INT,IN proleId INT,IN pyear INT,OUT psick INT,OUT pcasual INT, OUT ppaid INT,OUT punpaid INT)
+create procedure spcandidatetestresult(IN pcandidateId INT,In ptestId INT,OUT pscore INT )
 BEGIN
-
-DECLARE usedSick INT DEFAULT 0;
-DECLARE usedCasual INT DEFAULT 0;
-DECLARE usedPaid INT DEFAULT 0;
-DECLARE usedUnpaid INT DEFAULT 0;
-DECLARE sanctionedSick INT;
-DECLARE sanctionedCasual INT;
-DECLARE sanctionedPaid INT;
-DECLARE sanctionedUnpaid INT ;
-
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedSick  
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="sick" AND status="sanctioned" AND year(fromdate)=pyear;
-
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedCasual  
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="casual" AND status="sanctioned" AND year(fromdate)=pyear;
-
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedPaid  
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="paid" AND status="sanctioned" AND year(fromdate)=pyear;
-
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedUnpaid  
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="unpaid" AND status="sanctioned" AND year(fromdate)=pyear;
-
-SELECT sick,casual,paid,unpaid INTO sanctionedSick,sanctionedCasual,sanctionedPaid,sanctionedUnpaid 
-FROM leaveallocations 
-WHERE roleid=proleId and financialyear=pyear ;
-
-SET psick=sanctionedSick-usedSick;
-SET pcasual=sanctionedCasual-usedCasual;
-SET ppaid=sanctionedPaid-usedPaid;
-SET punpaid=sanctionedUnpaid-usedUnpaid;
+DECLARE totalMarks INT;
+SELECT COUNT(CASE WHEN candidateanswers.answerkey = questionbank.answerkey THEN 1 ELSE NULL END) AS score 
+INTO totalMarks FROM candidateanswers 
+INNER JOIN   testquestions  on testquestions.questionbankid=candidateanswers.testquestionid
+INNER JOIN   questionbank on questionbank.id=testquestions.questionbankid
+WHERE candidateanswers.candidateid = pcandidateId AND testquestions.testid = ptestId;
+set pscore=totalMarks;
+Update candidatetestresults  set score =pscore where candidateid= pcandidateId and testid= ptestId;
 END $$
-DELIMITER;
+
+call spcandidatetestresult(2,1,@pscore) ;
+select(@pscore);
 
 
--- get consumed leaves of employee
+DROP PROCEDURE IF Exists spinterviewdetails;
 DELIMITER $$
-CREATE PROCEDURE spgetConsumedLeaves
-(IN pempId INT,IN pyear INT,OUT psick INT,OUT pcasual INT, OUT ppaid INT,OUT punpaid INT)
+create procedure spinterviewdetails(IN pinterviewId INT)
 BEGIN
-DECLARE usedSick INT DEFAULT 0;
-DECLARE usedCasual INT DEFAULT 0;
-DECLARE usedPaid INT DEFAULT 0;
-DECLARE usedUnpaid INT DEFAULT 0;
+select interviews.id,interviews.interviewdate,interviews.interviewtime,interviews.smeid,
+concat(employees.firstname," ",employees.lastname)as SmeName from interviews
+inner join subjectmatterexperts 
+on interviews.smeid=subjectmatterexperts.id 
+inner join employees
+on subjectmatterexperts.employeeid= employees.id
+where interviews.id=2;
 
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedCasual 
-FROM leaveapplications
-WHERE employeeId=pempId AND leavetype="casual" AND status="sanctioned" AND year(fromdate)=pyear;
+select interviews.candidateid, concat(employees.firstname," ",employees.lastname)as CandidateName from employees
+inner join interviews
+on interviews.candidateid = employees.id
+where interviews.id=2;
 
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedSick  
-FROM leaveapplications
-WHERE employeeId=pempId AND leavetype="sick" AND status="sanctioned" AND year(fromdate)=pyear;
+select subjects.id, subjects.title from interviews
+inner join subjectmatterexperts
+on interviews.smeid = subjectmatterexperts.id
+inner join subjects
+on subjectmatterexperts.subjectid = subjects.id
+where interviews.id=2;
 
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedPaid
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="paid" AND status="sanctioned" AND year(fromdate)=pyear;
+select evaluationcriterias.id, evaluationcriterias.title from interviews
+inner join interviewcriterias
+on interviews.id = interviewcriterias.interviewid
+inner join evaluationcriterias
+on interviewcriterias.evaluationcriteriaid = evaluationcriterias.id
+where interviews.id=2;
 
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO usedUnpaid  
-FROM leaveapplications 
-WHERE employeeId=pempId AND leavetype="unpaid" AND status="sanctioned" AND year(fromdate)=pyear;
-
-SET psick=usedSick;
-SET pcasual= usedCasual;
-SET ppaid=usedPaid;
-SET punpaid=usedUnpaid;
 END $$
-DELIMITER ;
+call spinterviewdetails(2);
 
-
-
--- calculate month salary
+DROP PROCEDURE IF Exists spcandidatetestresultdetails;
 DELIMITER $$
-CREATE PROCEDURE spcalculatesalary(IN pempId INT ,IN pmonth INT,IN pyear INT)
+create procedure spcandidatetestresultdetails(IN pcandidateId INT, IN ptestId INT, OUT pcorrectAnswers INT, OUT pincorrectAnswers INT, OUT pskippedQuestions INT)
 BEGIN
+DECLARE totalQuestions INT;
+DECLARE correctCandidateAnswers INT;
 
-DECLARE workingdays INT DEFAULT 0;
-DECLARE consumedpaidleaves INT DEFAULT 0;
-DECLARE monthlybasicsalary DOUBLE;
-DECLARE monthlyhra DOUBLE;
-DECLARE dailyallowance DOUBLE;
-DECLARE variablepayamount DOUBLE DEFAULT 0;
-DECLARE leaveTravelallowance DOUBLE;
-DECLARE totalamount DOUBLE;
-DECLARE deduction DOUBLE;
-DECLARE Pf DOUBLE DEFAULT 500;
-DECLARE tax DOUBLE DEFAULT 1000;
+select count(*) INTO totalQuestions from testquestions where testid=1;
 
-SELECT  COUNT(*) INTO workingdays FROM timesheets
-WHERE createdby=pempId AND MONTH(createdon)=pmonth AND YEAR(createdon)=pyear AND status="approved";
+SELECT COUNT(CASE WHEN candidateanswers.answerkey = questionbank.answerkey THEN 1 ELSE NULL END) AS score 
+INTO correctCandidateAnswers FROM candidateanswers 
+INNER JOIN   testquestions  on testquestions.questionbankid=candidateanswers.testquestionid
+INNER JOIN   questionbank on questionbank.id=testquestions.questionbankid
+WHERE candidateanswers.candidateid = pcandidateId AND testquestions.testid = ptestId;
+SET pincorrectAnswers = totalQuestions-correctCandidateAnswers;
+SELECT COUNT(*) INTO pskippedQuestions FROM CandidateAnswers INNER JOIN testQuestions ON testquestions.id = candidateanswers.testquestionid 
+WHERE candidateanswers.answerkey="NO" AND candidateanswers.candidateId = pcandidateId AND testquestions.testId = ptestId;
 
-SELECT coalesce(sum(datediff(todate,fromdate)+1),0) INTO consumedpaidleaves FROM leaveapplications
-WHERE employeeid = pempId
-AND MONTH(fromdate)=pmonth AND YEAR(fromdate)=pyear AND status="sanctioned"
-AND leavetype<>"unpaid" GROUP BY employeeid;
-
-SELECT da,lta,variablepay,basicsalary,hra INTO dailyallowance,leaveTravelallowance,
-variablepayamount,monthlybasicsalary,monthlyhra FROM salarystructures WHERE employeeid=pempId;
-
-SET deduction=pf+tax;
-SET totalamount = ((dailyallowance*(workingdays+consumedpaidleaves))+monthlybasicsalary+monthlyhra+leaveTravelallowance+variablepayamount)-(deduction);
-SELECT totalamount,monthlybasicsalary,variablepayamount,monthlyhra,dailyallowance,leaveTravelallowance,pf,tax,deduction,workingdays,consumedpaidleaves;
+SET pcorrectAnswers=correctCandidateAnswers;
 END $$
-DELIMITER ;
+CALL spcandidatetestresultdetails(3,2, @pcorrectAnswers, @pincorrectAnswers,@pskippedQuestions);
+select @pcorrectAnswers,@pincorrectAnswers,@pskippedQuestions;
 
 
 
+
+DROP PROCEDURE IF Exists spupdatemarks;
+DELIMITER $$
+create procedure spupdatemarks(in ptestid int, in markstoraise int)
+begin 
+declare candId int;
+declare marks int;
+
+declare candidate_result_cursor cursor for
+select  score,candidateid from candidatetestresults where testid= ptestid;
+ OPEN  candidate_result_cursor;
+ loop
+     -- Forward only recordset
+
+    FETCH NEXT FROM  candidate_result_cursor INTO marks, candId;
+        SET marks = marks + markstoraise;
+        UPDATE candidatetestresults 
+        SET score = marks
+        WHERE candidateid = candId;
+	end loop;
+close candidate_result_cursor;
+end $$
+call spupdatemarks(1, 13);
+
+
+
+
+DROP PROCEDURE IF Exists spcandidate_performance;
+DELIMITER $$
+create procedure spcandidate_performance(in ptestid INT )
+begin 
+
+    DECLARE marks int;
+    DECLARE candId int;
+  
+    DECLARE performance_level VARCHAR(20);
+    DECLARE candidate_testresult_cursor  cursor for
+    select score,candidateid  from candidatetestresults where testid=ptestid;
+    open  candidate_testresult_cursor;
+	LOOP
+		FETCH NEXT FROM  candidate_testresult_cursor INTO marks, candId;
+		BEGIN
+             IF marks >= 9 THEN
+              set performance_level="excellent";
+				   ELSE  IF marks >= 7 THEN
+					set performance_level="very good";
+						else IF marks >= 5 THEN
+								set performance_level="good";
+								else IF  marks >= 4 THEN
+										set performance_level="poor";
+								END IF;    
+						End If;
+				   End If;
+            End IF;
+        END;
+		UPDATE employeeperformance    SET test = performance_level
+        WHERE employeeid = candId;
+     End LOOP;
+    close candidate_testresult_cursor;
+end $$
+
+
+call spcandidate_performance(1);
+
+DELIMITER $$
+create procedure spcandidateinterviewperformance(IN pcandidateId INT)
+BEGIN 
+    DECLARE candidateratings INT;
+    DECLARE performanceLevel VARCHAR(20);
+
+    select interviewresults.ratings INTO candidateratings from interviewresults
+    inner join interviewcriterias on interviewresults.interviewcriteriaid=interviewcriterias.id
+    inner join  interviews on interviewcriterias.interviewid=interviews.id 
+    where interviews.candidateid=pcandidateId
+    order by interviews.interviewdate DESC LIMIT 1;
+
+        CASE 
+            WHEN candidateratings >= 9 THEN SET performanceLevel = 'excellent';
+            WHEN candidateratings >= 7 THEN SET performanceLevel = 'very good';
+            WHEN candidateratings >= 5 THEN SET performanceLevel = 'good';
+            WHEN candidateratings <= 4 THEN SET performanceLevel = 'poor';
+        END CASE;
+
+    UPDATE employeeperformance SET interview = performanceLevel
+    WHERE employeeid = pcandidateId;
+END $$
+
+call spcandidateinterviewperformance(2);

@@ -1,145 +1,148 @@
--- Active: 1709025691659@@127.0.0.1@3306@tflportal
-    DROP DATABASE IF EXISTS TFLPortal;
-    CREATE DATABASE TFLPortal;
-    USE TFLPortal;
-   
-    CREATE TABLE employees(
-            id INT NOT NULL PRIMARY KEY,
-            hiredon DATETIME,
-            reportingid INT,    
-            CONSTRAINT fk_self_employees FOREIGN KEY(reportingid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE      
-    );
+-- Active: 1707123530557@@127.0.0.1@3306@assessmentdb
 
-   CREATE TABLE projects(
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            title VARCHAR(40),
-            startdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            enddate DATETIME,
-            description TEXT,
-            status ENUM(
-                'incomplete',
-                'cancelled',
-                'notstarted',
-                'inprogress',
-                'completed') DEFAULT 'notstarted'
-    );
+-- DROP database assessmentdb;
+create database assessmentdb;
+
+use assessmentdb;
+CREATE TABLE employees(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	firstname VARCHAR(20) NOT NULL,
+	lastname VARCHAR(20) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	contact VARCHAR(10) NOT NULL
+);
 
 
-    CREATE TABLE projectallocations(
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            projectid INT NOT NULL,
-            employeeid INT NOT NULL,
-            title VARCHAR(20),
-            assignedon DATETIME,
-            releasedon DATETIME default null,
-            status enum('yes','no') default 'yes' ,
-            CONSTRAINT fk_projects_projectallocations_projectid FOREIGN KEY (projectid) REFERENCES projects(id) ON UPDATE CASCADE ON DELETE CASCADE,
-            CONSTRAINT fk_employee_projectallocations_employeeid FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-
-    CREATE TABLE sprints(
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        title VARCHAR(40) NOT NULL,  
-        startdate DATETIME NOT NULL, 
-        enddate DATETIME NOT NULL,
-        goal VARCHAR(200),
-        projectid INT NULL,
-        CONSTRAINT fk_projects_sprints_projectid FOREIGN KEY (projectid) REFERENCES projects(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
- 
-    CREATE TABLE tasks(
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        title VARCHAR(500),
-        tasktype ENUM("userstory","task","bug","issues","meeting","learning","mentoring","others"),
-        description VARCHAR(400) DEFAULT '',
-        assignedto INT NULL, 
-        assignedby INT NULL,
-        createdon DATETIME NULL,
-        assignedon DATETIME NULL,
-        startdate DATETIME NULL,
-        duedate DATETIME NULL,
-        status ENUM ( 'todo','inprogress','completed') DEFAULT 'todo' , 
-        CONSTRAINT fk_employees_tasks_assigneby FOREIGN KEY (assignedby) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_employees_tasks_assignedto FOREIGN KEY (assignedto) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-
- CREATE TABLE sprinttasks(
-        id INT  PRIMARY KEY AUTO_INCREMENT,
-        sprintid INT,
-        taskid INT,
-        CONSTRAINT fk_tasks_sprinttasks_taskid FOREIGN KEY (taskid) REFERENCES tasks(id) ON UPDATE CASCADE ON DELETE CASCADE,
-        CONSTRAINT fk_sprints_sprinttasks_sprintid FOREIGN KEY (sprintid) REFERENCES sprints(id) ON UPDATE CASCADE ON DELETE CASCADE
- );
+create table employeeperformance(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	employeeid INT,
+	test VARCHAR(20),
+	communication VARCHAR(20),
+	congition VARCHAR(20),
+	interview VARCHAR(20),
+	CONSTRAINT fk_emp_performance FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
-     CREATE TABLE timesheets(
-            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            createdon DATETIME ,
-            status ENUM ( 
-                'inprogress',
-                'submitted',
-                'approved',
-                'rejected'
-                ) DEFAULT 'inprogress', 
-            modifiedon DATETIME DEFAULT  CURRENT_TIMESTAMP,
-            createdby INT NOT NULL,
-            CONSTRAINT unique_employee_timesheets UNIQUE KEY(createdon,createdby) ,
-            CONSTRAINT fk_employees_timesheets_createdby FOREIGN KEY(createdby) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+CREATE TABLE subjects(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(20)
+);
 
-    CREATE TABLE timesheetentries(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        fromtime TIME,
-        totime TIME,
-        timesheetid INT NOT NULL,
-        taskid  INT,
-        hours DECIMAL(10,2) as ((( TIME_TO_SEC(TIMEDIFF(totime,fromtime)))/3600)),
-        CONSTRAINT fk_tasks_timesheetentries_taskid FOREIGN KEY (taskid) REFERENCES tasks(id) ON UPDATE CASCADE  ON DELETE CASCADE,
-        CONSTRAINT fk_timesheets_timesheetentries_timesheetid FOREIGN KEY(timesheetid) REFERENCES timesheets(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+CREATE TABLE subjectmatterexperts(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	employeeid INT,
+	subjectid INT,
+	certificationdate DATE,
+	CONSTRAINT fk_sme_employees_employeeid FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_sme_subjects_subjectid FOREIGN KEY(subjectid) REFERENCES subjects(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
+CREATE TABLE evaluationcriterias(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(20),
+	subjectid INT,
+	CONSTRAINT fk_eval_subjects_subjectid FOREIGN KEY(subjectid) REFERENCES subjects(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
-    CREATE TABLE leaveallocations(
-                id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                roleid INT NOT NULL UNIQUE,
-                sick INT NOT NULL,
-                casual INT NOT NULL,
-                paid INT NOT NULL,
-                unpaid INT NOT NULL,
-                financialyear INT NOT NULL
-    );
-
-    CREATE TABLE leaveapplications(
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-            employeeid INT NOT NULL,
-            createdon DateTime,
-            fromdate DateTime,
-            todate DateTime,
-            status enum("notsanctioned","sanctioned","applied")DEFAULT 'applied',
-            leavetype enum("casual","sick","paid","unpaid"),
-            CONSTRAINT fk_employees_leaveapplications_employeeid FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
-
-    CREATE TABLE salarystructures(
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            employeeid INT NOT NULL,
-            basicsalary DOUBLE NOT NULL,
-            hra DOUBLE NOT NULL,
-            da DOUBLE NOT NULL,
-            lta DOUBLE NOT NULL,
-            variablepay DOUBLE NOT NULL,
-            CONSTRAINT fk_employees_salarystructures_employeeid FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+create table questionbank (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	subjectid INT,
+	title VARCHAR(200),
+	a VARCHAR(100),
+	b VARCHAR(100),
+	c VARCHAR(100),
+	d VARCHAR(100),
+	answerkey CHAR,
+	evaluationcriteriaid INT,
+	CONSTRAINT fk_qbank_subjects_subjectid FOREIGN KEY(subjectid) REFERENCES subjects(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_qbank_eval_evalid FOREIGN KEY(evaluationcriteriaid) REFERENCES evaluationcriterias(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
-    CREATE TABLE salaryslips(
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            employeeid INT NOT NULL,
-            paydate DateTime,
-            monthlyworkingdays INT NOT NULL,
-            deduction DOUBLE NOT NULL,
-            tax DOUBLE NOT NULL,
-            pf DOUBLE NOT NULL,
-            amount DOUBLE NOT NULL,
-            CONSTRAINT fk_employees_salaryslips_employeeid FOREIGN KEY(employeeid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+create table tests (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	subjectid INT,
+	duration TIME,
+	smeid INT ,
+	creationdate DATETIME,
+	modificationdate DATETIME,
+	scheduleddate DATETIME,
+    passinglevel INT,
+	status ENUM("created","scheduled", "cancelled","conducted")  DEFAULT "created",
+	CONSTRAINT fk_tests_subjects_subjectid FOREIGN KEY(subjectid) REFERENCES subjects(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_tests_sme_smeid FOREIGN KEY(smeid) REFERENCES subjectmatterexperts(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+create table testassessmentcriterias(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	testid INT,
+	evaluationcriteriaid INT ,
+	CONSTRAINT fk_as_tests_testid FOREIGN KEY(testid) REFERENCES tests(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_as_evalcriteria_evalcaritid FOREIGN KEY(evaluationcriteriaid) REFERENCES evaluationcriterias(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+create table testquestions(
+	id INT  PRIMARY KEY AUTO_INCREMENT,
+	testid INT,
+	questionbankid INT,
+    CONSTRAINT unique_tests_testquestions UNIQUE KEY(testid,questionbankid), 
+	CONSTRAINT fk_tests_testid FOREIGN KEY(testid) REFERENCES tests(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_testqt_qbank_questionbankid FOREIGN KEY(questionbankid) REFERENCES questionbank(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+create table candidateanswers(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	candidateid INT,
+	testquestionid INT,
+ 	answerkey CHAR,
+	CONSTRAINT fk_emp_candidateid FOREIGN KEY(candidateid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_tstqt_testquestionid FOREIGN KEY(testquestionid) REFERENCES testquestions(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table candidatetestresults(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	testid INT,
+	score INT,
+	teststarttime DATETIME,
+	testendtime DATETIME,
+	candidateid INT,
+	CONSTRAINT fk_employees_candid FOREIGN KEY (candidateId) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_test_testid FOREIGN KEY (testid) REFERENCES tests(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+Create table interviews(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	interviewdate DATE,
+    interviewtime VARCHAR(20),
+	smeid INT,
+	candidateid INT,
+	CONSTRAINT fk_sme_smeid FOREIGN KEY(smeid) REFERENCES subjectmatterexperts(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_emp_candtid FOREIGN KEY(candidateid) REFERENCES employees(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+Create table interviewcriterias(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	interviewid INT,
+	evaluationcriteriaid INT,
+	CONSTRAINT fk_interviews_interviewid FOREIGN KEY(interviewid) REFERENCES interviews(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_evalriterias_evalcriteaid FOREIGN KEY(evaluationcriteriaid) REFERENCES evaluationcriterias(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+Create table interviewresults(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	interviewcriteriaid INT,
+	ratings INT,
+	comments VARCHAR(200),
+	CONSTRAINT fk_intresults_intcrite_intcriteid FOREIGN KEY(interviewcriteriaid) REFERENCES interviewcriterias(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Roles(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(20)
+);
