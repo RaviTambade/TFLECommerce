@@ -11,12 +11,12 @@ public class RolesController{
         _RolesService = rolesService;
     }
 
-    public async Task<List<Roles>> GetAllRoles(){
-        return  await  _RolesService.GetAllRoles();
+    public async Task<List<Role>> GetAll(){
+        return  await  _RolesService.GetAll();
     }
 
-    public async Task<Roles> GetRoleDetails(int id){
+    public async Task<Role> GetRole(int id){
         
-        return await _RolesService.GetRoleDetails(id);
+        return await _RolesService.GetRole(id);
     }
 }

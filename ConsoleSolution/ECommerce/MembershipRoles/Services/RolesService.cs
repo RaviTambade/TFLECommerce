@@ -14,30 +14,31 @@ public class RolesService : IRolesService
         _RolesRepo = repository;
     }  
 
-    public async Task<List<Roles>> GetAllRoles()
+    public async Task<List<Role>> GetAll()
     {
-       return  await _RolesRepo.GetAllRoles();
+       return  await _RolesRepo.GetAll();
       
     }
 
-    public async Task<Roles> GetRoleDetails(int roleId)
+    public async Task<Role> GetRole(int roleId)
     {
-          return  await _RolesRepo.GetRoleDetails(roleId);
+          return  await _RolesRepo.GetRole(roleId);
     }
 
-    public async Task<bool> InsertDetails(Roles roles)
+    public async Task<bool> Insert(Role roles)
     {
-        return await _RolesRepo.InsertDetails(roles);
+        return await _RolesRepo.Insert(roles);
     }
 
-    public async Task<bool> UpdateDetails(Roles roles)
+    public async Task<bool> Update(Role role)
     {
-        return await _RolesRepo.UpdateDetails(roles);
+        return await _RolesRepo.Update(role);
     }
 
-      public async Task<Roles> Delete(int roleId)
+    public async Task<bool> Delete(int roleId)
     {
-        return await _RolesRepo.GetRoleDetails(roleId);
+        await _RolesRepo.Delete(roleId);
+        return true;
     }
 }
 

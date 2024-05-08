@@ -15,7 +15,8 @@ using Transflower.ECommerce.Repositories.Interfaces;
 using Transflower.ECommerce.Services.Interfaces;
 
 
-IMembershipRepository repo=new MembershipRepository();
+IMembershipRepository repo = new MembershipMSSQLRepository();
+//IMembershipRepository repo=new MembershipMySqlRepository();
 IMembershipService service=new MembershipService(repo);
 MembershipController controller=new MembershipController(service);
 List<Member> allMembers=await controller.GetAll();
@@ -26,7 +27,7 @@ foreach (Member member in allMembers){
 
 Console.WriteLine(" ");
 
-IRolesRepository repo1=new RolesRepository();
+/*IRolesRepository repo1=new RolesRepository();
 IRolesService service1=new RolesService(repo1);
 RolesController controllers=new RolesController(service1);
 List<Roles> allRoles=await controllers.GetAllRoles();
@@ -34,3 +35,5 @@ List<Roles> allRoles=await controllers.GetAllRoles();
 foreach (Roles roles in allRoles){
        Console.WriteLine(roles);
 }
+
+*/

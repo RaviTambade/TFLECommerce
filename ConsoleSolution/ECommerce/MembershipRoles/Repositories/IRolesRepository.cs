@@ -3,13 +3,12 @@ using Transflower.ECommerce.Entities;
 namespace Transflower.ECommerce.Repositories.Interfaces;
 
 public interface IRolesRepository{
-    public Task<List<Roles>> GetAllRoles();
+    public Task<List<Role>> GetAll();
+    public Task<Role> GetRole(int roleId);
 
-    public Task<Roles> GetRoleDetails(int roleId);
-
-    public   Task<bool> InsertDetails(Roles roles);
-    public   Task<bool> UpdateDetails(Roles roles);
-    public   Task<Roles> Delete(int roleId);
+    public   Task<bool> Insert(Role roles);
+    public   Task<bool> Update(Role roles);
+    public   Task<bool> Delete(int roleId);
 
 
 }

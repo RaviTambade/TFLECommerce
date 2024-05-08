@@ -6,8 +6,8 @@ public interface IMembershipRepository
     public   Task<List<Member>> GetAll();
     public  Task<Member> GetDetails(int membershipId); 
 
-    public   Task<bool> InsertMemberDetails(Member member);
-    public   Task<bool> UpdateMemberDetails(Member member);
-    public   Task<Member> MemberDelete(int membershipId);
+    public   Task<bool> Insert(Member member);
+    public   Task<bool> Update(Member member);
+    public   Task<bool> Delete(int membershipId);
 
 }

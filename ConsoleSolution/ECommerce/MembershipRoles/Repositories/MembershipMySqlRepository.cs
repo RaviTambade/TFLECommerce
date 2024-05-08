@@ -1,14 +1,12 @@
-
-
 using MySql.Data.MySqlClient;
 
 using Transflower.ECommerce.HR.Entities;
 using Transflower.ECommerce.HR.Repositories.Interfaces;
 namespace Transflower.ECommerce.HR.Repositories;
-public class MembershipRepository : IMembershipRepository
+public class MembershipMySqlRepository : IMembershipRepository
 {
 
-    public MembershipRepository(){
+    public MembershipMySqlRepository(){
 
     }
     public async Task<List<Member>> GetAll()
@@ -93,7 +91,7 @@ public class MembershipRepository : IMembershipRepository
 
         }
 
-public async Task<bool> InsertMemberDetails(Member member)
+    public async Task<bool> Insert(Member member)
     {
         await Task.Delay(100);
         string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
@@ -120,7 +118,7 @@ public async Task<bool> InsertMemberDetails(Member member)
        return true;
     }
 
-    public async Task<bool> UpdateMemberDetails(Member member)
+    public async Task<bool> Update(Member member)
     {
         await Task.Delay(100);
         string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
@@ -146,7 +144,7 @@ public async Task<bool> InsertMemberDetails(Member member)
         return true;
     }
 
-      public async Task<Member> MemberDelete(int membershipId)
+      public async Task<bool> Delete(int membershipId)
     {
             await Task.Delay(100);
             Member  member = null;
@@ -169,6 +167,6 @@ public async Task<bool> InsertMemberDetails(Member member)
                     connection.Close();
             }
 
-        return member;
+        return true;
     }
 }

@@ -11,10 +11,10 @@ public class RolesRepository : IRolesRepository
     public RolesRepository(){
 
     }
-    public async Task<List<Roles>> GetAllRoles()
+    public async Task<List<Role>> GetAll()
     {
         await Task.Delay(100);
-        List<Roles> roles = new List<Roles>();  
+        List<Role> roles = new List<Role>();  
 
         string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
         MySqlConnection connection = new MySqlConnection(connectionString);
@@ -27,7 +27,7 @@ public class RolesRepository : IRolesRepository
 
                 int id=reader.GetInt32("id");
                 string title=reader["title"].ToString();
-                Roles theRole=new Roles();
+                Role theRole=new Role();
                 theRole.Id=id;
                 theRole.Title=title;
                 roles.Add(theRole);
@@ -35,23 +35,21 @@ public class RolesRepository : IRolesRepository
             reader.Close();
         }
         catch(Exception ex){
-                    Console.WriteLine(ex.Message);
+             Console.WriteLine(ex.Message);
         }
 
         finally{
                 connection.Close();
         }
-
         return roles;      
     }
-    public async Task<Roles> GetRoleDetails(int roleId)
+    public async Task<Role> GetRole(int roleId)
         {
             await Task.Delay(100);
-            Roles  roles = null;
+            Role  role= null;
             string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="SELECT * FROM Roles WHERE id="+ roleId;
-
             MySqlCommand command = new MySqlCommand(query,connection);
             
             try{
@@ -62,9 +60,9 @@ public class RolesRepository : IRolesRepository
                     int id=reader.GetInt32("id");
                     string title=reader["title"].ToString();
 
-                    roles =new Roles();
-                    roles.Id = id;
-                    roles.Title=title;    
+                    role =new Role();
+                    role.Id = id;
+                    role.Title=title;    
                 
                 }
                 reader.Close();
@@ -72,21 +70,18 @@ public class RolesRepository : IRolesRepository
             catch(Exception ex){
                         Console.WriteLine(ex.Message);
             }
-
             finally{
                     connection.Close();
             }
-
-            return roles;   
-
+            return role;   
         }
 
-    public async Task<bool> InsertDetails(Roles roles)
+    public async Task<bool> Insert(Role role)
     {
         await Task.Delay(100);
         string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
-            string query ="INSERT INTO Roles(title) VALUES("+ roles.Title +");";
+            string query ="INSERT INTO Roles(title) VALUES("+ role.Title +");";
 
             MySqlCommand command = new MySqlCommand(query,connection);
             
@@ -97,9 +92,6 @@ public class RolesRepository : IRolesRepository
 
                     int id=reader.GetInt32("id");
                     string title=reader["title"].ToString();
-
-                       
-                
                 }
                 reader.Close();               
             }
@@ -115,12 +107,12 @@ public class RolesRepository : IRolesRepository
        return true;
     }
 
-    public async Task<bool> UpdateDetails(Roles roles)
+    public async Task<bool> Update(Role role)
     {
         await Task.Delay(100);
         string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
-            string query ="UPDATE ROLES SET VALUES="+roles.Title+" where id =" + roles.Id;
+            string query ="UPDATE ROLES SET VALUES="+role.Title+" where id =" + role.Id;
 
             MySqlCommand command = new MySqlCommand(query,connection);
             
@@ -146,10 +138,10 @@ public class RolesRepository : IRolesRepository
         return true;
     }
 
-      public async Task<Roles> Delete(int roleId)
+      public async Task<bool> Delete(int roleId)
     {
             await Task.Delay(100);
-            Roles  roles = null;
+            Role  role = null;
             string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="DELETE FROM ROLES WHERE ID ="+ roleId;
@@ -169,7 +161,7 @@ public class RolesRepository : IRolesRepository
                     connection.Close();
             }
 
-        return roles;
+        return true;
     }
 
 }
