@@ -7,16 +7,14 @@ using Transflower.ECommerce.Repositories.Interfaces;
 namespace Transflower.ECommerce.Repositories;
 public class RolesRepository : IRolesRepository
 {
-
+    private string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
     public RolesRepository(){
 
     }
     public async Task<List<Role>> GetAll()
     {
         await Task.Delay(100);
-        List<Role> roles = new List<Role>();  
-
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+        List<Role> roles = new List<Role>();
         MySqlConnection connection = new MySqlConnection(connectionString);
         MySqlCommand command = new MySqlCommand("SELECT * FROM Roles",connection);
         
@@ -47,7 +45,6 @@ public class RolesRepository : IRolesRepository
         {
             await Task.Delay(100);
             Role  role= null;
-            string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="SELECT * FROM Roles WHERE id="+ roleId;
             MySqlCommand command = new MySqlCommand(query,connection);
@@ -78,8 +75,7 @@ public class RolesRepository : IRolesRepository
 
     public async Task<bool> Insert(Role role)
     {
-        await Task.Delay(100);
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            await Task.Delay(100);
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="INSERT INTO Roles(title) VALUES("+ role.Title +");";
 
@@ -109,8 +105,7 @@ public class RolesRepository : IRolesRepository
 
     public async Task<bool> Update(Role role)
     {
-        await Task.Delay(100);
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            await Task.Delay(100);
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="UPDATE ROLES SET VALUES="+role.Title+" where id =" + role.Id;
 
@@ -142,7 +137,6 @@ public class RolesRepository : IRolesRepository
     {
             await Task.Delay(100);
             Role  role = null;
-            string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="DELETE FROM ROLES WHERE ID ="+ roleId;
 
