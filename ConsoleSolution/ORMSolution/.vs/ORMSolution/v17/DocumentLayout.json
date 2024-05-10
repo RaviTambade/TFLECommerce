@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Ravi\\ORMSolution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|d:\\ravi\\ormsolution\\dapperapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|solutionrelative:dapperapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|d:\\ravi\\ormsolution\\dapperapp\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|solutionrelative:dapperapp\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|d:\\ravi\\ormsolution\\dapperapp\\dapperapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{44D277F2-D83D-453C-A5AC-14A0F1F1B8B0}|DapperApp\\DapperApp.csproj|solutionrelative:dapperapp\\dapperapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DapperApp",
+              "DocumentMoniker": "D:\\Ravi\\ORMSolution\\DapperApp\\DapperApp.csproj",
+              "RelativeDocumentMoniker": "DapperApp\\DapperApp.csproj",
+              "ToolTip": "D:\\Ravi\\ORMSolution\\DapperApp\\DapperApp.csproj",
+              "RelativeToolTip": "DapperApp\\DapperApp.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-10T05:32:04.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "D:\\Ravi\\ORMSolution\\DapperApp\\Employee.cs",
+              "RelativeDocumentMoniker": "DapperApp\\Employee.cs",
+              "ToolTip": "D:\\Ravi\\ORMSolution\\DapperApp\\Employee.cs",
+              "RelativeToolTip": "DapperApp\\Employee.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T05:32:37.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Ravi\\ORMSolution\\DapperApp\\Program.cs",
+              "RelativeDocumentMoniker": "DapperApp\\Program.cs",
+              "ToolTip": "D:\\Ravi\\ORMSolution\\DapperApp\\Program.cs",
+              "RelativeToolTip": "DapperApp\\Program.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T05:30:32.091Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

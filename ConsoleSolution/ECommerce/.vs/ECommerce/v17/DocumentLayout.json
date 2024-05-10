@@ -1,0 +1,194 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\controllers\\membershipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\controllers\\membershipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\mssql\\dapper\\membershipmssqldapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\mssql\\dapper\\membershipmssqldapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\mssql\\ado\\connected\\membershipmssqlrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\mssql\\ado\\connected\\membershipmssqlrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\imembershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\imembershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\mysql\\rolesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\mysql\\rolesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\mysql\\membershipmysqlrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\mysql\\membershipmysqlrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\repositories\\mysql\\membershipmysqldapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\repositories\\mysql\\membershipmysqldapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\membershiproles\\membershiproles.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}|MembershipRoles\\MembershipRoles.csproj|solutionrelative:membershiproles\\membershiproles.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12128961-ED27-40ED-ADBD-BD31FFD475FF}|ProductCatalog\\ProductCatalog.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\productcatalog\\repositories\\flowerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12128961-ED27-40ED-ADBD-BD31FFD475FF}|ProductCatalog\\ProductCatalog.csproj|solutionrelative:productcatalog\\repositories\\flowerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MembershipController.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Controllers\\MembershipController.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Controllers\\MembershipController.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Controllers\\MembershipController.cs",
+              "RelativeToolTip": "MembershipRoles\\Controllers\\MembershipController.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwAgAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:40:11.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Program.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Program.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Program.cs",
+              "RelativeToolTip": "MembershipRoles\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:40:03.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IMembershipRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\IMembershipRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\IMembershipRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\IMembershipRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\IMembershipRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:29:29.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MembershipMSSQLRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MsSql\\ADO\\Connected\\MembershipMSSQLRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\MsSql\\ADO\\Connected\\MembershipMSSQLRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MsSql\\ADO\\Connected\\MembershipMSSQLRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\MsSql\\ADO\\Connected\\MembershipMSSQLRepository.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAqwCQAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T05:40:53.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MembershipMSSQLDapperRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MsSql\\Dapper\\MembershipMSSQLDapperRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\MsSql\\Dapper\\MembershipMSSQLDapperRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MsSql\\Dapper\\MembershipMSSQLDapperRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\MsSql\\Dapper\\MembershipMSSQLDapperRepository.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAwwBsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:13:29.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RolesRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\RolesRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\MySql\\RolesRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\RolesRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\MySql\\RolesRepository.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAA1wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:31:02.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MembershipMySqlRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\MembershipMySqlRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\MySql\\MembershipMySqlRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\MembershipMySqlRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\MySql\\MembershipMySqlRepository.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAwwBAAAABvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:24:25.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MembershipMySqlDapperRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\MembershipMySqlDapperRepository.cs",
+              "RelativeDocumentMoniker": "MembershipRoles\\Repositories\\MySql\\MembershipMySqlDapperRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\Repositories\\MySql\\MembershipMySqlDapperRepository.cs",
+              "RelativeToolTip": "MembershipRoles\\Repositories\\MySql\\MembershipMySqlDapperRepository.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAlwC0AAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T06:26:15.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MembershipRoles",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\MembershipRoles.csproj",
+              "RelativeDocumentMoniker": "MembershipRoles\\MembershipRoles.csproj",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\MembershipRoles\\MembershipRoles.csproj",
+              "RelativeToolTip": "MembershipRoles\\MembershipRoles.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-10T06:16:02.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FlowerRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\ProductCatalog\\Repositories\\FlowerRepository.cs",
+              "RelativeDocumentMoniker": "ProductCatalog\\Repositories\\FlowerRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\ProductCatalog\\Repositories\\FlowerRepository.cs",
+              "RelativeToolTip": "ProductCatalog\\Repositories\\FlowerRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T05:40:24.409Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
