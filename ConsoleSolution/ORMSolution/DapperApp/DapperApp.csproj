@@ -9,13 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Mysql.Data" Version="8.4.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\MsSql\ADO\Disconnected\" />
-    <Folder Include="Repositories\MsSql\EntityFramework\" />
   </ItemGroup>
 
 </Project>

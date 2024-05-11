@@ -6,6 +6,7 @@ namespace Transflower.ECommerce.HR.Repositories;
 public class MembershipMySqlRepository : IMembershipRepository
 {
 
+    private string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
     public MembershipMySqlRepository(){
 
     }
@@ -13,8 +14,6 @@ public class MembershipMySqlRepository : IMembershipRepository
     {
         await Task.Delay(100);
         List<Member> members = new List<Member>();  
-
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
         MySqlConnection connection = new MySqlConnection(connectionString);
         MySqlCommand command = new MySqlCommand("SELECT * FROM Employees",connection);
         
@@ -52,7 +51,6 @@ public class MembershipMySqlRepository : IMembershipRepository
         {
             await Task.Delay(100);
             Member  member = null;
-            string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="SELECT * FROM Employees WHERE id="+ membershipId;
 
@@ -93,8 +91,7 @@ public class MembershipMySqlRepository : IMembershipRepository
 
     public async Task<bool> Insert(Member member)
     {
-        await Task.Delay(100);
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            await Task.Delay(100);
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="insert into employees(firstname, lastname, email, contact)values("+member.FirstName+","+member.LastName+","+member.Email+","+member.Contact+");";
 
@@ -120,8 +117,7 @@ public class MembershipMySqlRepository : IMembershipRepository
 
     public async Task<bool> Update(Member member)
     {
-        await Task.Delay(100);
-        string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
+            await Task.Delay(100);
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="UPDATE ROLES SET VALUES=("+member.FirstName+","+member.LastName+","+member.Email+","+member.Contact+") where id =" + member.Id;
 
@@ -148,7 +144,6 @@ public class MembershipMySqlRepository : IMembershipRepository
     {
             await Task.Delay(100);
             Member  member = null;
-            string connectionString = "server=localhost;port=3306;user=root;password=password;database=assessmentdb";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string query ="DELETE FROM Employees WHERE ID ="+ membershipId;
 
