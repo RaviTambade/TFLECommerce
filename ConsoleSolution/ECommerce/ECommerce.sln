@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MembershipRoles", "Membersh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "SampleApp\SampleApp.csproj", "{66C3249E-3968-4E78-A6C6-C88008CF57AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample2App", "Sample2App\Sample2App.csproj", "{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample2App", "Sample2App\Sample2App.csproj", "{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDapperApp", "TestDapperApp\TestDapperApp.csproj", "{C93C11B2-C016-4286-9F0E-932BAD8C3C40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E70A76D-A1FC-4C7B-8FE9-A4589EDEB967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93C11B2-C016-4286-9F0E-932BAD8C3C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93C11B2-C016-4286-9F0E-932BAD8C3C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93C11B2-C016-4286-9F0E-932BAD8C3C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93C11B2-C016-4286-9F0E-932BAD8C3C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

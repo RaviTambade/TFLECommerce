@@ -74,8 +74,19 @@ public class MembershipMSSQLDapperRepository : IMembershipRepository
 
     public async Task<bool> Insert(Member member)
     {
+        bool status = false;
         await Task.Delay(100);
-        return true;
+        using (IDbConnection con = new SqlConnection(connectionString))
+        {
+            
+            var query = "insert into employees (id,firstname, lastname, email, contact) values(89, 'ttt', 'ttt', 'ttt@gmail.com','99999)";
+
+            if (con.Execute(query) > 0)
+
+                status = true;
+        }
+
+        return status;
     }
 
     public async Task<bool> Delete(int membershipId)
