@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using DapperApp.Entities;
 using System.Data;
 
-string connectionString = @"Data Source=DESKTOP-H1K53PL\SQLEXPRESS;Initial Catalog=AssessmentDB;Integrated Security=True;Connect Timeout=30;Encrypt=False"; ;
+string connectionString = @"Data Source=DESKTOP-H1K53PL\SQLEXPRESS;Initial Catalog=AssessmentDB;Integrated Security=True;Connect Timeout=30;Encrypt=False"; 
 using (IDbConnection con = new SqlConnection(connectionString))
 {
 

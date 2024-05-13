@@ -9,7 +9,7 @@ using Transflower.ECommerce.HR.Repositories.Interfaces;
 namespace MembershipRoles.Repositories.MsSql.Dapper;
 public class MembershipMSSQLDapperRepository : IMembershipRepository
 {
-    private string connectionString = @"Data Source=DESKTOP-H1K53PL\SQLEXPRESS;Initial Catalog=AssessmentDB;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+    private string connectionString = @"Data Source=DESKTOP-RQSMQ1M\SQLEXPRESS;Initial Catalog=assessmentdb;Integrated Security=True;Connect Timeout=30;Encrypt=False";
 
     public MembershipMSSQLDapperRepository()
     {
@@ -30,44 +30,10 @@ public class MembershipMSSQLDapperRepository : IMembershipRepository
     {
         await Task.Delay(100);
         Member member = null;
-        IDbConnection connection = new SqlConnection(connectionString);
-        string query = "SELECT * FROM Employees WHERE id=" + membershipId;
-
-        IDbCommand command = new SqlCommand(query, connection as SqlConnection);
-
-        try
+        using (IDbConnection con = new SqlConnection(connectionString))
         {
-            connection.Open();
-            IDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-
-                int id = int.Parse(reader["id"].ToString());
-                string firstName = reader["firstname"].ToString();
-                string lastName = reader["lastname"].ToString();
-                string email = reader["email"].ToString();
-                string contact = reader["contact"].ToString();
-
-                member = new Member();
-                member.Id = id;
-                member.FirstName = firstName;
-                member.LastName = lastName;
-                member.Email = email;
-                member.Contact = contact;
-
-            }
-            reader.Close();
+            member = con.QueryFirstOrDefault<Member>("SELECT * FROM employees where id=@membershipId",new { membershipId });
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-
-        finally
-        {
-            connection.Close();
-        }
-
         return member;
 
     }
@@ -76,6 +42,7 @@ public class MembershipMSSQLDapperRepository : IMembershipRepository
     {
         bool status = false;
         await Task.Delay(100);
+<<<<<<< HEAD
         using (IDbConnection con = new SqlConnection(connectionString))
         {
             
@@ -87,19 +54,51 @@ public class MembershipMSSQLDapperRepository : IMembershipRepository
         }
 
         return status;
+=======
+        bool status=false;
+        using (IDbConnection con = new SqlConnection(connectionString))
+        {
+        //     var empToUpdate = new Member
+        // {
+        // Id = 179,
+        // FirstName = "Sagar",
+        // LastName = "Patil",
+        // Contact = "9884578569",
+        // Email = "sagar.patil@gmail.com"
+        // };
+        con.Execute("INSERT INTO employees (firstname, lastname, email, contact) VALUES ( @FirstName, @LastName, @Email, @Contact)", member);
+        }
+        return true;
+>>>>>>> f0b2a15a9e4aa386ea5769708620c0dd6a21fecd
     }
 
     public async Task<bool> Delete(int membershipId)
     {
         await Task.Delay(100);
+        bool status=false;
+        using (IDbConnection con = new SqlConnection(connectionString))
+        {
+        con.Execute("DELETE  FROM employees WHERE Id=@membershipId", new { membershipId });
+        }
         return true;
     }
 
     public async Task<bool> Update(Member member)
     {
         await Task.Delay(100);
+        bool status=false;
+        using (IDbConnection con = new SqlConnection(connectionString))
+        {
+        var empToUpdate = new Member
+        {
+        Id = 2,
+        FirstName = "Sagar",
+        LastName = "Patil",
+        Contact = "9884578569",
+        Email = "sagar.patil@gmail.com"
+        };
+        con.Execute("UPDATE  employees SET firstname= @FirstName, lastname=@LastName WHERE Id=@Id", empToUpdate);
+        }
         return true;
     }
-
-
 }

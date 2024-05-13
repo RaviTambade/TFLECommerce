@@ -19,4 +19,19 @@ public class MembershipController{
         
         return await _membershipService.GetDetails(id);
     }
+
+    public async Task<bool> Insert(Member member)
+    {
+        return  await _membershipService.Insert(member);
+    }
+
+    public async Task<bool> Delete(int membershipId)
+    {
+        return  await _membershipService.Delete(membershipId);
+    }
+
+    public async Task<bool> Update(Member member)
+    {
+       return  await _membershipService.Update(member);
+    }
 }
