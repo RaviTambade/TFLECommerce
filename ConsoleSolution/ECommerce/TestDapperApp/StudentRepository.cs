@@ -76,5 +76,42 @@ namespace TestDapperApp
             }
             return status;
         }
+        public  static bool Delete(Student student)
+    {
+            bool status =false; 
+             string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce"; 
+            int studentId=student.Id;
+            string query = "Delete from students  where id="+studentId+"";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                if(con.Execute(query)> 0)
+                status =true;
+            } 
+        return status;
     }
+    public  static bool Update(Student student)
+        {
+            //Basic Code
+
+            bool status = false;
+            string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
+            int month = student.AssignedOn.Month;
+            int year = student.AssignedOn.Year;
+            int day = student.AssignedOn.Day;
+            string assignedDate = year + "-" + month + "-" + day;
+            string studentName=student.Name; 
+            int studentId=student.Id;   
+
+            string query = "UPDATE students SET name = @studentName and assignedOn=@assigneddate WHERE id = studentId";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                if(con.Execute(query)> 0)
+                status =true;
+            } 
+        return status;
+        
+    }
+         
 }
+    }
+
