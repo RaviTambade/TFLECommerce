@@ -1,17 +1,15 @@
-﻿
+﻿using TestDapperApp.Repositories.Interfaces;
 using TestDapperApp.Entities;
 using MySql.Data.MySqlClient;
 using Dapper;
 using System.Data;
 
-namespace TestDapperApp
+namespace TestDapperApp.Repositories.ADONET.Connected
 {
-    public  class StudentRepository
+    public  class StudentRepository:IStudentRepository
     {
-
-
         //Using Stored Procedure
-        public static Student GetById(int id)
+        public   Student GetById(int id)
         {
             var student=new Student();
 
@@ -25,7 +23,7 @@ namespace TestDapperApp
                  //Execute stored procedure and map the returned result to a Customer object  
                  student = connection.QuerySingleOrDefault<Student>("GetStudentById",
                                                                      parameters, 
-                                                                    commandType: CommandType.StoredProcedure);
+                                                                     commandType: CommandType.StoredProcedure);
 
                  
 
@@ -40,7 +38,7 @@ namespace TestDapperApp
             }
             return student;
         }
-        public static bool InsertParamExecute(Student student)
+        public   bool InsertParamExecute(Student student)
         {
             //DML Operations
             bool status = false;
@@ -54,9 +52,7 @@ namespace TestDapperApp
             }
             return status;
         }
-
-
-        public  static bool Insert(Student student)
+        public    bool Insert(Student student)
         {
             //Basic Code
 
@@ -76,7 +72,7 @@ namespace TestDapperApp
             }
             return status;
         }
-        public  static bool Delete(Student student)
+        public    bool Delete(Student student)
     {
             bool status =false; 
              string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce"; 
@@ -89,29 +85,47 @@ namespace TestDapperApp
             } 
         return status;
     }
-    public  static bool Update(Student student)
+        public    bool Update(Student student)
         {
             //Basic Code
 
             bool status = false;
             string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
-            int month = student.AssignedOn.Month;
-            int year = student.AssignedOn.Year;
-            int day = student.AssignedOn.Day;
-            string assignedDate = year + "-" + month + "-" + day;
             string studentName=student.Name; 
             int studentId=student.Id;   
-
-            string query = "UPDATE students SET name = @studentName and assignedOn=@assigneddate WHERE id = studentId";
+            string query = "UPDATE students SET name = @Name ,assignedOn=@AssignedOn WHERE id = @Id";
+           // string query = "UPDATE students SET name = 'simran' , assignedOn='2025/5/15'  WHERE id = 2";
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
-                if(con.Execute(query)> 0)
+                //What is Annonymous object
+                object[] parameters = { 
+                                        new { 
+                                            Name = student.Name,
+                                            AssignedOn = student.AssignedOn,
+                                            Id = student.Id 
+                                        } 
+                };
+                if (con.Execute(query,parameters)> 0)
                 status =true;
             } 
         return status;
         
     }
-         
-}
+
+        public   Student GetStudentById(int id)
+        {
+            Student std = new Student(); ;
+            string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
+            string query = "select name, id from students WHERE id = @Id";
+            // string query = "UPDATE students SET name = 'simran' , assignedOn='2025/5/15'  WHERE id = 2";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                var result = con.QueryFirstOrDefault<Student>(query, new { Id = id });
+                std=result as Student;
+                Console.WriteLine(std.Id + " "+ std.Name);
+            }
+            return std;
+        }
     }
+}
 

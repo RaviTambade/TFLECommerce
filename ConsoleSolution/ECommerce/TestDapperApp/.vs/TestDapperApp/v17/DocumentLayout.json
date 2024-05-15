@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\repositories\\entityframework\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:repositories\\entityframework\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\repositories\\adonet\\connected\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:repositories\\adonet\\connected\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\repositories\\adonet\\disconnected\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:repositories\\adonet\\disconnected\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\repositories\\dapper\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:repositories\\dapper\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\testdapperapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:testdapperapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\consolesolution\\ecommerce\\testdapperapp\\entities\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32550AC9-B349-4EAB-8D7F-06E60A325FAC}|TestDapperApp.csproj|solutionrelative:entities\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\ADONET\\Disconnected\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\ADONET\\Disconnected\\StudentRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\ADONET\\Disconnected\\StudentRepository.cs",
+              "RelativeToolTip": "Repositories\\ADONET\\Disconnected\\StudentRepository.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAgwIIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T07:20:32.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\EntityFramework\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\EntityFramework\\StudentRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\EntityFramework\\StudentRepository.cs",
+              "RelativeToolTip": "Repositories\\EntityFramework\\StudentRepository.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAxwCkAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T07:15:53.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\ADONET\\Connected\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\ADONET\\Connected\\StudentRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\ADONET\\Connected\\StudentRepository.cs",
+              "RelativeToolTip": "Repositories\\ADONET\\Connected\\StudentRepository.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAkwHEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T07:20:01.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IStudentRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\Interfaces\\IStudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IStudentRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\Interfaces\\IStudentRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IStudentRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T07:22:04.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\Dapper\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Dapper\\StudentRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Repositories\\Dapper\\StudentRepository.cs",
+              "RelativeToolTip": "Repositories\\Dapper\\StudentRepository.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAiwHoAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T04:57:20.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAADsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T04:57:16.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TestDapperApp",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\TestDapperApp.csproj",
+              "RelativeDocumentMoniker": "TestDapperApp.csproj",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\TestDapperApp.csproj",
+              "RelativeToolTip": "TestDapperApp.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-15T07:14:34.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Student.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Entities\\Student.cs",
+              "RelativeDocumentMoniker": "Entities\\Student.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ConsoleSolution\\ECommerce\\TestDapperApp\\Entities\\Student.cs",
+              "RelativeToolTip": "Entities\\Student.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T05:47:35.642Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
