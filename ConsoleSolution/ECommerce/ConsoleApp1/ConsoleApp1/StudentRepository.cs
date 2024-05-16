@@ -53,13 +53,11 @@ namespace TestDapperApp
 
         }
 
-        public static bool Delete(Student student)
+        public static bool Delete(int studentId)
 
         {
 
             bool status = false;
-
-            int studentId = student.Id;
 
             string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
 
@@ -83,16 +81,12 @@ namespace TestDapperApp
 
             string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
 
-            string studentName = student.Name;
-
-            int studentId = student.Id;
-
             string query = "UPDATE students SET name = @Name ,assignedOn=@AssignedOn WHERE id = @Id";
 
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 
-                if (con.Execute(query, new{student.Name, student.AssignedOn, student.Id}) > 0)
+                if (con.Execute(query, new{Name = student.Name, AssignedOn = student.AssignedOn, Id = student.Id}) > 0)
 
                     status = true;
 
@@ -102,6 +96,27 @@ namespace TestDapperApp
 
         }
 
+        public static bool UpdateById(String StudentName, int StudentId)
+        {
+
+            bool status = false;
+
+            string connectionString = "server=localhost;port=3306;user=root;password=password;database=ecommerce";
+
+            string query = "UPDATE students SET name = @Name WHERE id = @Id";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+
+                if (con.Execute(query, new { Name = StudentName, Id = StudentId }) > 0)
+
+                    status = true;
+
+            }
+
+            return status;
+
+        }
         public static Student GetById(int id)
 
         {
