@@ -219,7 +219,6 @@ END//
 DELIMITER ;
 
 
-
 -- 4. Trigger to Log Changes to Product Prices
 
 DELIMITER //

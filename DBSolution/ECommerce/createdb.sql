@@ -1,3 +1,10 @@
+
+DROP database IF EXISTS tflecommerce;
+create database tflecommerce;
+
+use tflecommerce;
+
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -31,6 +38,8 @@ CREATE TABLE orders (
     order_date DATE NOT NULL,
     shipping_address VARCHAR(255) NOT NULL,
     total_amount DECIMAL(10, 2),
+    shipping_date DATE,  -- Add the shipping_date column
+    status VARCHAR(50),  -- Add the status column
     FOREIGN KEY (customer_id) REFERENCES users(id)
 );
 
