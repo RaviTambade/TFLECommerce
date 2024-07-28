@@ -1,30 +1,36 @@
 -- 1. Retrieve All Products
 
 SELECT * FROM products;
+SELECT * FROM categories;
+SELECT * FROM orders;
+SELECT * FROM discount_codes;
+SELECT * FROM order_items;
+SELECT * FROM reviews;
+SELECT * FROM users;
 
 -- 2. Retrieve Products in a Specific Category
 SELECT p.id, p.name, p.price, p.stock
 FROM products p
 JOIN categories c ON p.category_id = c.id
-WHERE c.name = 'Electronics';
+WHERE c.name = 'Books';
 
 -- 3. Retrieve a User's Order History
 SELECT o.id AS order_id, o.order_date, o.total_amount, oi.item_id, p.name AS product_name, oi.quantity
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-WHERE o.customer_id = 1;  -- Replace with the user ID you're interested in
+WHERE o.customer_id = 10;  -- Replace with the user ID you're interested in
 
 -- 4. Find Products with Low Stock
 SELECT id, name, stock
 FROM products
-WHERE stock < 10;  -- Replace with the desired stock threshold
+WHERE stock > 10;  -- Replace with the desired stock threshold
 
 -- 5. Retrieve Product Reviews
 SELECT r.rating, r.review_text, u.username
 FROM reviews r
 JOIN users u ON r.user_id = u.id
-WHERE r.product_id = 1;  -- Replace with the product ID you're interested in
+WHERE r.product_id = 10;  -- Replace with the product ID you're interested in
 
 
 
@@ -32,7 +38,7 @@ WHERE r.product_id = 1;  -- Replace with the product ID you're interested in
 INSERT INTO products (name, description, price, stock, category_id)
 VALUES ('Wireless Headphones', 'Over-ear wireless headphones with noise cancellation.', 299.99, 20, 1);
 
---7 Update Stock for a Product
+-- 7 Update Stock for a Product
 UPDATE products
 SET stock = 50
 WHERE id = 1;  -- Replace with the product ID you want to update
@@ -54,7 +60,7 @@ JOIN products p ON oi.item_id = p.id
 WHERE YEAR(o.order_date) = 2024 AND MONTH(o.order_date) = 7;  -- Replace with the desired year and month
 
 
---10. Apply a Discount Code
+-- 10. Apply a Discount Code
 
 -- First, check if the discount code is valid
 SELECT discount_percentage
@@ -125,7 +131,7 @@ WHERE p.price > 100;  -- Replace with the desired price threshold
 -- 17. Retrieve Products with More than a Specified Stock
 SELECT id, name, stock
 FROM products
-WHERE stock > 50;  -- Replace with the desired stock threshold
+WHERE stock < 50;  -- Replace with the desired stock threshold
 
 
 -- 2. Get All Orders with Their Items and Prices
@@ -158,16 +164,20 @@ JOIN products p ON oi.item_id = p.id
 GROUP BY p.id, p.name;
 
 -- 6. Find Most Expensive Products in Each Category
-SELECT c.name AS category_name, p.name AS product_name, MAX(p.price) AS highest_price
+SELECT c.name AS category_name, p.name AS product_name, p.price AS highest_price
 FROM products p
 JOIN categories c ON p.category_id = c.id
-GROUP BY c.name;
+WHERE p.price = (
+    SELECT MAX(p2.price)
+    FROM products p2
+    WHERE p2.category_id = p.category_id
+);
 
 -- 7. Retrieve Orders Placed Within a Specific Date Range
 
 SELECT id, order_date, total_amount
 FROM orders
-WHERE order_date BETWEEN '2024-01-01' AND '2024-12-31';  -- Replace with desired date range
+WHERE order_date BETWEEN '2024-01-01' AND '2024-07-31';  -- Replace with desired date range
 
 
 -- 8. List Top 3 Products by Total Sales
@@ -180,6 +190,7 @@ ORDER BY total_sales DESC
 LIMIT 3;
 
 -- 9. Retrieve Orders with Discounts Applied
+
 SELECT o.id AS order_id, o.order_date, o.total_amount, d.code AS discount_code
 FROM orders o
 JOIN discount_codes d ON o.id = d.code
@@ -201,7 +212,7 @@ LEFT JOIN orders o ON u.id = o.customer_id
 WHERE o.id IS NULL;
 
 
---12. Retrieve Top 5 Most Reviewed Products
+-- 12. Retrieve Top 5 Most Reviewed Products
 
 SELECT p.id AS product_id, p.name AS product_name, COUNT(r.id) AS review_count
 FROM products p
@@ -288,7 +299,8 @@ FROM products p
 LEFT JOIN categories c ON p.category_id = c.id;
 
 
---3. Right Join: Retrieve All Categories and Products in Each Category
+ -- 3.Right Join: Retrieve All Categories and Products in Each Category
+ 
 SELECT c.id AS category_id, c.name AS category_name, p.name AS product_name
 FROM categories c
 RIGHT JOIN products p ON c.id = p.category_id;
@@ -309,7 +321,7 @@ SELECT p1.id AS product_id, p1.name AS product_name, p2.name AS similar_product_
 FROM products p1
 JOIN products p2 ON p1.category_id = p2.category_id AND p1.id <> p2.id;
 
---6. Join with Aggregation: Retrieve Total Sales Per Product
+-- 6. Join with Aggregation: Retrieve Total Sales Per Product
 SELECT p.id AS product_id, p.name AS product_name, SUM(oi.quantity * p.price) AS total_sales
 FROM products p
 JOIN order_items oi ON p.id = oi.item_id
@@ -429,7 +441,7 @@ FROM users u
 JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username;
 
---9. Retrieve Products with Reviews and Average Rating
+-- 9. Retrieve Products with Reviews and Average Rating
 
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating
 FROM products p
@@ -485,18 +497,10 @@ GROUP BY p.id, p.name;
 SELECT o.id AS order_id, o.order_date, o.shipping_address, u.username
 FROM orders o
 JOIN users u ON o.customer_id = u.id
-WHERE u.address LIKE '%New York%';  -- Replace with the desired city or condition
+WHERE u.address LIKE '%Delhi%';  -- Replace with the desired city or condition
 
 
--- 17. Find Products Purchased by Users with Specific Membership Status
-SELECT p.id AS product_id, p.name AS product_name, u.username, u.membership_status
-FROM products p
-JOIN order_items oi ON p.id = oi.item_id
-JOIN orders o ON oi.order_id = o.id
-JOIN users u ON o.customer_id = u.id
-WHERE u.membership_status = 'Gold';  -- Replace with the desired membership status
-
--- 18. Get Total Revenue from Each Category
+-- 17. Get Total Revenue from Each Category
 
 SELECT c.id AS category_id, c.name AS category_name, SUM(oi.quantity * p.price) AS total_revenue
 FROM categories c
@@ -504,7 +508,7 @@ LEFT JOIN products p ON c.id = p.category_id
 LEFT JOIN order_items oi ON p.id = oi.item_id
 GROUP BY c.id, c.name;
 
--- 19. List Orders and Their Associated Review Ratings
+-- 18. List Orders and Their Associated Review Ratings
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, AVG(r.rating) AS average_review_rating
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
@@ -512,7 +516,7 @@ JOIN products p ON oi.item_id = p.id
 LEFT JOIN reviews r ON p.id = r.product_id
 GROUP BY o.id, o.order_date, p.name;
 
--- 20. Find Most Frequently Purchased Products
+-- 19. Find Most Frequently Purchased Products
 SELECT p.id AS product_id, p.name AS product_name, COUNT(oi.item_id) AS purchase_count
 FROM products p
 JOIN order_items oi ON p.id = oi.item_id

@@ -51,27 +51,28 @@ INSERT INTO products (name, description, price, stock, category_id) VALUES
 ('Bluetooth Earbuds', 'True wireless Bluetooth earbuds.', 69.99, 75, 1);
 
 -- Insert orders
-INSERT INTO orders (customer_id, order_date, shipping_address, total_amount) VALUES
-(1, '2024-07-25', '12 MG Road, Delhi', 719.98), -- Order with Smartphone and Jeans
-(2, '2024-07-26', '34 Gandhi Street, Mumbai', 1259.98), -- Order with Laptop and Fiction Novel
-(3, '2024-07-27', '56 Nehru Avenue, Ahmedabad', 239.98), -- Order with Smartwatch and Shirt
-(4, '2024-07-28', '78 Patel Nagar, Pune', 529.98), -- Order with Tablet and Jeans
-(5, '2024-07-29', '90 Ambedkar Road, Bangalore', 179.98), -- Order with E-book Reader and Shirt
-(6, '2024-07-30', '123 Ashok Marg, Jaipur', 179.98), -- Order with Headphones and Cookbook
-(7, '2024-07-31', '456 Charminar, Hyderabad', 99.98), -- Order with Bluetooth Speaker and Cookbook
-(8, '2024-08-01', '789 MG Road, Chennai', 499.98), -- Order with Historical Novel and Trousers
-(9, '2024-08-02', '101 Nehru Place, Delhi', 449.98), -- Order with Camera and Dress
-(10, '2024-08-03', '123 Banjara Hills, Hyderabad', 389.98), -- Order with Smart TV and Shirt
-(11, '2024-08-04', '456 Brigade Road, Bangalore', 149.98), -- Order with Wireless Charger and Cookbook
-(12, '2024-08-05', '789 Park Street, Kolkata', 49.98), -- Order with Mystery Novel
-(13, '2024-08-06', '101 Connaught Place, Delhi', 129.98), -- Order with Sneakers and Cookbook
-(14, '2024-08-07', '123 Marine Drive, Mumbai', 99.98), -- Order with Bluetooth Earbuds
-(15, '2024-08-08', '456 Lalbagh, Lucknow', 99.98), -- Order with Bluetooth Earbuds
-(16, '2024-08-09', '789 Residency Road, Bangalore', 179.98), -- Order with Headphones and Cookbook
-(17, '2024-08-10', '101 MG Road, Pune', 239.98), -- Order with Smartwatch and Shirt
-(18, '2024-08-11', '123 Race Course Road, Chennai', 529.98), -- Order with Tablet and Jeans
-(19, '2024-08-12', '456 MG Road, Bhopal', 449.98), -- Order with Camera and Dress
-(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98); -- Order with Bluetooth Earbuds
+-- Insert orders with varying statuses
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES
+(1, '2024-07-25', '12 MG Road, Delhi', 719.98, '2024-07-26', 'Shipped'), -- Order with Smartphone and Jeans
+(2, '2024-07-26', '34 Gandhi Street, Mumbai', 1259.98, '2024-07-27', 'Shipped'), -- Order with Laptop and Fiction Novel
+(3, '2024-07-27', '56 Nehru Avenue, Ahmedabad', 239.98, '2024-07-28', 'Delivered'), -- Order with Smartwatch and Shirt
+(4, '2024-07-28', '78 Patel Nagar, Pune', 529.98, '2024-07-29', 'Processing'), -- Order with Tablet and Jeans
+(5, '2024-07-29', '90 Ambedkar Road, Bangalore', 179.98, '2024-07-30', 'Cancelled'), -- Order with E-book Reader and Shirt
+(6, '2024-07-30', '123 Ashok Marg, Jaipur', 179.98, '2024-07-31', 'Shipped'), -- Order with Headphones and Cookbook
+(7, '2024-07-31', '456 Charminar, Hyderabad', 99.98, '2024-08-01', 'Delivered'), -- Order with Bluetooth Speaker and Cookbook
+(8, '2024-08-01', '789 MG Road, Chennai', 499.98, '2024-08-02', 'Processing'), -- Order with Historical Novel and Trousers
+(9, '2024-08-02', '101 Nehru Place, Delhi', 449.98, '2024-08-03', 'Shipped'), -- Order with Camera and Dress
+(10, '2024-08-03', '123 Banjara Hills, Hyderabad', 389.98, '2024-08-04', 'Processing'), -- Order with Smart TV and Shirt
+(11, '2024-08-04', '456 Brigade Road, Bangalore', 149.98, '2024-08-05', 'Shipped'), -- Order with Wireless Charger and Cookbook
+(12, '2024-08-05', '789 Park Street, Kolkata', 49.98, '2024-08-06', 'Cancelled'), -- Order with Mystery Novel
+(13, '2024-08-06', '101 Connaught Place, Delhi', 129.98, '2024-08-07', 'Processing'), -- Order with Sneakers and Cookbook
+(14, '2024-08-07', '123 Marine Drive, Mumbai', 99.98, '2024-08-08', 'Delivered'), -- Order with Bluetooth Earbuds
+(15, '2024-08-08', '456 Lalbagh, Lucknow', 99.98, '2024-08-09', 'Shipped'), -- Order with Bluetooth Earbuds
+(16, '2024-08-09', '789 Residency Road, Bangalore', 179.98, '2024-08-10', 'Delivered'), -- Order with Headphones and Cookbook
+(17, '2024-08-10', '101 MG Road, Pune', 239.98, '2024-08-11', 'Processing'), -- Order with Smartwatch and Shirt
+(18, '2024-08-11', '123 Race Course Road, Chennai', 529.98, '2024-08-12', 'Shipped'), -- Order with Tablet and Jeans
+(19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
+(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
 
 -- Insert order_items
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
