@@ -18,7 +18,7 @@ SELECT o.id AS order_id, o.order_date, o.total_amount, oi.item_id, p.name AS pro
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-WHERE o.customer_id = 10;  -- Replace with the user ID you're interested in
+WHERE o.customer_id = 3;  -- Replace with the user ID you're interested in
 
 -- 4. Find Products with Low Stock
 SELECT id, name, stock
@@ -131,20 +131,20 @@ JOIN products p ON oi.item_id = p.id
 WHERE p.price > 100;  -- Replace with the desired price threshold
 
 
--- 17. Retrieve Products with More than a Specified Stock
+-- 18. Retrieve Products with More than a Specified Stock
 SELECT id, name, stock
 FROM products
 WHERE stock < 50;  -- Replace with the desired stock threshold
 
 
--- 2. Get All Orders with Their Items and Prices
+-- 19. Get All Orders with Their Items and Prices
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 ORDER BY o.order_date DESC;
 
--- 3. Find Users with the Most Orders
+-- 20. Find Users with the Most Orders
 
 SELECT u.id, u.username, COUNT(o.id) AS order_count
 FROM users u
@@ -153,20 +153,20 @@ GROUP BY u.id, u.username
 ORDER BY order_count DESC
 LIMIT 5;  -- Top 5 users with the most orders
 
--- 4. Retrieve Products and Their Categories
+-- 21. Retrieve Products and Their Categories
 
 SELECT p.id AS product_id, p.name AS product_name, c.name AS category_name
 FROM products p
 JOIN categories c ON p.category_id = c.id;
 
 
--- 5. Get Total Revenue Per Product
+-- 22. Get Total Revenue Per Product
 SELECT p.id AS product_id, p.name AS product_name, SUM(oi.quantity * p.price) AS total_revenue
 FROM order_items oi
 JOIN products p ON oi.item_id = p.id
 GROUP BY p.id, p.name;
 
--- 6. Find Most Expensive Products in Each Category
+-- 23. Find Most Expensive Products in Each Category
 SELECT c.name AS category_name, p.name AS product_name, p.price AS highest_price
 FROM products p
 JOIN categories c ON p.category_id = c.id
@@ -176,14 +176,14 @@ WHERE p.price = (
     WHERE p2.category_id = p.category_id
 );
 
--- 7. Retrieve Orders Placed Within a Specific Date Range
+-- 24. Retrieve Orders Placed Within a Specific Date Range
 
 SELECT id, order_date, total_amount
 FROM orders
 WHERE order_date BETWEEN '2024-01-01' AND '2024-07-31';  -- Replace with desired date range
 
 
--- 8. List Top 3 Products by Total Sales
+-- 25. List Top 3 Products by Total Sales
 
 SELECT p.id AS product_id, p.name AS product_name, SUM(oi.quantity * p.price) AS total_sales
 FROM order_items oi
@@ -192,23 +192,31 @@ GROUP BY p.id, p.name
 ORDER BY total_sales DESC
 LIMIT 3;
 
--- 9. Retrieve Orders with Discounts Applied
+-- 26. Retrieve Orders with Discounts Applied
 
-SELECT o.id AS order_id, o.order_date, o.total_amount, d.code AS discount_code
-FROM orders o
-JOIN discount_codes d ON o.id = d.code
-WHERE NOW() BETWEEN d.start_date AND d.end_date;
+-- SELECT o.id AS order_id, o.order_date, o.total_amount, d.code AS discount_code
+-- FROM orders o
+-- JOIN discount_codes d ON o.id = d.code
+-- WHERE NOW() BETWEEN d.start_date AND d.end_date;
+
+SELECT o.id AS order_id, o.order_date, o.total_amount, d.code AS discount_code, d.discount_percentage
+FROM orders o, discount_codes d
+WHERE o.order_date BETWEEN d.start_date AND d.end_date;
 
 
+<<<<<<< HEAD
 
 -- 10. Get Average Rating for Each Product
+=======
+-- 27. Get Average Rating for Each Product
+>>>>>>> 564a54c0be4fd277636c734a55a155b629a37b68
 
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating
 FROM products p
 JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name;
 
--- 11. Find Customers Who Have Never Made a Purchase
+-- 28. Find Customers Who Have Never Made a Purchase
 
 SELECT u.id, u.username, u.email
 FROM users u
@@ -216,7 +224,7 @@ LEFT JOIN orders o ON u.id = o.customer_id
 WHERE o.id IS NULL;
 
 
--- 12. Retrieve Top 5 Most Reviewed Products
+-- 29. Retrieve Top 5 Most Reviewed Products
 
 SELECT p.id AS product_id, p.name AS product_name, COUNT(r.id) AS review_count
 FROM products p
@@ -225,27 +233,27 @@ GROUP BY p.id, p.name
 ORDER BY review_count DESC
 LIMIT 5;
 
--- 13. Retrieve Order Details Including User Information
+-- 30. Retrieve Order Details Including User Information
 
 SELECT o.id AS order_id, o.order_date, u.username, u.email, o.shipping_address, o.total_amount
 FROM orders o
 JOIN users u ON o.customer_id = u.id;
 
 
--- 14. Find Average Order Amount Per User
+-- 31. Find Average Order Amount Per User
 
 SELECT u.id AS user_id, u.username, AVG(o.total_amount) AS average_order_amount
 FROM users u
 JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username;
 
--- 15. Retrieve All Products with Reviews and Their Average Rating
+-- 32. Retrieve All Products with Reviews and Their Average Rating
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating
 FROM products p
 LEFT JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name;
 
--- 16. Find the Most Recent Review for Each Product
+-- 33. Find the Most Recent Review for Each Product
 
 SELECT p.id AS product_id, p.name AS product_name, r.review_text, r.created_at
 FROM products p
@@ -257,7 +265,7 @@ WHERE r.created_at = (
 );
 
 
--- 17. Retrieve Orders with Items and Their Prices Above a Certain Amount
+-- 34. Retrieve Orders with Items and Their Prices Above a Certain Amount
 
 SELECT o.id AS order_id, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
 FROM orders o
@@ -265,20 +273,20 @@ JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 WHERE (oi.quantity * p.price) > 100;  -- Replace with the desired price threshold
 
--- 18. Find Products That Have Never Been Ordered
+-- 35. Find Products That Have Never Been Ordered
 SELECT p.id AS product_id, p.name AS product_name
 FROM products p
 LEFT JOIN order_items oi ON p.id = oi.item_id
 WHERE oi.item_id IS NULL;
 
--- 19. Get Total Orders and Total Amount Spent by Each User
+-- 36. Get Total Orders and Total Amount Spent by Each User
 
 SELECT u.id AS user_id, u.username, COUNT(o.id) AS total_orders, SUM(o.total_amount) AS total_spent
 FROM users u
 LEFT JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username;
 
--- 20. Retrieve Products with the Most Positive Reviews
+-- 37. Retrieve Products with the Most Positive Reviews
 
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating
 FROM products p
