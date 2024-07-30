@@ -15,6 +15,7 @@ END //
 DELIMITER ;
 
 
+
 -- 2. Creating a Stored Procedure for User Login
 DELIMITER //
 
@@ -84,6 +85,11 @@ END //
 
 DELIMITER ;
 
+-- Call the stored procedure with test parameters
+CALL ApplyDiscount(1, 'SUMMER21');
+
+
+
 
 -- 5. Creating a Stored Procedure for Retrieving Order Details
 
@@ -103,6 +109,9 @@ END //
 
 DELIMITER ;
 
+CALL GetOrderDetails(1);
+
+
 
 -- 6. Creating a Stored Procedure for Low Stock Alerts
 DELIMITER //
@@ -117,6 +126,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+CALL LowStockAlert(10);
 
 
 -- 7. Creating a Stored Procedure for Product Reviews
@@ -135,6 +146,7 @@ END //
 
 DELIMITER ;
 
+CALL AddProductReview(1, 2, 5, 'Great product!');
 
 -- 8. Creating a Stored Procedure for Monthly Sales Aggregation
 
@@ -157,6 +169,7 @@ END //
 
 DELIMITER ;
 
+CALL MonthlySalesReport(2024, 8);
 
 
 -- triggers
@@ -282,22 +295,53 @@ END//
 
 DELIMITER ;
 
---8. Trigger to Validate User Email Format
+-- 8. Trigger to Validate User Email Format
 
 DELIMITER //
 
-CREATE TRIGGER before_user_insert_or_update
-BEFORE INSERT OR UPDATE ON users
+CREATE TRIGGER before_user_insert
+BEFORE INSERT ON users
 FOR EACH ROW
 BEGIN
     -- Check if email contains '@' and '.'
-    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
+    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Invalid email format.';
     END IF;
 END//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER before_user_update
+BEFORE UPDATE ON users
+FOR EACH ROW
+BEGIN
+    -- Check if email contains '@' and '.'
+    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid email format.';
+    END IF;
+END//
+
+DELIMITER ;
+
+
+-- DELIMITER //
+
+-- CREATE TRIGGER before_user_insert_or_update
+-- BEFORE INSERT OR UPDATE ON users
+-- FOR EACH ROW
+-- BEGIN
+--     -- Check if email contains '@' and '.'
+--     IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
+--         SIGNAL SQLSTATE '45000'
+--         SET MESSAGE_TEXT = 'Invalid email format.';
+--     END IF;
+-- END//
+
+-- DELIMITER ;
 
 
 -- 9. Trigger to Prevent Orders from Being Placed on Closed Dates
