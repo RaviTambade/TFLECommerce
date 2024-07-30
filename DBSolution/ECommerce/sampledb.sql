@@ -79,6 +79,10 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (18, '2024-08-11', '123 Race Course Road, Chennai', 529.98, '2024-08-12', 'Shipped'), -- Order with Tablet and Jeans
 (19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(10, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
+
+select * from orders;
 
 -- Insert order_items
 truncate table order_items;
@@ -99,26 +103,28 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (7, 15, 4), -- 1 Cookbook
 (8, 11, 1), -- 1 Historical Novel
 (8, 12, 1), -- 1 Trousers
-(9, 13, 4), -- 1 Camera
-(9, 16, 14), -- 1 Dress
-(10, 14, 21), -- 1 Smart TV
-(10, 8, 25), -- 1 Shirt
-(11, 17, 23), -- 1 Wireless Charger
-(11, 15, 10), -- 1 Cookbook
-(12, 18, 10), -- 1 Mystery Novel
-(13, 19, 10), -- 1 Sneakers
-(13, 15, 10), -- 1 Cookbook
-(14, 20, 15), -- 1 Bluetooth Earbuds
-(15, 20, 15), -- 1 Bluetooth Earbuds
-(16, 9, 15), -- 1 Headphones
-(16, 15, 15), -- 1 Cookbook
-(17, 5, 15), -- 1 Smartwatch
-(17, 8, 15), -- 1 Shirt
-(18, 6, 20), -- 1 Tablet
-(18, 4, 20), -- 1 Jeans
-(19, 13, 20), -- 1 Camera
-(19, 16, 20), -- 1 Dress
-(20, 20, 50); -- 1 Bluetooth Earbuds
+(9, 13, 1), -- 1 Camera
+(9, 16, 1), -- 1 Dress
+(10, 14, 1), -- 1 Smart TV
+(10, 8, 1), -- 1 Shirt
+(11, 17, 1), -- 1 Wireless Charger
+(11, 15, 1), -- 1 Cookbook
+(12, 18, 1), -- 1 Mystery Novel
+(13, 19, 1), -- 1 Sneakers
+(13, 15, 1), -- 1 Cookbook
+(14, 20, 1), -- 1 Bluetooth Earbuds
+(15, 20, 1), -- 1 Bluetooth Earbuds
+(16, 9, 1), -- 1 Headphones
+(16, 15, 1), -- 1 Cookbook
+(17, 5, 1), -- 1 Smartwatch
+(17, 8, 1), -- 1 Shirt
+(18, 6, 1), -- 1 Tablet
+(18, 4, 1), -- 1 Jeans
+(19, 13, 1), -- 1 Camera
+(19, 16, 1), -- 1 Dress
+(20, 20, 1); -- 1 Bluetooth Earbuds
+INSERT INTO order_items (order_id, item_id, quantity) VALUES(22, 20, 2); -- 1 Bluetooth Earbuds
+select * from order_items;
 
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
