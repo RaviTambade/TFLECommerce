@@ -28,11 +28,12 @@ INSERT INTO users (username, password, email, address) VALUES
 ('nisha_shah', 'mypassword1234', 'nisha@example.com', '789 MG Road, Coimbatore');
 
 -- Insert products
+truncate table products;
 INSERT INTO products (name, description, price, stock, category_id) VALUES
 ('Smartphone', 'Latest model with high-resolution camera.', 699.99, 50, 1),
 ('Laptop', 'Powerful laptop with 16GB RAM and 512GB SSD.', 1199.99, 30, 1),
 ('Fiction Novel', 'Bestselling fiction novel by renowned author.', 19.99, 100, 2),
-('Jeans', 'Stylish jeans available in various sizes.', 39.99, 75, 3),
+('Jeans', 'Stylish jeans available in various sizes.', 39.99, 00, 3),
 ('Smartwatch', 'Smartwatch with health tracking features.', 199.99, 60, 1),
 ('Tablet', 'Tablet with 10-inch display and 128GB storage.', 329.99, 40, 1),
 ('E-book Reader', 'E-book reader with 8GB storage.', 89.99, 150, 2),
@@ -75,43 +76,44 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
 
 -- Insert order_items
+truncate table order_items;
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(1, 1, 1), -- 1 Smartphone
-(1, 4, 1), -- 1 Jeans
-(2, 2, 1), -- 1 Laptop
-(2, 3, 1), -- 1 Fiction Novel
+(1, 1, 2), -- 1 Smartphone
+(1, 4, 5), -- 1 Jeans
+(2, 2, 4), -- 1 Laptop
+(2, 3, 8), -- 1 Fiction Novel
 (3, 5, 1), -- 1 Smartwatch
-(3, 8, 1), -- 1 Shirt
-(4, 6, 1), -- 1 Tablet
-(4, 4, 1), -- 1 Jeans
-(5, 7, 1), -- 1 E-book Reader
-(5, 8, 1), -- 1 Shirt
+(3, 8, 11), -- 1 Shirt
+(4, 6, 10), -- 1 Tablet
+(4, 4, 15), -- 1 Jeans
+(5, 7, 16), -- 1 E-book Reader
+(5, 8, 17), -- 1 Shirt
 (6, 9, 1), -- 1 Headphones
-(6, 15, 1), -- 1 Cookbook
-(7, 10, 1), -- 1 Bluetooth Speaker
-(7, 15, 1), -- 1 Cookbook
+(6, 15, 5), -- 1 Cookbook
+(7, 10, 0), -- 1 Bluetooth Speaker
+(7, 15, 4), -- 1 Cookbook
 (8, 11, 1), -- 1 Historical Novel
 (8, 12, 1), -- 1 Trousers
-(9, 13, 1), -- 1 Camera
-(9, 16, 1), -- 1 Dress
-(10, 14, 1), -- 1 Smart TV
-(10, 8, 1), -- 1 Shirt
-(11, 17, 1), -- 1 Wireless Charger
-(11, 15, 1), -- 1 Cookbook
-(12, 18, 1), -- 1 Mystery Novel
-(13, 19, 1), -- 1 Sneakers
-(13, 15, 1), -- 1 Cookbook
-(14, 20, 1), -- 1 Bluetooth Earbuds
-(15, 20, 1), -- 1 Bluetooth Earbuds
-(16, 9, 1), -- 1 Headphones
-(16, 15, 1), -- 1 Cookbook
-(17, 5, 1), -- 1 Smartwatch
-(17, 8, 1), -- 1 Shirt
-(18, 6, 1), -- 1 Tablet
-(18, 4, 1), -- 1 Jeans
-(19, 13, 1), -- 1 Camera
-(19, 16, 1), -- 1 Dress
-(20, 20, 1); -- 1 Bluetooth Earbuds
+(9, 13, 4), -- 1 Camera
+(9, 16, 14), -- 1 Dress
+(10, 14, 21), -- 1 Smart TV
+(10, 8, 25), -- 1 Shirt
+(11, 17, 23), -- 1 Wireless Charger
+(11, 15, 10), -- 1 Cookbook
+(12, 18, 10), -- 1 Mystery Novel
+(13, 19, 10), -- 1 Sneakers
+(13, 15, 10), -- 1 Cookbook
+(14, 20, 15), -- 1 Bluetooth Earbuds
+(15, 20, 15), -- 1 Bluetooth Earbuds
+(16, 9, 15), -- 1 Headphones
+(16, 15, 15), -- 1 Cookbook
+(17, 5, 15), -- 1 Smartwatch
+(17, 8, 15), -- 1 Shirt
+(18, 6, 20), -- 1 Tablet
+(18, 4, 20), -- 1 Jeans
+(19, 13, 20), -- 1 Camera
+(19, 16, 20), -- 1 Dress
+(20, 20, 50); -- 1 Bluetooth Earbuds
 
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
@@ -137,6 +139,7 @@ INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (20, 20, 5, 'Bluetooth earbuds have excellent sound quality.');
 
 -- Insert discount codes
+truncate table discount_codes;
 INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VALUES
 ('SUMMER21', 10.00, '2024-07-01', '2024-07-31'),
 ('WINTER21', 15.00, '2024-12-01', '2024-12-31'),
@@ -158,3 +161,14 @@ INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VAL
 ('HOLI23', 18.00, '2026-03-01', '2026-03-10'),
 ('NEWYEAR23', 25.00, '2026-12-31', '2027-01-01'),
 ('INDEPENDENCE23', 15.00, '2026-08-15', '2026-08-15');
+
+-- Example data for the order_discounts table
+INSERT INTO order_discounts (order_id, discount_code) VALUES
+(1, 'SUMMER21'),     -- Assuming order_id 1 used SUMMER21 discount
+(2, 'WINTER21'),     -- Assuming order_id 2 used WINTER21 discount
+(3, 'DIWALI21'),     -- Assuming order_id 3 used DIWALI21 discount
+(4, 'HOLI21'),       -- Assuming order_id 4 used HOLI21 discount
+(5, 'NEWYEAR21'),    -- Assuming order_id 5 used NEWYEAR21 discount
+(6, 'INDEPENDENCE21'), -- Assuming order_id 6 used INDEPENDENCE21 discount
+(7, 'REPUBLIC21');   -- Assuming order_id 7 used REPUBLIC21 discount
+

@@ -256,7 +256,6 @@ WHERE r.created_at = (
     WHERE product_id = p.id
 );
 
-
 -- 34. Retrieve Orders with Items and Their Prices Above a Certain Amount
 
 SELECT o.id AS order_id, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
@@ -345,7 +344,7 @@ FROM users u
 JOIN orders o ON u.id = o.customer_id
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-WHERE p.category_id = (SELECT id FROM categories WHERE name = 'Electronics');
+WHERE p.category_id = (SELECT id FROM categories WHERE name = 'Clothing');
 
 -- 9. Complex Join: Retrieve Orders with Product Details and Discount Information
 
@@ -354,7 +353,7 @@ FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 LEFT JOIN discount_codes d ON d.code = o.id  -- Assuming discount code is related to order ID for this example
-WHERE o.order_date BETWEEN '2024-01-01' AND '2024-12-31';
+WHERE o.order_date BETWEEN '2024-01-01' AND '2024-07-31';
 
 -- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
 
@@ -379,7 +378,7 @@ HAVING AVG(r.rating) >= 4;  -- Replace with the desired minimum average rating
 SELECT u.id AS user_id, u.username, o.id AS order_id, o.order_date
 FROM users u
 JOIN orders o ON u.id = o.customer_id
-WHERE o.order_date > NOW() - INTERVAL 30 DAY;  -- Orders placed in the last 30 days
+WHERE o.order_date > NOW() - INTERVAL 01 DAY;  -- Orders placed in the last 30 days
 
 
 
@@ -429,14 +428,14 @@ FROM categories c
 LEFT JOIN products p ON c.id = p.category_id
 GROUP BY c.id, c.name;
 
--- 7. Retrieve Orders with Products and Check for Discounts Applied
 
-SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, d.code AS discount_code
-FROM orders o
-JOIN order_items oi ON o.id = oi.order_id
-JOIN products p ON oi.item_id = p.id
-LEFT JOIN discount_codes d ON o.id = d.code  -- Assuming discount codes are associated with orders
-WHERE o.total_amount > 100;  -- Example condition to filter orders with significant total amount
+-- 7. Retrieve Orders with Products and Check for Discounts Applied
+SELECT o.id AS order_id, o.order_date, o.total_amount, p.name AS product_name, oi.quantity, p.price, od.discount_code
+FROM orders AS o
+JOIN order_items AS oi ON o.id = oi.order_id
+JOIN products AS p ON oi.item_id = p.id
+LEFT JOIN order_discounts AS od ON o.id = od.order_id
+WHERE o.total_amount >= 500;
 
 -- 8. Get Users and Their Total Spending
 
