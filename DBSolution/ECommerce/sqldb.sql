@@ -103,14 +103,14 @@ HAVING COUNT(o.id) > 1;
 SELECT p.id, p.name, AVG(r.rating) AS average_rating
 FROM products p
 JOIN reviews r ON p.id = r.product_id
-GROUP BY p.id, p.name
+GROUP BY p.id, p.name 
 HAVING AVG(r.rating) >= 4;  -- Replace with the minimum average rating desired
 
 -- 15. Retrieve Latest Orders
 SELECT id, order_date, total_amount
 FROM orders
 ORDER BY order_date DESC
-LIMIT 10;  -- Retrieves the 10 most recent orders
+LIMIT 5;  -- Retrieves the 10 most recent orders
 
 -- 16. Count Products in Each Category
 
@@ -121,17 +121,17 @@ GROUP BY c.id, c.name;
 
 -- 17. Find Orders with Products Above a Certain Price
 
-SELECT o.id AS order_id, p.name AS product_name, oi.quantity, p.price
-FROM orders o
+SELECT o.id as order_id, p.name AS product_name, oi.quantity, p.price
+FROM orders as o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-WHERE p.price > 100;  -- Replace with the desired price threshold
+WHERE p.price > 500;  -- Replace with the desired price threshold
 
 
 -- 18. Retrieve Products with More than a Specified Stock
 SELECT id, name, stock
 FROM products
-WHERE stock < 50;  -- Replace with the desired stock threshold
+WHERE stock > 50;  -- Replace with the desired stock threshold
 
 
 -- 19. Get All Orders with Their Items and Prices
@@ -148,7 +148,7 @@ FROM users u
 JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username
 ORDER BY order_count DESC
-LIMIT 5;  -- Top 5 users with the most orders
+LIMIT 10;  -- Top 5 users with the most orders
 
 -- 21. Retrieve Products and Their Categories
 
@@ -158,7 +158,7 @@ JOIN categories c ON p.category_id = c.id;
 
 
 -- 22. Get Total Revenue Per Product
-SELECT p.id AS product_id, p.name AS product_name, SUM(oi.quantity * p.price) AS total_revenue
+SELECT p.id AS product_id, p.name AS product_name,sum(oi.quantity), SUM(oi.quantity * p.price) AS total_revenue
 FROM order_items oi
 JOIN products p ON oi.item_id = p.id
 GROUP BY p.id, p.name;
@@ -172,12 +172,18 @@ WHERE p.price = (
     FROM products p2
     WHERE p2.category_id = p.category_id
 );
+-- another answer for  23 
+select c.name as categoryName, p.name as productName, max(p.price) as highestPrice
+from products p 
+join categories c on p.category_id = c.id
+group by c.name order by highestPrice desc;
 
 -- 24. Retrieve Orders Placed Within a Specific Date Range
 
 SELECT id, order_date, total_amount
 FROM orders
-WHERE order_date BETWEEN '2024-01-01' AND '2024-07-31';  -- Replace with desired date range
+WHERE order_date BETWEEN '2024-01-01' AND '2024-07-31' 
+order by order_date desc;  -- Replace with desired date range
 
 
 -- 25. List Top 3 Products by Total Sales

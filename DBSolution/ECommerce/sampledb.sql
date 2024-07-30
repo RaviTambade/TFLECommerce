@@ -73,7 +73,11 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (18, '2024-08-11', '123 Race Course Road, Chennai', 529.98, '2024-08-12', 'Shipped'), -- Order with Tablet and Jeans
 (19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(10, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
 
+select * from orders;
+rollback;
 -- Insert order_items
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (1, 1, 1), -- 1 Smartphone
@@ -112,7 +116,9 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (19, 13, 1), -- 1 Camera
 (19, 16, 1), -- 1 Dress
 (20, 20, 1); -- 1 Bluetooth Earbuds
-
+INSERT INTO order_items (order_id, item_id, quantity) VALUES(22, 20, 2); -- 1 Bluetooth Earbuds
+select * from order_items;
+rollback;
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (1, 1, 5, 'Fantastic smartphone with amazing features!'),
