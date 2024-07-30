@@ -118,6 +118,7 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (1, 1, 5, 'Fantastic smartphone with amazing features!'),
+(1, 2, 3, 'Good'),
 (2, 2, 4, 'Very powerful laptop, but a bit heavy.'),
 (3, 3, 5, 'Great book, couldn\'t put it down!'),
 (4, 4, 3, 'Jeans are good, but the fit was not perfect.'),

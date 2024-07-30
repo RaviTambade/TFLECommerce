@@ -2,7 +2,6 @@
 
 SELECT * FROM products;
 SELECT * FROM categories;
-SELECT * FROM orders;
 SELECT * FROM discount_codes;
 SELECT * FROM order_items;
 SELECT * FROM reviews;
@@ -32,6 +31,10 @@ FROM reviews r
 JOIN users u ON r.user_id = u.id
 WHERE r.product_id = 10;  -- Replace with the product ID you're interested in
 
+-- Get Product Reviews 
+SELECT r.rating, r.review_text, u.username
+FROM reviews r ,users u
+WHERE r.product_id = 10;
 
 
 -- 6. Add a new Product
@@ -81,7 +84,7 @@ JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 WHERE YEAR(o.order_date) = 2024 AND MONTH(o.order_date) = 7  -- Replace with desired year and month
 GROUP BY p.id, p.name;
-
+   
 
 -- 12. Retrieve Orders with Their Total Amounts
 
@@ -95,7 +98,7 @@ SELECT u.id, u.username, COUNT(o.id) AS order_count
 FROM users u
 JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username
-HAVING COUNT(o.id) > 1;
+HAVING COUNT(o.id) > 0;
 
 
 -- 14. Find Top Rated Products
@@ -104,13 +107,13 @@ SELECT p.id, p.name, AVG(r.rating) AS average_rating
 FROM products p
 JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name
-HAVING AVG(r.rating) >= 4;  -- Replace with the minimum average rating desired
+HAVING AVG(r.rating) > 4;  -- Replace with the minimum average rating desired
 
 -- 15. Retrieve Latest Orders
 SELECT id, order_date, total_amount
 FROM orders
 ORDER BY order_date DESC
-LIMIT 10;  -- Retrieves the 10 most recent orders
+LIMIT 10 offset 3 ;  -- Retrieves the 10 most recent orders
 
 -- 16. Count Products in Each Category
 
@@ -201,11 +204,16 @@ FROM orders o, discount_codes d
 WHERE o.order_date BETWEEN d.start_date AND d.end_date;
 
 
+<<<<<<< HEAD
+
+-- 10. Get Average Rating for Each Product
+=======
 -- 27. Get Average Rating for Each Product
+>>>>>>> 564a54c0be4fd277636c734a55a155b629a37b68
 
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating
 FROM products p
-LEFT JOIN reviews r ON p.id = r.product_id
+JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name;
 
 -- 28. Find Customers Who Have Never Made a Purchase
