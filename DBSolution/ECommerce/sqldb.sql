@@ -409,11 +409,11 @@ WHERE r.created_at = (
 
 -- 3. Retrieve Orders with Items and Calculate Total Price for Each Order
 
-SELECT o.id AS order_id, o.order_date, o.shipping_address, SUM(oi.quantity * p.price) AS total_price
+SELECT o.id AS order_id, o.order_date, o.shipping_address, p.name AS product_name, oi.quantity, (oi.quantity * p.price) AS total_price_per_item
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-GROUP BY o.id, o.order_date, o.shipping_address;
+ORDER BY o.id, p.name;
 
 -- 4. Find Products That Are Out of Stock and Their Categories
 
@@ -460,58 +460,69 @@ LEFT JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name;
 
 -- 10. Find Orders Placed by Users with a Specific Email Domain
-
 SELECT o.id AS order_id, o.order_date, u.username, u.email
 FROM orders o
 JOIN users u ON o.customer_id = u.id
-WHERE u.email LIKE '%@example.com';  -- Replace with the desired email domain
+WHERE u.email LIKE 'priya@example.com';  -- Replace with the desired email domain
 
 
--- 11. List Products and the Number of Times They Have Been Ordered
+-- 11. Count the Number of Orders Placed by Users with a Specific Email Domain
+
+SELECT COUNT(o.id) AS order_count
+FROM orders o
+JOIN users u ON o.customer_id = u.id
+WHERE u.email LIKE 'priya@example.com';  -- Replace with the desired email domain
+
+
+-- 12. List Products and the Number of Times They Have Been Ordered
 SELECT p.id AS product_id, p.name AS product_name, COUNT(oi.item_id) AS times_ordered
 FROM products p
 LEFT JOIN order_items oi ON p.id = oi.item_id
 GROUP BY p.id, p.name;
 
 
--- 12. Get Orders and Their Shipping Status Based on Product Availability
+-- 13. Get Orders and Their Shipping Status Based on Product Availability
 
-SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, CASE 
-    WHEN p.stock >= oi.quantity THEN 'Available'
-    ELSE 'Out of Stock'
-END AS stock_status
+SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, 
+    CASE 
+        WHEN oi.quantity = 0 THEN 'Out of Stock'  -- Explicitly handle quantity 0
+        WHEN p.stock >= oi.quantity THEN 'Available'
+        ELSE 'Out of Stock'
+    END AS stock_status
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id;
 
--- 13. Find Users Who Have Not Purchased Any Products
+-- 14. Find Users Who Have Not Purchased Any Products
 SELECT u.id, u.username, u.email
 FROM users u
 LEFT JOIN orders o ON u.id = o.customer_id
 WHERE o.id IS NULL;
 
--- 14. Retrieve All Orders and Check If Any Discount Code Was Used
+-- 15. Retrieve All Orders and Check If Any Discount Code Was Used
 
 SELECT o.id AS order_id, o.order_date, o.total_amount, d.code AS discount_code
 FROM orders o
-LEFT JOIN discount_codes d ON o.id = d.code  -- Assuming discount codes are linked to orders
+LEFT JOIN order_discounts od ON o.id = od.order_id  -- Join with the order_discounts table
+LEFT JOIN discount_codes d ON od.discount_code = d.code  -- Join with the discount_codes table
 WHERE d.code IS NOT NULL;
 
--- 15. List Products with Their Average Review Rating and Number of Review
+-- 16. List Products with Their Average Review Rating and Number of Review
 
 SELECT p.id AS product_id, p.name AS product_name, AVG(r.rating) AS average_rating, COUNT(r.id) AS review_count
 FROM products p
 LEFT JOIN reviews r ON p.id = r.product_id
 GROUP BY p.id, p.name;
 
--- 16. Retrieve Orders and Their Shipping Address for Users in a Specific City
+-- 17. Retrieve Orders and Their Shipping Address for Users in a Specific City
+
 SELECT o.id AS order_id, o.order_date, o.shipping_address, u.username
 FROM orders o
 JOIN users u ON o.customer_id = u.id
-WHERE u.address LIKE '%Delhi%';  -- Replace with the desired city or condition
+WHERE u.address LIKE '%Pune%';  -- Replace with the desired city or condition
 
 
--- 17. Get Total Revenue from Each Category
+-- 18. Get Total Revenue from Each Category
 
 SELECT c.id AS category_id, c.name AS category_name, SUM(oi.quantity * p.price) AS total_revenue
 FROM categories c
@@ -519,7 +530,7 @@ LEFT JOIN products p ON c.id = p.category_id
 LEFT JOIN order_items oi ON p.id = oi.item_id
 GROUP BY c.id, c.name;
 
--- 18. List Orders and Their Associated Review Ratings
+-- 19. List Orders and Their Associated Review Ratings
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, AVG(r.rating) AS average_review_rating
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
@@ -527,7 +538,7 @@ JOIN products p ON oi.item_id = p.id
 LEFT JOIN reviews r ON p.id = r.product_id
 GROUP BY o.id, o.order_date, p.name;
 
--- 19. Find Most Frequently Purchased Products
+-- 20. Find Most Frequently Purchased Products
 SELECT p.id AS product_id, p.name AS product_name, COUNT(oi.item_id) AS purchase_count
 FROM products p
 JOIN order_items oi ON p.id = oi.item_id

@@ -5,7 +5,9 @@ INSERT INTO categories (name, description) VALUES
 ('Clothing', 'Apparel including shirts, pants, and accessories.');
 
 -- Insert users
+
 INSERT INTO users (username, password, email, address) VALUES
+('aj_boss', 'ajpassword1234', 'aj@example.com', '789 Pune, Pune'),
 ('arun_kumar', 'password123', 'arun@example.com', '12 MG Road, Delhi'),
 ('meera_nair', 'securepass', 'meera@example.com', '34 Gandhi Street, Mumbai'),
 ('vikas_patel', 'mypassword', 'vikas@example.com', '56 Nehru Avenue, Ahmedabad'),
@@ -26,6 +28,8 @@ INSERT INTO users (username, password, email, address) VALUES
 ('kiran_rao', 'password456', 'kiran@example.com', '123 Race Course Road, Chennai'),
 ('suman_kumar', 'securepass987', 'suman@example.com', '456 MG Road, Bhopal'),
 ('nisha_shah', 'mypassword1234', 'nisha@example.com', '789 MG Road, Coimbatore');
+
+
 
 -- Insert products
 truncate table products;
@@ -51,8 +55,9 @@ INSERT INTO products (name, description, price, stock, category_id) VALUES
 ('Sneakers', 'Comfortable sneakers for running.', 59.99, 50, 3),
 ('Bluetooth Earbuds', 'True wireless Bluetooth earbuds.', 69.99, 75, 1);
 
--- Insert orders
+
 -- Insert orders with varying statuses
+
 INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES
 (1, '2024-07-25', '12 MG Road, Delhi', 719.98, '2024-07-26', 'Shipped'), -- Order with Smartphone and Jeans
 (2, '2024-07-26', '34 Gandhi Street, Mumbai', 1259.98, '2024-07-27', 'Shipped'), -- Order with Laptop and Fiction Novel
