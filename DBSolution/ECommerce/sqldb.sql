@@ -126,8 +126,6 @@ FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 WHERE p.price > 100;  -- Replace with the desired price threshold
-
-
 -- 17. Retrieve Products with More than a Specified Stock
 SELECT id, name, stock
 FROM products
