@@ -1,3 +1,31 @@
+-- Store Procedures : 
+
+-- 1. Creating a Stored Procedure for User Registration
+-- 2. Creating a Stored Procedure for User Login
+-- 3. Creating a Stored Procedure for Updating User Information
+-- 4. Creating a Stored Procedure for Applying a Discount Code
+-- 5. Creating a Stored Procedure for Retrieving Order Details
+-- 6. Creating a Stored Procedure for Low Stock Alerts
+-- 7. Creating a Stored Procedure for Product Reviews
+
+-- Triggers : 
+
+-- 1. Trigger to Update Stock After an Order is Placed
+-- 2. Trigger to Prevent Deletion of a Product with Existing Orders
+-- 3. Trigger to Automatically Set Order Status to 'Shipped' After Shipping Date is Updated
+-- 4. Trigger to Log Changes to Product Prices
+-- 5. Trigger to Automatically Apply Discount to Orders Over a Certain Amount
+-- 6. Trigger to Update the Last Modified Date on Product Changes
+-- 7. Trigger to Archive Orders Before Deletion
+-- 8. Trigger to Validate User Email Format
+-- 9. Trigger to Prevent Orders from Being Placed on Closed Dates
+-- 10. Trigger to Automatically Update User Points Based on Order Total
+-- 11. Trigger for Insert On Products
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 -- 1. Creating a Stored Procedure for User Registration
 DELIMITER //
 
@@ -248,6 +276,15 @@ END//
 DELIMITER ;
 
 
+UPDATE products
+SET price = 733.99
+WHERE id = 1;
+
+SELECT * FROM price_changes
+WHERE product_id = 1
+ORDER BY change_date DESC;
+
+
 -- 5. Trigger to Automatically Apply Discount to Orders Over a Certain Amount
 
 DELIMITER //
@@ -382,9 +419,56 @@ END//
 
 DELIMITER ;
 
+-- 11. Trigger for Insert on Products 
+
+
+	DELIMITER //
+
+	CREATE TRIGGER after_product_insert
+	AFTER INSERT ON inventory
+	FOR EACH ROW 
+	BEGIN
+	INSERT INTO product_audit(Product_id, action_type, new_stock_quantity, action_timestamp )
+	VALUES(NEW.product_id, 'INSERT', NEW.stock_quantity , NOW());
+	END//
+
+	DELIMITER ; 
+
+insert into inventory(product_id , stock_quantity)
+values(1,100);
 
 
 
+-- 12 Trigger for UPDATE on Products
+
+DELIMITER //
+
+CREATE TRIGGER before_product_update
+BEFORE UPDATE ON inventory
+FOR EACH ROW
+BEGIN
+    INSERT INTO product_audit (product_id, action_type, old_stock_quantity, new_stock_quantity)
+    VALUES (OLD.product_id, 'UPDATE', OLD.stock_quantity + NEW.stock_quantity, NEW.stock_quantity);
+END//
+
+DELIMITER ;
+
+update inventory
+SET stock_quantity = 50
+WHERE product_id=1;
+
+
+select * from product_audit;
+
+truncate table product_audit;
+
+drop table product_audit;
+
+drop table inventory;
+
+drop trigger before_product_update;
+
+drop trigger after_product_insert;
 
 
 

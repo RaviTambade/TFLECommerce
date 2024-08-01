@@ -31,6 +31,21 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
+CREATE TABLE product_audit (
+    audit_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    action_type ENUM('INSERT', 'UPDATE', 'DELETE'),
+    old_stock_quantity INT,
+    new_stock_quantity INT,
+    action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
+);
+
+CREATE TABLE inventory (
+    product_id INT PRIMARY KEY,
+    stock_quantity INT
+);
+
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,6 +73,14 @@ CREATE TABLE order_discounts (
     FOREIGN KEY (discount_code) REFERENCES discount_codes(code)
 );
 
+CREATE TABLE price_changes (
+    change_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each price change record
+    product_id INT NOT NULL,                   -- ID of the product whose price has changed
+    old_price DECIMAL(10, 2) NOT NULL,         -- Old price of the product before the update
+    new_price DECIMAL(10, 2) NOT NULL,         -- New price of the product after the update
+    change_date DATETIME NOT NULL,             -- Date and time when the price change occurred
+    FOREIGN KEY (product_id) REFERENCES products(id)  -- Foreign key to reference the product in the products table
+);
 
 
 CREATE TABLE order_items (

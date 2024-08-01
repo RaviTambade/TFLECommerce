@@ -7,6 +7,8 @@ SELECT * FROM order_items;
 SELECT * FROM reviews;
 SELECT * FROM users;
 
+
+
 -- 2. Retrieve Products in a Specific Category
 SELECT p.id, p.name, p.price, p.stock
 FROM products p
