@@ -484,3 +484,27 @@ select * from product_audit;
 DELETE FROM inventory WHERE product_id=1;
 
 
+-- 13 Trigger for DELETE on `order_items
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_delete
+AFTER DELETE ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE inventory
+    SET stock_quantity = stock_quantity + OLD.quantity
+    WHERE product_id = OLD.item_id;
+END//
+
+DELIMITER ;
+
+DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
+
+SELECT * FROM inventory WHERE product_id = 1;
+
+
+
+-- 14. ### Example 3: Enforce Minimum Order Value
+
+
