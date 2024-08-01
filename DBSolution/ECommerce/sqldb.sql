@@ -1,3 +1,9 @@
+
+
+
+
+
+
 -- 1. Retrieve All Products
 
 SELECT * FROM products;
