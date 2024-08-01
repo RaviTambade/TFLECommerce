@@ -1,11 +1,14 @@
 -- Insert categories
+
 INSERT INTO categories (name, description) VALUES
 ('Electronics', 'Devices and gadgets including phones, computers, and accessories.'),
 ('Books', 'A variety of books from different genres and authors.'),
 ('Clothing', 'Apparel including shirts, pants, and accessories.');
 
 -- Insert users
+
 INSERT INTO users (username, password, email, address) VALUES
+('aj_boss', 'ajpassword1234', 'aj@example.com', '789 Pune, Pune'),
 ('arun_kumar', 'password123', 'arun@example.com', '12 MG Road, Delhi'),
 ('meera_nair', 'securepass', 'meera@example.com', '34 Gandhi Street, Mumbai'),
 ('vikas_patel', 'mypassword', 'vikas@example.com', '56 Nehru Avenue, Ahmedabad'),
@@ -27,12 +30,15 @@ INSERT INTO users (username, password, email, address) VALUES
 ('suman_kumar', 'securepass987', 'suman@example.com', '456 MG Road, Bhopal'),
 ('nisha_shah', 'mypassword1234', 'nisha@example.com', '789 MG Road, Coimbatore');
 
+
+
 -- Insert products
+truncate table products;
 INSERT INTO products (name, description, price, stock, category_id) VALUES
 ('Smartphone', 'Latest model with high-resolution camera.', 699.99, 50, 1),
 ('Laptop', 'Powerful laptop with 16GB RAM and 512GB SSD.', 1199.99, 30, 1),
 ('Fiction Novel', 'Bestselling fiction novel by renowned author.', 19.99, 100, 2),
-('Jeans', 'Stylish jeans available in various sizes.', 39.99, 75, 3),
+('Jeans', 'Stylish jeans available in various sizes.', 39.99, 00, 3),
 ('Smartwatch', 'Smartwatch with health tracking features.', 199.99, 60, 1),
 ('Tablet', 'Tablet with 10-inch display and 128GB storage.', 329.99, 40, 1),
 ('E-book Reader', 'E-book reader with 8GB storage.', 89.99, 150, 2),
@@ -50,8 +56,9 @@ INSERT INTO products (name, description, price, stock, category_id) VALUES
 ('Sneakers', 'Comfortable sneakers for running.', 59.99, 50, 3),
 ('Bluetooth Earbuds', 'True wireless Bluetooth earbuds.', 69.99, 75, 1);
 
--- Insert orders
+
 -- Insert orders with varying statuses
+
 INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES
 (1, '2024-07-25', '12 MG Road, Delhi', 719.98, '2024-07-26', 'Shipped'), -- Order with Smartphone and Jeans
 (2, '2024-07-26', '34 Gandhi Street, Mumbai', 1259.98, '2024-07-27', 'Shipped'), -- Order with Laptop and Fiction Novel
@@ -73,23 +80,28 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (18, '2024-08-11', '123 Race Course Road, Chennai', 529.98, '2024-08-12', 'Shipped'), -- Order with Tablet and Jeans
 (19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
+INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(10, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
+
+select * from orders;
 
 -- Insert order_items
+truncate table order_items;
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(1, 1, 1), -- 1 Smartphone
-(1, 4, 1), -- 1 Jeans
-(2, 2, 1), -- 1 Laptop
-(2, 3, 1), -- 1 Fiction Novel
+(1, 1, 2), -- 1 Smartphone
+(1, 4, 5), -- 1 Jeans
+(2, 2, 4), -- 1 Laptop
+(2, 3, 8), -- 1 Fiction Novel
 (3, 5, 1), -- 1 Smartwatch
-(3, 8, 1), -- 1 Shirt
-(4, 6, 1), -- 1 Tablet
-(4, 4, 1), -- 1 Jeans
-(5, 7, 1), -- 1 E-book Reader
-(5, 8, 1), -- 1 Shirt
+(3, 8, 11), -- 1 Shirt
+(4, 6, 10), -- 1 Tablet
+(4, 4, 15), -- 1 Jeans
+(5, 7, 16), -- 1 E-book Reader
+(5, 8, 17), -- 1 Shirt
 (6, 9, 1), -- 1 Headphones
-(6, 15, 1), -- 1 Cookbook
-(7, 10, 1), -- 1 Bluetooth Speaker
-(7, 15, 1), -- 1 Cookbook
+(6, 15, 5), -- 1 Cookbook
+(7, 10, 0), -- 1 Bluetooth Speaker
+(7, 15, 4), -- 1 Cookbook
 (8, 11, 1), -- 1 Historical Novel
 (8, 12, 1), -- 1 Trousers
 (9, 13, 1), -- 1 Camera
@@ -112,10 +124,13 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (19, 13, 1), -- 1 Camera
 (19, 16, 1), -- 1 Dress
 (20, 20, 1); -- 1 Bluetooth Earbuds
+INSERT INTO order_items (order_id, item_id, quantity) VALUES(22, 20, 2); -- 1 Bluetooth Earbuds
+select * from order_items;
 
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (1, 1, 5, 'Fantastic smartphone with amazing features!'),
+(1, 2, 3, 'Good'),
 (2, 2, 4, 'Very powerful laptop, but a bit heavy.'),
 (3, 3, 5, 'Great book, couldn\'t put it down!'),
 (4, 4, 3, 'Jeans are good, but the fit was not perfect.'),
@@ -137,6 +152,7 @@ INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (20, 20, 5, 'Bluetooth earbuds have excellent sound quality.');
 
 -- Insert discount codes
+truncate table discount_codes;
 INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VALUES
 ('SUMMER21', 10.00, '2024-07-01', '2024-07-31'),
 ('WINTER21', 15.00, '2024-12-01', '2024-12-31'),
@@ -158,3 +174,14 @@ INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VAL
 ('HOLI23', 18.00, '2026-03-01', '2026-03-10'),
 ('NEWYEAR23', 25.00, '2026-12-31', '2027-01-01'),
 ('INDEPENDENCE23', 15.00, '2026-08-15', '2026-08-15');
+
+-- Example data for the order_discounts table
+INSERT INTO order_discounts (order_id, discount_code) VALUES
+(1, 'SUMMER21'),     -- Assuming order_id 1 used SUMMER21 discount
+(2, 'WINTER21'),     -- Assuming order_id 2 used WINTER21 discount
+(3, 'DIWALI21'),     -- Assuming order_id 3 used DIWALI21 discount
+(4, 'HOLI21'),       -- Assuming order_id 4 used HOLI21 discount
+(5, 'NEWYEAR21'),    -- Assuming order_id 5 used NEWYEAR21 discount
+(6, 'INDEPENDENCE21'), -- Assuming order_id 6 used INDEPENDENCE21 discount
+(7, 'REPUBLIC21');   -- Assuming order_id 7 used REPUBLIC21 discount
+

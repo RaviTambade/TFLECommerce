@@ -1,10 +1,13 @@
 
+<<<<<<< HEAD
+=======
 DROP database IF EXISTS tflecommerce;
 create database tflecommerce;
 
 use tflecommerce;
 
 
+>>>>>>> 7127b43fe2ce6efd6ee18258370ed9d46e450832
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -12,6 +15,12 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     address VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT
 );
 
 CREATE TABLE products (
@@ -25,12 +34,6 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
-CREATE TABLE categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    description TEXT
-);
-
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,6 +45,22 @@ CREATE TABLE orders (
     status VARCHAR(50),  -- Add the status column
     FOREIGN KEY (customer_id) REFERENCES users(id)
 );
+
+CREATE TABLE discount_codes (
+    code VARCHAR(50) PRIMARY KEY,
+    discount_percentage DECIMAL(5, 2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL
+);
+
+CREATE TABLE order_discounts (
+    order_id INT,
+    discount_code VARCHAR(50),
+    PRIMARY KEY (order_id, discount_code),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (discount_code) REFERENCES discount_codes(code)
+);
+
 
 
 CREATE TABLE order_items (
@@ -64,12 +83,7 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE discount_codes (
-    code VARCHAR(50) PRIMARY KEY,
-    discount_percentage DECIMAL(5, 2) NOT NULL,
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL
-);
+
 
 -- Index on username for faster user lookups
 CREATE INDEX idx_username ON users(username);

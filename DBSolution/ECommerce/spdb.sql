@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+-- Stored_Procedures
+-- 1. Creating a Stored Procedure for User Registration
+-- 2. Creating a Stored Procedure for User Login
+-- 3. Creating a Stored Procedure for Updating User Information
+-- 4. Creating a Stored Procedure for Applying a Discount Code
+-- 5. Creating a Stored Procedure for Retrieving Order Details
+-- 6. Creating a Stored Procedure for Low Stock Alerts
+-- 7. Creating a Stored Procedure for Product Reviews
+-- 8. Creating a Stored Procedure for Monthly Sales Aggregation
+
+-- Triggers
+-- 1. Trigger to Update Stock After an Order is Placed
+-- 2. Trigger to Prevent Deletion of a Product with Existing Orders
+-- 3. Trigger to Automatically Set Order Status to 'Shipped' After Shipping Date is Updated
+-- 4. Trigger to Log Changes to Product Prices
+-- 5. Trigger to Automatically Apply Discount to Orders Over a Certain Amount
+-- 6. Trigger to Update the Last Modified Date on Product Changes
+-- 7. Trigger to Archive Orders Before Deletion
+-- 8. Trigger to Validate User Email Format
+-- 9. Trigger to Prevent Orders from Being Placed on Closed Dates
+-- 10. Trigger to Automatically Update User Points Based on Order Total
+
+=======
+-- Stored Procedure
+>>>>>>> 134022dc02e06236eb182952192010c07d73c56f
+
+
 -- 1. Creating a Stored Procedure for User Registration
 DELIMITER //
 
@@ -13,6 +41,7 @@ BEGIN
 END //
 
 DELIMITER ;
+
 
 
 -- 2. Creating a Stored Procedure for User Login
@@ -84,6 +113,11 @@ END //
 
 DELIMITER ;
 
+-- Call the stored procedure with test parameters
+CALL ApplyDiscount(1, 'SUMMER21');
+
+
+
 
 -- 5. Creating a Stored Procedure for Retrieving Order Details
 
@@ -103,6 +137,9 @@ END //
 
 DELIMITER ;
 
+CALL GetOrderDetails(1);
+
+
 
 -- 6. Creating a Stored Procedure for Low Stock Alerts
 DELIMITER //
@@ -117,6 +154,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+CALL LowStockAlert(10);
 
 
 -- 7. Creating a Stored Procedure for Product Reviews
@@ -135,6 +174,7 @@ END //
 
 DELIMITER ;
 
+CALL AddProductReview(1, 2, 5, 'Great product!');
 
 -- 8. Creating a Stored Procedure for Monthly Sales Aggregation
 
@@ -157,9 +197,20 @@ END //
 
 DELIMITER ;
 
-
+CALL MonthlySalesReport(2024, 8);
 
 -- triggers
+-- 1. Trigger to Update Stock After an Order is Placed
+-- 2. Trigger to Prevent Deletion of a Product with Existing Orders
+-- 3. Trigger to Automatically Set Order Status to 'Shipped' After Shipping Date is Updated
+-- 4. Trigger to Log Changes to Product Prices
+-- 5. Trigger to Automatically Apply Discount to Orders Over a Certain Amount
+-- 6. Trigger to Update the Last Modified Date on Product Changes
+-- 7. Trigger to Archive Orders Before Deletion
+-- 8. Trigger to Validate User Email Format
+-- 9. Trigger to Prevent Orders from Being Placed on Closed Dates
+-- 10. Trigger to Automatically Update User Points Based on Order Total
+
 
 -- 1. Trigger to Update Stock After an Order is Placed
 DELIMITER //
@@ -282,22 +333,53 @@ END//
 
 DELIMITER ;
 
---8. Trigger to Validate User Email Format
+-- 8. Trigger to Validate User Email Format
 
 DELIMITER //
 
-CREATE TRIGGER before_user_insert_or_update
-BEFORE INSERT OR UPDATE ON users
+CREATE TRIGGER before_user_insert
+BEFORE INSERT ON users
 FOR EACH ROW
 BEGIN
     -- Check if email contains '@' and '.'
-    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
+    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Invalid email format.';
     END IF;
 END//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER before_user_update
+BEFORE UPDATE ON users
+FOR EACH ROW
+BEGIN
+    -- Check if email contains '@' and '.'
+    IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid email format.';
+    END IF;
+END//
+
+DELIMITER ;
+
+
+-- DELIMITER //
+
+-- CREATE TRIGGER before_user_insert_or_update
+-- BEFORE INSERT OR UPDATE ON users
+-- FOR EACH ROW
+-- BEGIN
+--     -- Check if email contains '@' and '.'
+--     IF NEW.email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
+--         SIGNAL SQLSTATE '45000'
+--         SET MESSAGE_TEXT = 'Invalid email format.';
+--     END IF;
+-- END//
+
+-- DELIMITER ;
 
 
 -- 9. Trigger to Prevent Orders from Being Placed on Closed Dates
