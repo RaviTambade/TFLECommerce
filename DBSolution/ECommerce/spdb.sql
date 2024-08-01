@@ -411,11 +411,7 @@ BEGIN
 END//
 
 DELIMITER ;
-
-
 -- 10. Trigger to Automatically Update User Points Based on Order Total
-
-
 DELIMITER //
 
 CREATE TRIGGER after_order_insert
@@ -484,7 +480,7 @@ VALUES(OLD.product_id,'DELETE', OLD.stock_quantity);
 END //
 
 DELIMITER ;
-
-DELETE FROM inventory WHERE product_id=2;
+select * from product_audit;
+DELETE FROM inventory WHERE product_id=1;
 
 
