@@ -1,4 +1,4 @@
-
+use tflecommerce;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -25,6 +25,8 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
+
+
 CREATE TABLE product_audit (
     audit_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -32,8 +34,10 @@ CREATE TABLE product_audit (
     old_stock_quantity INT,
     new_stock_quantity INT,
     action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
+    FOREIGN KEY (product_id) REFERENCES inventory(product_id)ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 CREATE TABLE inventory (
     product_id INT PRIMARY KEY,

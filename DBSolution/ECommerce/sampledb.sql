@@ -185,3 +185,20 @@ INSERT INTO order_discounts (order_id, discount_code) VALUES
 (6, 'INDEPENDENCE21'), -- Assuming order_id 6 used INDEPENDENCE21 discount
 (7, 'REPUBLIC21');   -- Assuming order_id 7 used REPUBLIC21 discount
 
+INSERT INTO inventory(product_id , stock_quantity)values(1,100);
+INSERT INTO inventory(product_id , stock_quantity)values(2,200);
+INSERT INTO inventory(product_id , stock_quantity)values(3,300);
+INSERT INTO inventory(product_id , stock_quantity)values(4,400);
+INSERT INTO inventory(product_id , stock_quantity)values(5,500);
+INSERT INTO inventory(product_id , stock_quantity)values(6,600);
+INSERT INTO inventory(product_id , stock_quantity)values(7,700);
+INSERT INTO inventory(product_id , stock_quantity)values(8,200);
+INSERT INTO inventory(product_id , stock_quantity)values(9,100);
+INSERT INTO inventory(product_id , stock_quantity)values(10,200);
+INSERT INTO inventory(product_id , stock_quantity)values(11,100);
+INSERT INTO inventory(product_id , stock_quantity)values(12,200);
+INSERT INTO inventory(product_id , stock_quantity)values(13,100);
+INSERT INTO inventory(product_id , stock_quantity)values(14,200);
+INSERT INTO inventory(product_id , stock_quantity)values(15,100);
+
+

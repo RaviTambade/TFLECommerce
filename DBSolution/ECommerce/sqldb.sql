@@ -1,17 +1,7 @@
 
-
-
-
-
-
 -- 1. Retrieve All Products
 
-SELECT * FROM products;
-SELECT * FROM categories;
-SELECT * FROM discount_codes;
-SELECT * FROM order_items;
-SELECT * FROM reviews;
-SELECT * FROM users;
+
 -- 2. Retrieve Products in a Specific Category
 -- 3. Retrieve a User's Order History
 -- 4. Find Products with Low Stock

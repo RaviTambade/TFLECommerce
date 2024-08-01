@@ -415,6 +415,7 @@ DELIMITER ;
 
 -- 10. Trigger to Automatically Update User Points Based on Order Total
 
+
 DELIMITER //
 
 CREATE TRIGGER after_order_insert
@@ -430,7 +431,7 @@ END//
 DELIMITER ;
 
 -- 11. Trigger for Insert on Products 
-
+DROP TRIGGER after_product_insert;
 
 	DELIMITER //
 
@@ -444,12 +445,9 @@ DELIMITER ;
 
 	DELIMITER ; 
 
-insert into inventory(product_id , stock_quantity)
-values(1,100);
-
-
 
 -- 12 Trigger for UPDATE on Products
+
 
 DROP TRIGGER before_product_update;
 
@@ -471,20 +469,12 @@ SET stock_quantity = 600
 WHERE product_id=1;
 
 
-select * from product_audit;
-
-truncate table product_audit;
-
-drop table product_audit;
-
-drop table inventory;
-
-drop trigger after_product_insert;
-
 
 -- 12 Trigger for DELETE on Products
+DROP TRIGGER after_product_delete;
 
 DELIMITER //
+
 CREATE TRIGGER after_product_delete
 AFTER DELETE ON inventory
 FOR EACH ROW
@@ -495,6 +485,6 @@ END //
 
 DELIMITER ;
 
-DELETE FROM inventory WHERE product_id=1;
+DELETE FROM inventory WHERE product_id=2;
 
 
