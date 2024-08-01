@@ -12,6 +12,90 @@ SELECT * FROM discount_codes;
 SELECT * FROM order_items;
 SELECT * FROM reviews;
 SELECT * FROM users;
+-- 2. Retrieve Products in a Specific Category
+-- 3. Retrieve a User's Order History
+-- 4. Find Products with Low Stock
+-- 5. Retrieve Product Reviews
+-- 6. Add a new Product
+-- 7 Update Stock for a Product
+-- 8. Delete an Order
+-- 9. Calculate Total Sales for a Given Month
+-- 10. Apply a Discount Code
+          -- First, check if the discount code is valid
+          -- Then apply the discount to an order
+           -- Assuming the discount percentage was retrieved and is valid
+-- 11. Retrieve Monthly Sales Report
+-- 12. Retrieve Orders with Their Total Amounts
+--  13. Retrieve Users with More Than One Order
+-- 14. Find Top Rated Products
+-- 15. Retrieve Latest Orders
+-- 16. Count Products in Each Category
+-- 17. Find Orders with Products Above a Certain Price
+          -- 17. Retrieve Products with More than a Specified Stock
+          
+          
+          
+          -- 2. Get All Orders with Their Items and Prices
+-- 3. Find Users with the Most Orders
+-- 4. Retrieve Products and Their Categories
+-- 5. Get Total Revenue Per Product
+-- 6. Find Most Expensive Products in Each Category
+-- 7. Retrieve Orders Placed Within a Specific Date Range
+-- 8. List Top 3 Products by Total Sales
+-- 9. Retrieve Orders with Discounts Applied
+-- 10. Get Average Rating for Each Product
+-- 11. Find Customers Who Have Never Made a Purchase
+-- 12. Retrieve Top 5 Most Reviewed Products
+-- 13. Retrieve Order Details Including User Information
+-- 14. Find Average Order Amount Per User
+-- 15. Retrieve All Products with Reviews and Their Average Rating
+-- 16. Find the Most Recent Review for Each Product
+-- 17. Retrieve Orders with Items and Their Prices Above a Certain Amount
+-- 18. Find Products That Have Never Been Ordered
+-- 19. Get Total Orders and Total Amount Spent by Each User
+-- 20. Retrieve Products with the Most Positive Reviews
+
+
+
+-- JOIN Queries
+-- 1. Inner Join: Retrieve Orders with Their Items and Product Details
+-- 2. Left Join: Retrieve All Products and Their Categories
+ -- 3.Right Join: Retrieve All Categories and Products in Each Category
+-- 4. Full Outer Join: Retrieve All Products and Reviews, Even If Some Products Have No Reviews
+-- 5. Self Join: Retrieve Products and Their Similar Products Based on Category
+-- 6. Join with Aggregation: Retrieve Total Sales Per Product
+-- 7. Join with Filtering: Retrieve Orders for a Specific User with Item Details
+-- 8. Join with Subquery: Retrieve Users Who Have Purchased Products in a Specific Category
+-- 9. Complex Join: Retrieve Orders with Product Details and Discount Information
+-- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
+-- 11. Join to Retrieve High-Rated Products with Their Categories
+-- 12. Join to Get Users and Their Recent Orders
+
+
+
+
+-- 1. Retrieve Orders with Shipping Address and User Information
+-- 2. List Products with Their Latest Review
+-- 3. Retrieve Orders with Items and Calculate Total Price for Each Order
+-- 4. Find Products That Are Out of Stock and Their Categories
+-- 5. Retrieve Users Who Have Left Reviews for Products
+-- 6. List Categories and the Number of Products in Each
+-- 7. Retrieve Orders with Products and Check for Discounts Applied
+-- 8. Get Users and Their Total Spending
+-- 9. Retrieve Products with Reviews and Average Rating
+-- 10. Find Orders Placed by Users with a Specific Email Domain
+-- 11. List Products and the Number of Times They Have Been Ordered
+-- 12. Get Orders and Their Shipping Status Based on Product Availability
+-- 13. Find Users Who Have Not Purchased Any Products
+-- 14. Retrieve All Orders and Check If Any Discount Code Was Used
+-- 15. List Products with Their Average Review Rating and Number of Review
+-- 16. Retrieve Orders and Their Shipping Address for Users in a Specific City
+-- 17. Get Total Revenue from Each Category
+-- 18. List Orders and Their Associated Review Ratings
+-- 19. Find Most Frequently Purchased Products
+
+
+
 
 -- 2. Retrieve Products in a Specific Category
 SELECT p.id, p.name, p.price, p.stock
@@ -134,16 +218,26 @@ SELECT o.id as order_id, p.name AS product_name, oi.quantity, p.price
 FROM orders as o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
+<<<<<<< HEAD
+WHERE p.price > 100;  -- Replace with the desired price threshold
+-- 17. Retrieve Products with More than a Specified Stock
+=======
 WHERE p.price > 500;  -- Replace with the desired price threshold
 
 
 -- 18. Retrieve Products with More than a Specified Stock
+>>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
 SELECT id, name, stock
 FROM products
 WHERE stock > 50;  -- Replace with the desired stock threshold
 
 
+<<<<<<< HEAD
+
+-- 2. Get All Orders with Their Items and Prices
+=======
 -- 19. Get All Orders with Their Items and Prices
+>>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
@@ -302,7 +396,8 @@ HAVING AVG(r.rating) >= 4;  -- Replace with the minimum average rating desired
 
 
 
--- JOIN Queries
+
+
 
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
