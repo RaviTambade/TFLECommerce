@@ -1,13 +1,4 @@
 
-<<<<<<< HEAD
-=======
-DROP database IF EXISTS tflecommerce;
-create database tflecommerce;
-
-use tflecommerce;
-
-
->>>>>>> 7127b43fe2ce6efd6ee18258370ed9d46e450832
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
