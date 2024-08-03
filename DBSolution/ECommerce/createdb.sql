@@ -1,4 +1,9 @@
+drop database tflecommerce;
+
+create database IF NOT EXISTS tflecommerce;
 use tflecommerce;
+
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -55,7 +60,7 @@ CREATE TABLE orders (
     status VARCHAR(50),  -- Add the status column
     FOREIGN KEY (customer_id) REFERENCES users(id)
 );
-
+drop table discount_codes;
 CREATE TABLE discount_codes (
     code VARCHAR(50) PRIMARY KEY,
     discount_percentage DECIMAL(5, 2) NOT NULL,
@@ -63,6 +68,7 @@ CREATE TABLE discount_codes (
     end_date DATE NOT NULL
 );
 
+drop table order_discounts;
 CREATE TABLE order_discounts (
     order_id INT,
     discount_code VARCHAR(50),

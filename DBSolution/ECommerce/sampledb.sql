@@ -34,28 +34,27 @@ INSERT INTO users (username, password, email, address) VALUES
 
 -- Insert products
 truncate table products;
-INSERT INTO products (name, description, price, stock, category_id) VALUES
-('Smartphone', 'Latest model with high-resolution camera.', 699.99, 50, 1),
-('Laptop', 'Powerful laptop with 16GB RAM and 512GB SSD.', 1199.99, 30, 1),
-('Fiction Novel', 'Bestselling fiction novel by renowned author.', 19.99, 100, 2),
-('Jeans', 'Stylish jeans available in various sizes.', 39.99, 00, 3),
-('Smartwatch', 'Smartwatch with health tracking features.', 199.99, 60, 1),
-('Tablet', 'Tablet with 10-inch display and 128GB storage.', 329.99, 40, 1),
-('E-book Reader', 'E-book reader with 8GB storage.', 89.99, 150, 2),
-('Shirt', 'Cotton shirt available in various colors.', 29.99, 90, 3),
-('Headphones', 'Noise-cancelling wireless headphones.', 149.99, 80, 1),
-('Bluetooth Speaker', 'Portable Bluetooth speaker with high bass.', 49.99, 100, 1),
-('Historical Novel', 'Historical novel by famous author.', 25.99, 120, 2),
-('Trousers', 'Comfortable trousers available in different sizes.', 34.99, 70, 3),
-('Camera', 'Digital camera with 20MP lens.', 299.99, 20, 1),
-('Smart TV', '55-inch 4K Smart TV with HDR.', 599.99, 25, 1),
-('Cookbook', 'Cookbook with Indian recipes.', 15.99, 80, 2),
-('Dress', 'Elegant dress available in various sizes.', 49.99, 60, 3),
-('Wireless Charger', 'Fast wireless charger for smartphones.', 29.99, 110, 1),
-('Mystery Novel', 'Gripping mystery novel by top author.', 21.99, 90, 2),
-('Sneakers', 'Comfortable sneakers for running.', 59.99, 50, 3),
-('Bluetooth Earbuds', 'True wireless Bluetooth earbuds.', 69.99, 75, 1);
-
+INSERT INTO products (id, name, description, price, stock, category_id) VALUES
+(1, 'Smartphone', 'Latest model with high-resolution camera.', 699.99, 50, 1),
+(2, 'Laptop', 'Powerful laptop with 16GB RAM and 512GB SSD.', 1199.99, 30, 1),
+(3, 'Fiction Novel', 'Bestselling fiction novel by renowned author.', 19.99, 100, 2),
+(4, 'Jeans', 'Stylish jeans available in various sizes.', 39.99, 100, 3),
+(5, 'Smartwatch', 'Smartwatch with health tracking features.', 199.99, 60, 1),
+(6, 'Tablet', 'Tablet with 10-inch display and 128GB storage.', 329.99, 40, 1),
+(7, 'E-book Reader', 'E-book reader with 8GB storage.', 89.99, 150, 2),
+(8, 'Shirt', 'Cotton shirt available in various colors.', 29.99, 90, 3),
+(9, 'Headphones', 'Noise-cancelling wireless headphones.', 149.99, 80, 1),
+(10, 'Bluetooth Speaker', 'Portable Bluetooth speaker with high bass.', 49.99, 100, 1),
+(11, 'Historical Novel', 'Historical novel by famous author.', 25.99, 120, 2),
+(12, 'Trousers', 'Comfortable trousers available in different sizes.', 34.99, 70, 3),
+(13, 'Camera', 'Digital camera with 20MP lens.', 299.99, 20, 1),
+(14, 'Smart TV', '55-inch 4K Smart TV with HDR.', 599.99, 25, 1),
+(15, 'Cookbook', 'Cookbook with Indian recipes.', 15.99, 80, 2),
+(16, 'Dress', 'Elegant dress available in various sizes.', 49.99, 60, 3),
+(17, 'Wireless Charger', 'Fast wireless charger for smartphones.', 29.99, 110, 1),
+(18, 'Mystery Novel', 'Gripping mystery novel by top author.', 21.99, 90, 2),
+(19, 'Sneakers', 'Comfortable sneakers for running.', 59.99, 50, 3),
+(20, 'Bluetooth Earbuds', 'True wireless Bluetooth earbuds.', 69.99, 75, 1);
 
 -- Insert orders with varying statuses
 
@@ -81,25 +80,23 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
 
-select * from orders;
 
--- Insert order_items
-truncate table order_items;
+-- Insert data into the order_items table
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(1, 1, 2), -- 1 Smartphone
-(1, 4, 5), -- 1 Jeans
-(2, 2, 4), -- 1 Laptop
-(2, 3, 8), -- 1 Fiction Novel
+(1, 1, 2), -- 2 Smartphones
+(1, 4, 5), -- 5 Jeans
+(2, 2, 4), -- 4 Laptops
+(2, 3, 8), -- 8 Fiction Novels
 (3, 5, 1), -- 1 Smartwatch
-(3, 8, 11), -- 1 Shirt
-(4, 6, 10), -- 1 Tablet
-(4, 4, 15), -- 1 Jeans
-(5, 7, 16), -- 1 E-book Reader
-(5, 8, 17), -- 1 Shirt
+(3, 8, 11), -- 11 Shirts
+(4, 6, 10), -- 10 Tablets
+(4, 4, 15), -- 15 Jeans
+(5, 7, 16), -- 16 E-book Readers
+(5, 8, 17), -- 17 Shirts
 (6, 9, 1), -- 1 Headphones
-(6, 15, 5), -- 1 Cookbook
-(7, 10, 0), -- 1 Bluetooth Speaker
-(7, 15, 4), -- 1 Cookbook
+(6, 15, 5), -- 5 Cookbooks
+(7, 10, 1), -- 1 Bluetooth Speaker
+(7, 15, 4), -- 4 Cookbooks
 (8, 11, 1), -- 1 Historical Novel
 (8, 12, 1), -- 1 Trousers
 (9, 13, 1), -- 1 Camera
@@ -123,7 +120,6 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (19, 16, 1), -- 1 Dress
 (20, 20, 1); -- 1 Bluetooth Earbuds
 
-INSERT INTO order_items (order_id, item_id, quantity) VALUES(22, 20, 2); -- 1 Bluetooth Earbuds
 select * from order_items;
 
 -- Insert reviews

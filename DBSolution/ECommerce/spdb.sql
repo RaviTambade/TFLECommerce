@@ -509,45 +509,11 @@ SELECT * FROM inventory WHERE product_id = 1;
 
 
 
--- 14. ### Example 3: Enforce Minimum Order Value
-DROP TRIGGER before_order_insert;
-
-DELIMITER //
-
-CREATE TRIGGER before_order_insert
-BEFORE INSERT ON orders
-FOR EACH ROW
-BEGIN
-    DECLARE total_order_value DECIMAL(10, 2);
-
-    -- Calculate the total value of the order
-    SELECT SUM(p.price * oi.quantity) INTO total_order_value
-    FROM order_items oi
-    JOIN products p ON oi.item_id = p.id
-    WHERE oi.order_id = NEW.id;
-
-    -- Check if the total order value meets the minimum requirement
-    IF total_order_value IS NULL THEN
-        SET total_order_value = 0;
-    END IF;
-
-    IF total_order_value < 500.00 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Order does not meet the minimum value requirement of $50.';
-    END IF;
-
-    -- Set the total_amount in the new order
-    SET NEW.total_amount = total_order_value;
-END//
-
-DELIMITER ;
-
--- Query the orders table to verify the successful insert
-SELECT * FROM orders WHERE customer_id = 1 AND order_date = '2024-08-15';
-
---  15 Automatically Set Order Status Based on Inventory Levels
+--  14 Automatically Set Order Status Based on Inventory Levels
 -- Trigger for AFTER INSERT on order_items
 
+DROP TRIGGER IF EXISTS after_order_item_insert;
+-- Recreate the trigger with the updated logic
 
 DELIMITER //
 
@@ -558,18 +524,57 @@ BEGIN
     DECLARE available_stock INT;
 
     -- Check the stock for the newly inserted item
-    SELECT stock_quantity INTO available_stock
-    FROM inventory
-    WHERE product_id = NEW.product_id;
+    SELECT stock INTO available_stock
+    FROM products
+    WHERE id = NEW.item_id;
 
     -- If stock is insufficient, set the order status to "Cancelled"
     IF available_stock < NEW.quantity THEN
         UPDATE orders
         SET status = 'Cancelled'
-        WHERE order_id = NEW.order_id;
+        WHERE id = NEW.order_id;
     END IF;
 END//
 
 DELIMITER ;
 
+
+SELECT * FROM orders WHERE id = 2;
+SELECT stock FROM products WHERE id = 2;
+
+INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 50);
+
+
+-- 15 Update Total Order Price
+-- Trigger for AFTER INSERT on order_items
+
+DROP TRIGGER IF EXISTS after_order_item_insert;
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_insert
+AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    DECLARE total_amount DECIMAL(10, 2);
+
+    -- Calculate the new total price for the order using the price from products table
+    SELECT SUM(p.price * oi.quantity) INTO total_amount
+    FROM order_items oi
+    JOIN products p ON oi.item_id = p.id
+    WHERE oi.order_id = NEW.order_id;
+
+    -- Update the order's total price
+    UPDATE orders
+    SET total_amount = total_amount
+    WHERE id = NEW.order_id;
+END//
+
+DELIMITER ;
+
+
+INSERT INTO order_items (order_id, item_id, quantity) VALUES
+(3, 1, 3); -- 2 Smartphones
+
+SELECT * FROM orders WHERE id = 3;
 
