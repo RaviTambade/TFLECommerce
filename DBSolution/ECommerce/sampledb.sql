@@ -80,8 +80,6 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (18, '2024-08-11', '123 Race Course Road, Chennai', 529.98, '2024-08-12', 'Shipped'), -- Order with Tablet and Jeans
 (19, '2024-08-12', '456 MG Road, Bhopal', 449.98, '2024-08-13', 'Delivered'), -- Order with Camera and Dress
 (20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing'); -- Order with Bluetooth Earbuds
-INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(20, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
-INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES(10, '2024-08-13', '789 MG Road, Coimbatore', 69.98, '2024-08-14', 'Processing');
 
 select * from orders;
 
@@ -124,6 +122,7 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (19, 13, 1), -- 1 Camera
 (19, 16, 1), -- 1 Dress
 (20, 20, 1); -- 1 Bluetooth Earbuds
+
 INSERT INTO order_items (order_id, item_id, quantity) VALUES(22, 20, 2); -- 1 Bluetooth Earbuds
 select * from order_items;
 
@@ -153,27 +152,28 @@ INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 
 -- Insert discount codes
 truncate table discount_codes;
+
 INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VALUES
 ('SUMMER21', 10.00, '2024-07-01', '2024-07-31'),
 ('WINTER21', 15.00, '2024-12-01', '2024-12-31'),
-('DIWALI21', 20.00, '2024-11-01', '2024-11-15'),
+('DIWALI21', 20.00, '2021-11-01', '2024-11-15'),
 ('HOLI21', 18.00, '2024-03-01', '2024-03-10'),
 ('NEWYEAR21', 25.00, '2024-12-31', '2025-01-01'),
-('INDEPENDENCE21', 15.00, '2024-08-15', '2024-08-15'),
-('REPUBLIC21', 12.00, '2024-01-26', '2024-01-26'),
+('INDEPENDENCE21', 15.00, '2022-08-15', '2024-08-15'),
+('REPUBLIC21', 12.00, '2023-01-26', '2024-01-26'),
 ('SUMMER22', 10.00, '2025-07-01', '2025-07-31'),
 ('WINTER22', 15.00, '2025-12-01', '2025-12-31'),
 ('DIWALI22', 20.00, '2025-11-01', '2025-11-15'),
-('HOLI22', 18.00, '2025-03-01', '2025-03-10'),
-('NEWYEAR22', 25.00, '2025-12-31', '2026-01-01'),
-('INDEPENDENCE22', 15.00, '2025-08-15', '2025-08-15'),
-('REPUBLIC22', 12.00, '2025-01-26', '2025-01-26'),
-('SUMMER23', 10.00, '2026-07-01', '2026-07-31'),
-('WINTER23', 15.00, '2026-12-01', '2026-12-31'),
-('DIWALI23', 20.00, '2026-11-01', '2026-11-15'),
-('HOLI23', 18.00, '2026-03-01', '2026-03-10'),
-('NEWYEAR23', 25.00, '2026-12-31', '2027-01-01'),
-('INDEPENDENCE23', 15.00, '2026-08-15', '2026-08-15');
+('HOLI22', 18.00, '2024-03-01', '2025-03-10'),
+('NEWYEAR22', 25.00, '2024-05-31', '2026-01-01'),
+('INDEPENDENCE22', 15.00, '2023-08-15', '2025-08-15'),
+('REPUBLIC22', 12.00, '2022-01-26', '2025-01-26'),
+('SUMMER23', 10.00, '2021-07-01', '2026-07-31'),
+('WINTER23', 15.00, '2020-12-01', '2026-12-31'),
+('DIWALI23', 20.00, '2021-11-01', '2026-11-15'),
+('HOLI23', 18.00, '2022-03-01', '2026-03-10'),
+('NEWYEAR23', 25.00, '2023-12-31', '2027-01-01'),
+('INDEPENDENCE23', 15.00, '2022-08-15', '2026-08-15');
 
 -- Example data for the order_discounts table
 INSERT INTO order_discounts (order_id, discount_code) VALUES

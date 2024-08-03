@@ -76,6 +76,9 @@ END //
 
 DELIMITER ;
 
+SELECT * FROM discount_codes WHERE code = 'INDEPENDENCE23';
+CALL ApplyDiscount(1, 'INDEPENDENCE23');
+
 
 -- 4. Creating a Stored Procedure for Applying a Discount Code
 DELIMITER //
@@ -114,7 +117,7 @@ END //
 DELIMITER ;
 
 -- Call the stored procedure with test parameters
-CALL ApplyDiscount(1, 'SUMMER21');
+CALL ApplyDiscount(1, 'INDEPENDENCE23');
 
 
 
