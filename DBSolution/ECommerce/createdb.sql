@@ -121,6 +121,3 @@ CREATE INDEX idx_order_date ON orders(order_date);
 -- Composite index for faster order items retrieval
 CREATE INDEX idx_order_item ON order_items(order_id, item_id);
 
-DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
-
-SELECT * FROM inventory WHERE product_id = 1;

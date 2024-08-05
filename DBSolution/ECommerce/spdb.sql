@@ -607,8 +607,6 @@ END//
 DELIMITER ;
 
 
-
-
 -- Delete a row from the order_items table
 DELETE FROM order_items WHERE order_id = 2 AND item_id = 1;
 
@@ -619,4 +617,3 @@ SELECT * FROM orders;
 SELECT * FROM order_items;
 
 
--- 17. 

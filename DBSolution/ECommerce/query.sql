@@ -11,11 +11,23 @@ drop table products;
 drop table order_items;
 
 SELECT * FROM products;
+
 SELECT * FROM categories;
+
 SELECT * FROM discount_codes;
+
 SELECT * FROM order_items;
+
 SELECT * FROM reviews;
+
 SELECT * FROM users;
+
+DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
+
+SELECT * FROM inventory WHERE product_id = 1;
+
+SELECT * FROM products WHERE id IN (7, 8);
+
 
 
 
@@ -45,4 +57,4 @@ JOIN products p ON oi.item_id = p.id
 WHERE oi.order_id = 13
 GROUP BY oi.order_id, p.name, p.price, oi.quantity;
 
-SELECT * FROM products WHERE id IN (7, 8);
+
