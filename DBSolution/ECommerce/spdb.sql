@@ -61,6 +61,8 @@ DELIMITER ;
 
 
 -- 3. Creating a Stored Procedure for Updating User Information
+
+DROP PROCEDURE IF EXISTS UpdateUserInfo;
 DELIMITER //
 
 CREATE PROCEDURE UpdateUserInfo(
@@ -75,6 +77,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+CALL UpdateUserInfo(1, 'ajinkya@gmailcom', 'Sahakar Nagar 1');
 
 
 -- 4. Creating a Stored Procedure for Applying a Discount Code
@@ -114,12 +118,13 @@ END //
 DELIMITER ;
 
 -- Call the stored procedure with test parameters
-CALL ApplyDiscount(1, 'SUMMER21');
-
+SELECT * FROM discount_codes WHERE code = 'INDEPENDENCE23';
+CALL ApplyDiscount(1, 'INDEPENDENCE23');
 
 
 
 -- 5. Creating a Stored Procedure for Retrieving Order Details
+DROP PROCEDURE IF EXISTS GetOrderDetails;
 
 DELIMITER //
 
@@ -137,7 +142,7 @@ END //
 
 DELIMITER ;
 
-CALL GetOrderDetails(1);
+CALL GetOrderDetails(2);
 
 
 
@@ -159,6 +164,7 @@ CALL LowStockAlert(10);
 
 
 -- 7. Creating a Stored Procedure for Product Reviews
+DROP PROCEDURE IF EXISTS AddProductReview ;
 DELIMITER //
 
 CREATE PROCEDURE AddProductReview(
@@ -482,5 +488,135 @@ END //
 DELIMITER ;
 select * from product_audit;
 DELETE FROM inventory WHERE product_id=1;
+
+
+-- 13 Trigger for DELETE on `order_items
+DROP TRIGGER after_order_item_delete;
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_delete
+AFTER DELETE ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE inventory
+    SET stock_quantity = stock_quantity + OLD.quantity
+    WHERE product_id = OLD.item_id;
+END//
+
+DELIMITER ;
+
+DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
+
+SELECT * FROM inventory WHERE product_id = 1;
+
+
+
+--  14 Automatically Set Order Status Based on Inventory Levels
+-- Trigger for AFTER INSERT on order_items
+
+DROP TRIGGER IF EXISTS after_order_item_insert;
+-- Recreate the trigger with the updated logic
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_insert
+AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    DECLARE available_stock INT;
+
+    -- Check the stock for the newly inserted item
+    SELECT stock INTO available_stock
+    FROM products
+    WHERE id = NEW.item_id;
+
+    -- If stock is insufficient, set the order status to "Cancelled"
+    IF available_stock < NEW.quantity THEN
+        UPDATE orders
+        SET status = 'Cancelled'
+        WHERE id = NEW.order_id;
+    END IF;
+END//
+
+DELIMITER ;
+
+
+SELECT * FROM orders WHERE id = 2;
+SELECT stock FROM products WHERE id = 2;
+
+INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 50);
+
+
+-- 15 Update Total Order Price
+-- Trigger for AFTER INSERT on order_items
+
+DROP TRIGGER IF EXISTS after_order_item_insert;
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_insert
+AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    DECLARE total_amount DECIMAL(10, 2);
+
+    -- Calculate the new total price for the order using the price from products table
+    SELECT SUM(p.price * oi.quantity) INTO total_amount
+    FROM order_items oi
+    JOIN products p ON oi.item_id = p.id
+    WHERE oi.order_id = NEW.order_id;
+
+    -- Update the order's total price
+    UPDATE orders
+    SET total_amount = total_amount
+    WHERE id = NEW.order_id;
+END//
+
+DELIMITER ;
+
+
+INSERT INTO order_items (order_id, item_id, quantity) VALUES
+(3, 1, 3); -- 2 Smartphones
+
+SELECT * FROM orders WHERE id = 3;
+
+
+
+-- 16 Automatically Update total_amount in orders Table After Deleting an Item from order_items.
+
+DROP TRIGGER IF EXISTS after_order_item_deleted;
+
+DELIMITER //
+
+CREATE TRIGGER after_order_item_deleted
+AFTER DELETE ON order_items
+FOR EACH ROW
+BEGIN
+    DECLARE total_amount DECIMAL(10, 2);
+
+    -- Calculate the new total amount for the order
+    SELECT SUM(p.price * oi.quantity) INTO total_amount
+    FROM order_items oi
+    JOIN products p ON oi.item_id = p.id
+    WHERE oi.order_id = OLD.order_id;
+
+    -- Update the order's total amount
+    UPDATE orders
+    SET total_amount = total_amount
+    WHERE id = OLD.order_id;
+END//
+
+DELIMITER ;
+
+
+-- Delete a row from the order_items table
+DELETE FROM order_items WHERE order_id = 2 AND item_id = 1;
+
+-- Check the updated state of the orders table
+SELECT * FROM orders;
+
+-- Check the updated state of the order_items table
+SELECT * FROM order_items;
 
 
