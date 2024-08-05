@@ -260,10 +260,10 @@ WHERE p.price = (
     WHERE p2.category_id = p.category_id
 );
 -- another answer for  23 
-select c.name as categoryName, p.name as productName, max(p.price) as highestPrice
-from products p 
-join categories c on p.category_id = c.id
-group by c.name order by highestPrice desc;
+-- select c.name as categoryName, p.name as productName, max(p.price) as highestPrice
+-- from products p 
+-- join categories c on p.category_id = c.id
+-- group by c.name order by highestPrice desc;
 
 -- 24. Retrieve Orders Placed Within a Specific Date Range
 
