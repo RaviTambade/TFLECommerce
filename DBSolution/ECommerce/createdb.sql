@@ -60,6 +60,8 @@ CREATE TABLE orders (
     status VARCHAR(50),  -- Add the status column
     FOREIGN KEY (customer_id) REFERENCES users(id)
 );
+
+
 drop table discount_codes;
 CREATE TABLE discount_codes (
     code VARCHAR(50) PRIMARY KEY,

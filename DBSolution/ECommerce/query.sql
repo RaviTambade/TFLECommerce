@@ -22,6 +22,9 @@ SELECT * FROM reviews;
 
 SELECT * FROM users;
 
+SELECT * FROM orders;
+
+
 DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
 
 SELECT * FROM inventory WHERE product_id = 1;

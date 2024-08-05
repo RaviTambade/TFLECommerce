@@ -61,6 +61,8 @@ DELIMITER ;
 
 
 -- 3. Creating a Stored Procedure for Updating User Information
+
+DROP PROCEDURE IF EXISTS UpdateUserInfo;
 DELIMITER //
 
 CREATE PROCEDURE UpdateUserInfo(
@@ -76,8 +78,7 @@ END //
 
 DELIMITER ;
 
-SELECT * FROM discount_codes WHERE code = 'INDEPENDENCE23';
-CALL ApplyDiscount(1, 'INDEPENDENCE23');
+CALL UpdateUserInfo(1, 'ajinkya@gmailcom', 'Sahakar Nagar 1');
 
 
 -- 4. Creating a Stored Procedure for Applying a Discount Code
@@ -117,12 +118,13 @@ END //
 DELIMITER ;
 
 -- Call the stored procedure with test parameters
+SELECT * FROM discount_codes WHERE code = 'INDEPENDENCE23';
 CALL ApplyDiscount(1, 'INDEPENDENCE23');
 
 
 
-
 -- 5. Creating a Stored Procedure for Retrieving Order Details
+DROP PROCEDURE IF EXISTS GetOrderDetails;
 
 DELIMITER //
 
@@ -140,7 +142,7 @@ END //
 
 DELIMITER ;
 
-CALL GetOrderDetails(1);
+CALL GetOrderDetails(2);
 
 
 
@@ -162,6 +164,7 @@ CALL LowStockAlert(10);
 
 
 -- 7. Creating a Stored Procedure for Product Reviews
+DROP PROCEDURE IF EXISTS AddProductReview ;
 DELIMITER //
 
 CREATE PROCEDURE AddProductReview(

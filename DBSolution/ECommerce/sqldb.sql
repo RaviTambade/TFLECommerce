@@ -11,21 +11,21 @@
 -- 8. Delete an Order
 -- 9. Calculate Total Sales for a Given Month
 -- 10. Apply a Discount Code
-          -- First, check if the discount code is valid
-          -- Then apply the discount to an order
-           -- Assuming the discount percentage was retrieved and is valid
+		-- First, check if the discount code is valid
+		-- Then apply the discount to an order
+		-- Assuming the discount percentage was retrieved and is valid
 -- 11. Retrieve Monthly Sales Report
 -- 12. Retrieve Orders with Their Total Amounts
---  13. Retrieve Users with More Than One Order
+-- 13. Retrieve Users with More Than One Order
 -- 14. Find Top Rated Products
 -- 15. Retrieve Latest Orders
 -- 16. Count Products in Each Category
 -- 17. Find Orders with Products Above a Certain Price
-          -- 17. Retrieve Products with More than a Specified Stock
+-- 18. Retrieve Products with More than a Specified Stock
           
           
           
-          -- 2. Get All Orders with Their Items and Prices
+-- 2. Get All Orders with Their Items and Prices
 -- 3. Find Users with the Most Orders
 -- 4. Retrieve Products and Their Categories
 -- 5. Get Total Revenue Per Product
@@ -210,31 +210,22 @@ SELECT o.id as order_id, p.name AS product_name, oi.quantity, p.price
 FROM orders as o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-<<<<<<< HEAD
 WHERE p.price > 100;  -- Replace with the desired price threshold
--- 17. Retrieve Products with More than a Specified Stock
-=======
-WHERE p.price > 500;  -- Replace with the desired price threshold
 
 
 -- 18. Retrieve Products with More than a Specified Stock
->>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
 SELECT id, name, stock
 FROM products
 WHERE stock > 50;  -- Replace with the desired stock threshold
 
 
-<<<<<<< HEAD
-
--- 2. Get All Orders with Their Items and Prices
-=======
 -- 19. Get All Orders with Their Items and Prices
->>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 ORDER BY o.order_date DESC;
+
 
 -- 20. Find Users with the Most Orders
 
@@ -244,6 +235,7 @@ JOIN orders o ON u.id = o.customer_id
 GROUP BY u.id, u.username
 ORDER BY order_count DESC
 LIMIT 10;  -- Top 5 users with the most orders
+
 
 -- 21. Retrieve Products and Their Categories
 
