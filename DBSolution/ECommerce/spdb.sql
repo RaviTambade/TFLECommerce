@@ -474,7 +474,6 @@ WHERE product_id=1;
 
 -- 12 Trigger for DELETE on Products
 DROP TRIGGER after_product_delete;
-
 DELIMITER //
 
 CREATE TRIGGER after_product_delete
@@ -486,8 +485,9 @@ VALUES(OLD.product_id,'DELETE', OLD.stock_quantity);
 END //
 
 DELIMITER ;
+
 select * from product_audit;
-DELETE FROM inventory WHERE product_id=1;
+DELETE FROM inventory WHERE product_id=2;
 
 
 -- 13 Trigger for DELETE on `order_items
@@ -506,9 +506,9 @@ END//
 
 DELIMITER ;
 
-DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
+DELETE FROM order_items WHERE order_id = 10 AND item_id = 8;
 
-SELECT * FROM inventory WHERE product_id = 1;
+SELECT * FROM inventory WHERE product_id = 2;
 
 
 
@@ -516,7 +516,7 @@ SELECT * FROM inventory WHERE product_id = 1;
 -- Trigger for AFTER INSERT on order_items
 
 DROP TRIGGER IF EXISTS after_order_item_insert;
--- Recreate the trigger with the updated logic
+
 
 DELIMITER //
 
@@ -577,9 +577,9 @@ DELIMITER ;
 
 
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(3, 1, 3); -- 2 Smartphones
+(5, 5, 5); -- 2 Smartphones
 
-SELECT * FROM orders WHERE id = 3;
+SELECT * FROM orders WHERE id = 5;
 
 
 
@@ -611,7 +611,7 @@ DELIMITER ;
 
 
 -- Delete a row from the order_items table
-DELETE FROM order_items WHERE order_id = 2 AND item_id = 1;
+DELETE FROM order_items WHERE order_id = 1 AND item_id = 4;
 
 -- Check the updated state of the orders table
 SELECT * FROM orders;
