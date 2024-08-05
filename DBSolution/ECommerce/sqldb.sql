@@ -210,26 +210,24 @@ SELECT o.id as order_id, p.name AS product_name, oi.quantity, p.price
 FROM orders as o
 JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
-<<<<<<< HEAD
+
 WHERE p.price > 100;  -- Replace with the desired price threshold
 -- 17. Retrieve Products with More than a Specified Stock
-=======
-WHERE p.price > 500;  -- Replace with the desired price threshold
+
+-- WHERE p.price > 500;  -- Replace with the desired price threshold
 
 
 -- 18. Retrieve Products with More than a Specified Stock
->>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
+
 SELECT id, name, stock
 FROM products
 WHERE stock > 50;  -- Replace with the desired stock threshold
 
 
-<<<<<<< HEAD
 
 -- 2. Get All Orders with Their Items and Prices
-=======
+
 -- 19. Get All Orders with Their Items and Prices
->>>>>>> 57fb1908174fc348945946fbb8c9a62890d786b7
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
 FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
@@ -268,10 +266,10 @@ WHERE p.price = (
     WHERE p2.category_id = p.category_id
 );
 -- another answer for  23 
-select c.name as categoryName, p.name as productName, max(p.price) as highestPrice
-from products p 
-join categories c on p.category_id = c.id
-group by c.name order by highestPrice desc;
+-- select c.name as categoryName, p.name as productName, max(p.price) as highestPrice
+-- from products p 
+-- join categories c on p.category_id = c.id
+-- group by c.name order by highestPrice desc;
 
 -- 24. Retrieve Orders Placed Within a Specific Date Range
 
