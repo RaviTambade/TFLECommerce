@@ -202,28 +202,6 @@ INSERT INTO cart_items (cart_id, product_id, quantity) VALUES
 (5, 10, 1), -- 1 Bluetooth Speaker in cart 5
 (5, 15, 3); -- 3 Cookbooks in cart 5
 
--- Insert records into shipment_items table with updated product IDs
-INSERT INTO shipment_items (shipment_item_id, shipment_id, product_id, quantity) VALUES
-(1, 1, 1, 5),      -- Smartphone
-(2, 1, 2, 2),      -- Laptop
-(3, 2, 3, 7),      -- Fiction Novel
-(4, 2, 4, 3),      -- Jeans
-(5, 3, 5, 4),      -- Smartwatch
-(6, 3, 6, 2),      -- Tablet
-(7, 4, 7, 10),     -- E-book Reader
-(8, 4, 8, 6),      -- Shirt
-(9, 5, 9, 3),      -- Headphones
-(10, 5, 10, 8),    -- Bluetooth Speaker
-(11, 6, 11, 5),    -- Historical Novel
-(12, 6, 12, 2),    -- Trousers
-(13, 7, 13, 1),    -- Camera
-(14, 7, 14, 1),    -- Smart TV
-(15, 8, 15, 6),    -- Cookbook
-(16, 8, 16, 3),    -- Dress
-(17, 9, 17, 7),    -- Wireless Charger
-(18, 9, 18, 4),    -- Mystery Novel
-(19, 10, 19, 5),   -- Sneakers
-(20, 10, 20, 3);   -- Bluetooth Earbuds
 
 
 -- Insert shipping addresses
@@ -250,28 +228,45 @@ INSERT INTO shipping_addresses (order_id, address, city, state, zip_code, countr
 (20, '1717 Cedarwood Lane', 'Northfield', 'VT', '05601', 'USA');
 
 
--- Insert shipments
+
+
+-- Insert valid records into shipments table
 INSERT INTO shipments (order_id, shipping_method_id, shipment_date, tracking_number, status) VALUES
-(1, 1, '2024-01-01 10:00:00', 'TRACK001', 'Shipped'),
-(2, 2, '2024-01-02 12:00:00', 'TRACK002', 'In Transit'),
-(3, 3, '2024-01-03 09:00:00', 'TRACK003', 'Pending'),
-(4, 4, '2024-01-04 14:00:00', 'TRACK004', 'Delivered'),
-(5, 5, '2024-01-05 11:00:00', 'TRACK005', 'Failed'),
-(6, 6, '2024-01-06 15:00:00', 'TRACK006', 'Shipped'),
-(7, 7, '2024-01-07 16:00:00', 'TRACK007', 'In Transit'),
-(8, 8, '2024-01-08 17:00:00', 'TRACK008', 'Pending'),
-(9, 9, '2024-01-09 18:00:00', 'TRACK009', 'Delivered'),
-(10, 10, '2024-01-10 19:00:00', 'TRACK010', 'Failed'),
-(11, 11, '2024-01-11 20:00:00', 'TRACK011', 'Shipped'),
-(12, 12, '2024-01-12 21:00:00', 'TRACK012', 'In Transit'),
-(13, 13, '2024-01-13 22:00:00', 'TRACK013', 'Pending'),
-(14, 14, '2024-01-14 23:00:00', 'TRACK014', 'Delivered'),
-(15, 15, '2024-01-15 10:00:00', 'TRACK015', 'Failed'),
-(16, 16, '2024-01-16 11:00:00', 'TRACK016', 'Shipped'),
-(17, 17, '2024-01-17 12:00:00', 'TRACK017', 'In Transit'),
-(18, 18, '2024-01-18 13:00:00', 'TRACK018', 'Pending'),
-(19, 19, '2024-01-19 14:00:00', 'TRACK019', 'Delivered'),
-(20, 20, '2024-01-20 15:00:00', 'TRACK020', 'Failed');
+(1, 1, '2024-07-25', 'TRACK001', 'Shipped'),
+(2, 2, '2024-07-26', 'TRACK002', 'Shipped'),
+(3, 3, '2024-07-27', 'TRACK003', 'Delivered'),
+(4, 4, '2024-07-28', 'TRACK004', 'Pending'), -- Changed 'Processing' to 'Pending'
+(5, 5, '2024-07-29', 'TRACK005', 'Failed'),   -- Changed 'Cancelled' to 'Failed'
+(6, 6, '2024-07-30', 'TRACK006', 'Shipped'),
+(7, 7, '2024-07-31', 'TRACK007', 'Delivered'),
+(8, 8, '2024-08-01', 'TRACK008', 'Pending'),  -- Changed 'Processing' to 'Pending'
+(9, 9, '2024-08-02', 'TRACK009', 'Shipped'),
+(10, 10, '2024-08-03', 'TRACK010', 'Pending'); -- Changed 'Processing' to 'Pending'
+
+
+-- Insert records into shipment_items table with updated product IDs
+INSERT INTO shipment_items (shipment_item_id, shipment_id, product_id, quantity) VALUES
+(1, 1, 1, 5),      -- Smartphone
+(2, 1, 2, 2),      -- Laptop
+(3, 2, 3, 7),      -- Fiction Novel
+(4, 2, 4, 3),      -- Jeans
+(5, 3, 5, 4),      -- Smartwatch
+(6, 3, 6, 2),      -- Tablet
+(7, 4, 7, 10),     -- E-book Reader
+(8, 4, 8, 6),      -- Shirt
+(9, 5, 9, 3),      -- Headphones
+(10, 5, 10, 8),    -- Bluetooth Speaker
+(11, 6, 11, 5),    -- Historical Novel
+(12, 6, 12, 2),    -- Trousers
+(13, 7, 13, 1),    -- Camera
+(14, 7, 14, 1),    -- Smart TV
+(15, 8, 15, 6),    -- Cookbook
+(16, 8, 16, 3),    -- Dress
+(17, 9, 17, 7),    -- Wireless Charger
+(18, 9, 18, 4),    -- Mystery Novel
+(19, 10, 19, 5),   -- Sneakers
+(20, 10, 20, 3);   -- Bluetooth Earbuds
+
 
 -- Insert shipping methods
 INSERT INTO shipping_methods (method_name, description, cost) VALUES
@@ -297,7 +292,6 @@ INSERT INTO shipping_methods (method_name, description, cost) VALUES
 ('Express International', 'Express international delivery', 59.99);
 
 -- Insert discount codes
-truncate table discount_codes;
 
 INSERT INTO discount_codes (code, discount_percentage, start_date, end_date) VALUES
 ('SUMMER21', 10.00, '2024-07-01', '2024-07-31'),

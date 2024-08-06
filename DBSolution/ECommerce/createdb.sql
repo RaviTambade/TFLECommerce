@@ -217,6 +217,7 @@ CREATE TABLE shipping_methods (
     cost DECIMAL(10, 2) NOT NULL
 );
 
+
 -- Create shipments table
 CREATE TABLE shipments (
     shipment_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -233,6 +234,7 @@ CREATE TABLE shipments (
         ON DELETE CASCADE
 );
 
+
 -- Create shipment_items table
 CREATE TABLE shipment_items (
     shipment_item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -246,6 +248,7 @@ CREATE TABLE shipment_items (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
 
 -- Create shipping_addresses table
 CREATE TABLE shipping_addresses (

@@ -33,6 +33,10 @@ SELECT * FROM inventory WHERE product_id = 1;
 
 SELECT * FROM products WHERE id IN (7, 8);
 
+-- Drop tables if they exist (optional)
+DROP TABLE IF EXISTS shipment_items;
+DROP TABLE IF EXISTS shipments;
+
 
 
 
