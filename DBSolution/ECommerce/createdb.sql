@@ -1,9 +1,9 @@
-drop database tflecommerce;
+-- Drop and recreate the database
+DROP DATABASE IF EXISTS tflecommerce;
+CREATE DATABASE tflecommerce;
+USE tflecommerce;
 
-create database IF NOT EXISTS tflecommerce;
-use tflecommerce;
-
-
+-- Create users table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -13,12 +13,14 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create categories table
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT
 );
 
+-- Create products table
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -28,10 +30,86 @@ CREATE TABLE products (
     category_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
 
+-- Create orders table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    shipping_address VARCHAR(255) NOT NULL,
+    total_amount DECIMAL(10, 2),
+    shipping_date DATE,
+    status VARCHAR(50),
+    FOREIGN KEY (customer_id) REFERENCES users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
+CREATE TABLE order_status (
+    order_id INT NOT NULL,
+    status ENUM('Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled') NOT NULL,
+    status_date DATE NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    PRIMARY KEY (order_id, status_date)
+);
 
+-- Create refunds table
+CREATE TABLE refunds (
+    refund_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    refund_amount DECIMAL(10, 2) NOT NULL,
+    refund_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create order_fulfillment table
+CREATE TABLE order_fulfillment (
+    fulfillment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    fulfillment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pending', 'Packed', 'Shipped', 'Delivered', 'Returned') DEFAULT 'Pending',
+    tracking_number VARCHAR(100),
+    carrier_name VARCHAR(100),
+    fulfillment_notes TEXT,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create payments table
+CREATE TABLE payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    payment_amount DECIMAL(10, 2) NOT NULL,
+    payment_method ENUM('Credit Card', 'Debit Card', 'PayPal', 'Bank Transfer') NOT NULL,
+    payment_status ENUM('Completed', 'Pending', 'Failed') DEFAULT 'Pending',
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create inventory table
+CREATE TABLE inventory (
+    product_id INT PRIMARY KEY,
+    stock_quantity INT,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create product_audit table
 CREATE TABLE product_audit (
     audit_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -39,30 +117,12 @@ CREATE TABLE product_audit (
     old_stock_quantity INT,
     new_stock_quantity INT,
     action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES inventory(product_id)ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-
-
-CREATE TABLE inventory (
-    product_id INT PRIMARY KEY,
-    stock_quantity INT
-);
-
-
-CREATE TABLE orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_date DATE NOT NULL,
-    shipping_address VARCHAR(255) NOT NULL,
-    total_amount DECIMAL(10, 2),
-    shipping_date DATE,  -- Add the shipping_date column
-    status VARCHAR(50),  -- Add the status column
-    FOREIGN KEY (customer_id) REFERENCES users(id)
-);
-
-
-drop table discount_codes;
+-- Create discount_codes table
 CREATE TABLE discount_codes (
     code VARCHAR(50) PRIMARY KEY,
     discount_percentage DECIMAL(5, 2) NOT NULL,
@@ -70,34 +130,46 @@ CREATE TABLE discount_codes (
     end_date DATE NOT NULL
 );
 
-drop table order_discounts;
+-- Create order_discounts table
 CREATE TABLE order_discounts (
     order_id INT,
     discount_code VARCHAR(50),
     PRIMARY KEY (order_id, discount_code),
-    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (discount_code) REFERENCES discount_codes(code)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
+-- Create price_changes table
 CREATE TABLE price_changes (
-    change_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each price change record
-    product_id INT NOT NULL,                   -- ID of the product whose price has changed
-    old_price DECIMAL(10, 2) NOT NULL,         -- Old price of the product before the update
-    new_price DECIMAL(10, 2) NOT NULL,         -- New price of the product after the update
-    change_date DATETIME NOT NULL,             -- Date and time when the price change occurred
-    FOREIGN KEY (product_id) REFERENCES products(id)  -- Foreign key to reference the product in the products table
+    change_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    old_price DECIMAL(10, 2) NOT NULL,
+    new_price DECIMAL(10, 2) NOT NULL,
+    change_date DATETIME NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-
+-- Create order_items table
 CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     item_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
+-- Create reviews table
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
@@ -105,21 +177,92 @@ CREATE TABLE reviews (
     rating INT CHECK (rating BETWEEN 1 AND 5),
     review_text TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
+-- Create cart table
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
+-- Create cart_items table
+CREATE TABLE cart_items (
+    cart_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (cart_id) REFERENCES cart(cart_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
--- Index on username for faster user lookups
+-- Create shipping_methods table
+CREATE TABLE shipping_methods (
+    shipping_method_id INT AUTO_INCREMENT PRIMARY KEY,
+    method_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    cost DECIMAL(10, 2) NOT NULL
+);
+
+-- Create shipments table
+CREATE TABLE shipments (
+    shipment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    shipping_method_id INT NOT NULL,
+    shipment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tracking_number VARCHAR(100),
+    status ENUM('Pending', 'Shipped', 'In Transit', 'Delivered', 'Failed') DEFAULT 'Pending',
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (shipping_method_id) REFERENCES shipping_methods(shipping_method_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create shipment_items table
+CREATE TABLE shipment_items (
+    shipment_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    shipment_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (shipment_id) REFERENCES shipments(shipment_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Create shipping_addresses table
+CREATE TABLE shipping_addresses (
+    shipping_address_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    zip_code VARCHAR(10) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
-
--- Index on product name for faster product searches
 CREATE INDEX idx_product_name ON products(name);
-
--- Index on order_date for quicker order history lookups
 CREATE INDEX idx_order_date ON orders(order_date);
-
--- Composite index for faster order items retrieval
 CREATE INDEX idx_order_item ON order_items(order_id, item_id);
-

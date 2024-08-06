@@ -11,6 +11,7 @@
 -- Triggers : 
 
 -- 1. Trigger to Update Stock After an Order is Placed
+
 -- 2. Trigger to Prevent Deletion of a Product with Existing Orders
 -- 3. Trigger to Automatically Set Order Status to 'Shipped' After Shipping Date is Updated
 -- 4. Trigger to Log Changes to Product Prices
@@ -618,5 +619,7 @@ SELECT * FROM orders;
 
 -- Check the updated state of the order_items table
 SELECT * FROM order_items;
+
+truncate table order_items;
 
 

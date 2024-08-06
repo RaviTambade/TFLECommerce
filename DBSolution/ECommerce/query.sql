@@ -24,6 +24,8 @@ SELECT * FROM users;
 
 SELECT * FROM orders;
 
+SELECT * FROM inventory;
+
 
 DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
 
