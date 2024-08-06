@@ -67,3 +67,19 @@ WHERE oi.order_id = 13
 GROUP BY oi.order_id, p.name, p.price, oi.quantity;
 
 
+-- truncate table purchase_orders;
+
+-- INSERT INTO purchase_orders (product_id, quantity, order_date)
+-- VALUES
+--     (1, 10, '2024-08-06'),
+--     (2, 150, '2024-08-06'),
+--     (3, 200, '2024-08-06'),
+--     (4, 250, '2024-08-06'),
+--     (5, 300, '2024-08-06'),
+--     (6, 30, '2024-08-06'),
+--     (7, 400, '2024-08-06'),
+--     (8, 450, '2024-08-06'),
+--     (9, 500, '2024-08-06'),
+--     (10, 550, '2024-08-06');
+
+

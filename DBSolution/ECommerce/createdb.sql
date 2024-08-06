@@ -109,6 +109,16 @@ CREATE TABLE inventory (
         ON DELETE CASCADE
 );
 
+CREATE TABLE purchase_orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 -- Create product_audit table
 CREATE TABLE product_audit (
     audit_id INT AUTO_INCREMENT PRIMARY KEY,

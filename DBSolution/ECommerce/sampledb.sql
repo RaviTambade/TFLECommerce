@@ -116,9 +116,6 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES
 (19, 16, 1), -- 1 Dress
 (20, 20, 7); -- 1 Bluetooth Earbuds
 
-
-
-
 -- Insert reviews
 INSERT INTO reviews (product_id, user_id, rating, review_text) VALUES
 (1, 1, 5, 'Fantastic smartphone with amazing features!'),
@@ -244,7 +241,7 @@ INSERT INTO shipments (order_id, shipping_method_id, shipment_date, tracking_num
 (10, 10, '2024-08-03', 'TRACK010', 'Pending'); -- Changed 'Processing' to 'Pending'
 
 
--- Insert records into shipment_items table with updated product IDs
+-- Insert records into shipment_items table with product IDs
 INSERT INTO shipment_items (shipment_item_id, shipment_id, product_id, quantity) VALUES
 (1, 1, 1, 5),      -- Smartphone
 (2, 1, 2, 2),      -- Laptop
@@ -325,13 +322,13 @@ INSERT INTO order_discounts (order_id, discount_code) VALUES
 (6, 'INDEPENDENCE21'), -- Assuming order_id 6 used INDEPENDENCE21 discount
 (7, 'REPUBLIC21');   -- Assuming order_id 7 used REPUBLIC21 discount
 
-INSERT INTO inventory(product_id , stock_quantity)values(1,100);
+INSERT INTO inventory(product_id , stock_quantity)values(1,90);
 INSERT INTO inventory(product_id , stock_quantity)values(2,200);
 INSERT INTO inventory(product_id , stock_quantity)values(3,300);
 INSERT INTO inventory(product_id , stock_quantity)values(4,400);
 INSERT INTO inventory(product_id , stock_quantity)values(5,500);
 INSERT INTO inventory(product_id , stock_quantity)values(6,600);
-INSERT INTO inventory(product_id , stock_quantity)values(7,700);
+INSERT INTO inventory(product_id , stock_quantity)values(7,70);
 INSERT INTO inventory(product_id , stock_quantity)values(8,200);
 INSERT INTO inventory(product_id , stock_quantity)values(9,100);
 INSERT INTO inventory(product_id , stock_quantity)values(10,200);
