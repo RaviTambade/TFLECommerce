@@ -33,7 +33,8 @@ DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
 SELECT * FROM inventory WHERE product_id = 1;
 
 SELECT * FROM products WHERE id IN (7, 8);
-
+SELECT * FROM subscriptions;
+SELECT * FROM loyalty_redemptions;
 -- Drop tables if they exist (optional)
 DROP TABLE IF EXISTS shipment_items;
 

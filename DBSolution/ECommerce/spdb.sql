@@ -11,7 +11,6 @@
 -- Triggers : 
 
 -- 1. Trigger to Update Stock After an Order is Placed
-
 -- 2. Trigger to Prevent Deletion of a Product with Existing Orders
 -- 3. Trigger to Automatically Set Order Status to 'Shipped' After Shipping Date is Updated
 -- 4. Trigger to Log Changes to Product Prices
@@ -475,6 +474,7 @@ WHERE product_id=1;
 
 -- 12 Trigger for DELETE on Products
 DROP TRIGGER after_product_delete;
+
 DELIMITER //
 
 CREATE TRIGGER after_product_delete
@@ -486,9 +486,8 @@ VALUES(OLD.product_id,'DELETE', OLD.stock_quantity);
 END //
 
 DELIMITER ;
-
 select * from product_audit;
-DELETE FROM inventory WHERE product_id=2;
+DELETE FROM inventory WHERE product_id=3;
 
 
 -- 13 Trigger for DELETE on `order_items
@@ -507,9 +506,9 @@ END//
 
 DELIMITER ;
 
-DELETE FROM order_items WHERE order_id = 10 AND item_id = 8;
+DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
 
-SELECT * FROM inventory WHERE product_id = 2;
+SELECT * FROM inventory WHERE product_id = 1;
 
 
 
@@ -517,7 +516,7 @@ SELECT * FROM inventory WHERE product_id = 2;
 -- Trigger for AFTER INSERT on order_items
 
 DROP TRIGGER IF EXISTS after_order_item_insert;
-
+-- Recreate the trigger with the updated logic
 
 DELIMITER //
 
@@ -578,9 +577,9 @@ DELIMITER ;
 
 
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(5, 5, 5); -- 2 Smartphones
+(3, 1, 3); -- 2 Smartphones
 
-SELECT * FROM orders WHERE id = 5;
+SELECT * FROM orders WHERE id = 3;
 
 
 
@@ -612,14 +611,12 @@ DELIMITER ;
 
 
 -- Delete a row from the order_items table
-DELETE FROM order_items WHERE order_id = 1 AND item_id = 4;
+DELETE FROM order_items WHERE order_id = 2 AND item_id = 1;
 
 -- Check the updated state of the orders table
 SELECT * FROM orders;
 
 -- Check the updated state of the order_items table
 SELECT * FROM order_items;
-
-truncate table order_items;
 
 

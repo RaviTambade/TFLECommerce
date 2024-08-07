@@ -274,6 +274,38 @@ CREATE TABLE shipping_addresses (
         ON DELETE CASCADE
 );
 
+-- Create subscriptions table
+Drop table subscriptions;
+CREATE TABLE subscriptions (
+    subscription_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    plan VARCHAR(50) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    status ENUM('Active', 'Expired', 'Cancelled') DEFAULT 'Active',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Create table loyalty_redemption
+CREATE TABLE loyalty_redemptions (
+    redemption_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    points_redeemed INT NOT NULL,
+    redemption_date DATETIME NOT NULL,
+    status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);                                   -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- Create billing_adjustments table
+CREATE TABLE billing_adjustments (
+    adjustment_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    adjustment_amount DECIMAL(10, 2) NOT NULL,
+    adjustment_date DATETIME NOT NULL,
+    reason VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 -- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_product_name ON products(name);

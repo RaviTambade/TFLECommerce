@@ -410,3 +410,24 @@ INSERT INTO refunds (order_id, product_id, refund_amount, refund_date) VALUES
 (19, 19, 59.99, '2024-08-19 18:00:00'),  -- Sneakers
 (20, 20, 69.99, '2024-08-20 19:00:00');  -- Bluetooth Earbuds
 
+-- Sample data for subscriptions
+INSERT INTO subscriptions (user_id, plan, start_date, end_date, status) VALUES
+(1, 'Basic Plan', '2024-01-15', '2024-07-15', 'Expired'),
+(2, 'Premium Plan', '2024-03-01', NULL, 'Active'),
+(3, 'Standard Plan', '2024-05-20', '2024-11-20', 'Active'),
+(4, 'Basic Plan', '2024-02-10', '2024-08-10', 'Expired');
+
+-- Sample data for loyalty_redemptions
+INSERT INTO loyalty_redemptions (user_id, points_redeemed, redemption_date, status) VALUES
+(1, 150, '2024-06-05 14:30:00', 'Completed'),
+(2, 300, '2024-07-01 09:15:00', 'Pending'),
+(3, 200, '2024-05-25 16:45:00', 'Completed'),
+(4, 50, '2024-07-15 11:00:00', 'Failed');
+
+-- Sample data for billing_adjustments
+INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date, reason) VALUES
+(1, -20.00, '2024-06-10 10:00:00', 'Discount applied'),
+(2, 15.75, '2024-07-05 13:00:00', 'Billing error correction'),
+(3, -5.50, '2024-05-30 08:00:00', 'Refund for overcharge'),
+(4, 25.00, '2024-07-10 12:00:00', 'Late fee');
+
