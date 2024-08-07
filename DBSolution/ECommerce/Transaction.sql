@@ -83,3 +83,52 @@ FROM shipments
 WHERE order_id = '5';
 
 -- Expected result: The status should be 'Shipped' and shipped_date should be recent.
+
+
+-- Transaction to Update Subscription
+-- Start a transaction
+START TRANSACTION;
+
+-- Update subscription plan
+UPDATE subscriptions
+SET plan = 'Premium', start_date = NOW(),status = 'Active',end_date= DATE_ADD(Now(), INTERVAL 30 DAY)
+WHERE user_id = 1;
+
+-- Adjust billing
+-- Assuming you have a table to record billing adjustments
+INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date,reason)
+VALUES (1, 20.00, NOW(),'Bought New Plan');
+
+-- Commit the transaction
+COMMIT;
+-- Rollback if either update fails
+-- Proper error handling should be implemented here
+
+
+/*
+-- Transaction to Check inventory levels
+-- Start a transaction
+START TRANSACTION;
+
+-- Check inventory levels
+SELECT stock INTO @current_stock FROM inventory WHERE product_id = 'P123';
+
+-- Reorder if stock is low
+IF @current_stock < 50 THEN
+    -- Place a reorder
+    INSERT INTO purchase_orders (product_id, quantity, order_date)
+    VALUES ('P123', 100, NOW());
+    
+    -- Update inventory with the new stock
+    UPDATE inventory
+    SET stock = stock + 100
+    WHERE product_id = 'P123';
+END IF;
+
+-- Commit the transaction
+COMMIT;
+
+-- Rollback if there's an error in either operation
+-- Error handling would be required here
+
+*/
