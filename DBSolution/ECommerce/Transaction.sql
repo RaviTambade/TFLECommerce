@@ -83,3 +83,27 @@ FROM shipments
 WHERE order_id = '5';
 
 -- Expected result: The status should be 'Shipped' and shipped_date should be recent.
+
+-- 3. Product Returns and Refunds
+-- Scenario: Process a product return and issue a refund, 
+	 --  ensuring inventory and financial records are updated correctly.
+
+
+-- In a real scenario, this would involve updating financial records or interfacing with a payment system
+-- Start a transaction
+START TRANSACTION;
+
+-- Update inventory to add the returned product
+UPDATE inventory SET stock_quantity = stock_quantity + 1 WHERE product_id = '1';
+
+-- Process refund
+-- In a real scenario, this would involve updating financial records or interfacing with a payment system
+INSERT INTO refunds (order_id, product_id, refund_amount, refund_date) VALUES ('1', '1', 50.00, NOW());
+
+-- Update return status
+UPDATE returns SET status = 'Processed' WHERE return_id = '1';
+
+-- Commit the transaction
+COMMIT;
+select * from refunds ;
+select * from returns ;
