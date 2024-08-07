@@ -26,6 +26,7 @@ SELECT * FROM orders;
 
 SELECT * FROM inventory;
 
+SELECT * FROM shipment_items;
 
 DELETE FROM order_items WHERE order_id = 1 AND item_id = 1;
 
@@ -35,6 +36,7 @@ SELECT * FROM products WHERE id IN (7, 8);
 
 -- Drop tables if they exist (optional)
 DROP TABLE IF EXISTS shipment_items;
+
 DROP TABLE IF EXISTS shipments;
 
 

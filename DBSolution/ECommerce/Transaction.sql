@@ -43,3 +43,43 @@ SELECT * FROM purchase_orders;
 SELECT * FROM inventory ;
 
 
+-- 2. E-commerce Order Fulfillment
+-- Scenario: Process an order, update stock levels, and manage shipping details. Ensure all steps are successful before finalizing the order.
+
+START TRANSACTION;
+
+-- Update stock levels
+UPDATE inventory SET stock_quantity = stock_quantity - 1 WHERE product_id = '5';
+
+-- Record order fulfillment
+INSERT INTO order_fulfillment (order_id, fulfillment_date, status, tracking_number, carrier_name, fulfillment_notes)
+VALUES ('5', NOW(), 'Packed', 'TRK123', 'Carrier Shipment', 'Order packed ');
+
+-- Update shipment details
+UPDATE shipments
+SET status = 'Shipped', shipment_date = NOW(), tracking_number = 'TRK123456'
+WHERE order_id = '5';
+
+-- Commit the transaction
+COMMIT;
+
+-- Check the stock level
+SELECT product_id, stock_quantity
+FROM inventory
+WHERE product_id = '5';
+
+-- Expected result: The stock level should be decreased by 1.
+
+-- Check the order fulfillment record
+SELECT fulfillment_id, order_id, fulfillment_date, status, tracking_number, carrier_name, fulfillment_notes
+FROM order_fulfillment
+WHERE order_id = '5';
+
+-- Expected result: There should be a new record with the given order_id, product_id, quantity 5, and a recent fulfillment_date.
+
+-- Check the shipping details
+SELECT shipment_id, order_id, shipping_method_id, shipment_date, tracking_number, status
+FROM shipments
+WHERE order_id = '5';
+
+-- Expected result: The status should be 'Shipped' and shipped_date should be recent.

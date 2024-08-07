@@ -322,6 +322,9 @@ INSERT INTO order_discounts (order_id, discount_code) VALUES
 (6, 'INDEPENDENCE21'), -- Assuming order_id 6 used INDEPENDENCE21 discount
 (7, 'REPUBLIC21');   -- Assuming order_id 7 used REPUBLIC21 discount
 
+
+
+
 INSERT INTO inventory(product_id , stock_quantity)values(1,90);
 INSERT INTO inventory(product_id , stock_quantity)values(2,200);
 INSERT INTO inventory(product_id , stock_quantity)values(3,300);
