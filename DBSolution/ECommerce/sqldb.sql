@@ -87,8 +87,6 @@
 
 
 
-
-
 -- 2. Retrieve Products in a Specific Category
 SELECT p.id, p.name, p.price, p.stock
 FROM products p
