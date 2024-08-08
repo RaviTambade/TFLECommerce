@@ -1,6 +1,7 @@
 CREATE DATABASE tflecommerce;
-DROP DATABASE tflecommerce 
 Use tflecommerce;
+
+
 CREATE TABLE users (
     id INT Identity (1,1)PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -15,6 +16,7 @@ CREATE TABLE categories (
     name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT
 );
+
 CREATE TABLE products (
     id INT Identity(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -40,6 +42,7 @@ CREATE TABLE orders (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
 CREATE TABLE order_status (
     order_id INT NOT NULL,
 	status VARCHAR(50) CHECK(
@@ -65,6 +68,20 @@ CREATE TABLE order_fulfillment (
         ON DELETE CASCADE
 );
  
+ CREATE TABLE refunds (
+    refund_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    refund_amount DECIMAL(10, 2) NOT NULL,
+    refund_date DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 CREATE TABLE purchase_orders (
     order_id INT Identity(1,1) PRIMARY KEY,
     product_id INT NOT NULL,
@@ -106,6 +123,22 @@ CREATE TABLE order_items (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+CREATE TABLE returns (
+    return_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    return_reason VARCHAR(255) NOT NULL,
+    return_date DATE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
  
 CREATE TABLE inventory (
     product_id INT PRIMARY KEY,
@@ -151,7 +184,7 @@ CREATE TABLE payments (
 );
 
 
-Create reviews table
+-- Create reviews table
 CREATE TABLE reviews (
     id INT Identity(1,1) PRIMARY KEY,
     product_id INT NOT NULL,
@@ -214,10 +247,9 @@ CREATE TABLE shipments (
         ON DELETE CASCADE
 );
  
-/*
 -- Create shipment_items table
 CREATE TABLE shipment_items (
-    shipment_item_id INT Identity(1,1) PRIMARY KEY,
+    shipment_item_id INT IDENTITY(1,1) PRIMARY KEY,
     shipment_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
@@ -227,7 +259,7 @@ CREATE TABLE shipment_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
-);*/
+);
  
 -- Create shipping_addresses table
 CREATE TABLE shipping_addresses (
