@@ -105,3 +105,7 @@ GROUP BY p.id, p.name
 HAVING AVG(r.rating) >= 4;  -- Replace with the minimum average rating desired
 
 
+-- 15. Retrieve Latest Orders
+SELECT TOP 5 id, order_date, total_amount
+FROM orders
+ORDER BY order_date DESC;
