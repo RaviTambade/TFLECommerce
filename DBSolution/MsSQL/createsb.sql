@@ -151,7 +151,7 @@ CREATE TABLE payments (
 );
 
 
-Create reviews table
+-- Create reviews table
 CREATE TABLE reviews (
     id INT Identity(1,1) PRIMARY KEY,
     product_id INT NOT NULL,
