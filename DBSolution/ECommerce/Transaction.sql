@@ -84,7 +84,6 @@ WHERE order_id = '5';
 
 -- Expected result: The status should be 'Shipped' and shipped_date should be recent.
 
-<<<<<<< HEAD
 -- 3. Product Returns and Refunds
 -- Scenario: Process a product return and issue a refund, 
 	 --  ensuring inventory and financial records are updated correctly.
@@ -108,7 +107,7 @@ UPDATE returns SET status = 'Processed' WHERE return_id = '1';
 COMMIT;
 select * from refunds ;
 select * from returns ;
-=======
+
 
 -- Transaction to Update Subscription
 -- Start a transaction
@@ -129,7 +128,8 @@ COMMIT;
 -- Rollback if either update fails
 -- Proper error handling should be implemented here
 
-
+select * from subscriptions;
+select * from billing_adjustments;
 /*
 -- Transaction to Check inventory levels
 -- Start a transaction
