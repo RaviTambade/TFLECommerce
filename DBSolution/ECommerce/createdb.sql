@@ -260,6 +260,7 @@ CREATE TABLE shipment_items (
 );
 
 
+
 -- Create shipping_addresses table
 CREATE TABLE shipping_addresses (
     shipping_address_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -306,6 +307,23 @@ CREATE TABLE billing_adjustments (
     reason VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+CREATE TABLE IF NOT EXISTS returns (
+    return_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    return_reason VARCHAR(255),
+    return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pending', 'Processed', 'Rejected') DEFAULT 'Pending',
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 -- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_product_name ON products(name);
