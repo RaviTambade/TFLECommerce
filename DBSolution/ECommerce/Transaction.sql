@@ -84,32 +84,46 @@ WHERE order_id = '5';
 
 -- Expected result: The status should be 'Shipped' and shipped_date should be recent.
 
+
 -- 3. Product Returns and Refunds
 -- Scenario: Process a product return and issue a refund, 
-	 --  ensuring inventory and financial records are updated correctly.
-
-
--- In a real scenario, this would involve updating financial records or interfacing with a payment system
 -- Start a transaction
 START TRANSACTION;
 
 -- Update inventory to add the returned product
-UPDATE inventory SET stock_quantity = stock_quantity + 1 WHERE product_id = '1';
+UPDATE inventory 
+SET stock_quantity = stock_quantity + 1 
+WHERE product_id = '5';
 
 -- Process refund
--- In a real scenario, this would involve updating financial records or interfacing with a payment system
-INSERT INTO refunds (order_id, product_id, refund_amount, refund_date) VALUES ('1', '1', 50.00, NOW());
+INSERT INTO refunds (order_id, product_id, refund_amount, refund_date) 
+VALUES ('3', '5', 199.99, NOW());
 
 -- Update return status
-UPDATE returns SET status = 'Processed' WHERE return_id = '1';
+UPDATE returns 
+SET status = 'Processed' 
+WHERE return_id = '3';
 
 -- Commit the transaction
 COMMIT;
+
+
+SELECT product_id, stock_quantity 
+FROM inventory 
+WHERE product_id = '5';
+
+SELECT * 
+FROM refunds 
+WHERE order_id = '3' AND product_id = '5';
+
+SELECT * 
+FROM returns 
+WHERE return_id = '3';
+
 select * from refunds ;
 select * from returns ;
 
-
--- Transaction to Update Subscription
+-- 4 Transaction to Update Subscription
 -- Start a transaction
 START TRANSACTION;
 
@@ -128,33 +142,5 @@ COMMIT;
 -- Rollback if either update fails
 -- Proper error handling should be implemented here
 
-select * from subscriptions;
-select * from billing_adjustments;
-/*
--- Transaction to Check inventory levels
--- Start a transaction
-START TRANSACTION;
 
--- Check inventory levels
-SELECT stock INTO @current_stock FROM inventory WHERE product_id = 'P123';
 
--- Reorder if stock is low
-IF @current_stock < 50 THEN
-    -- Place a reorder
-    INSERT INTO purchase_orders (product_id, quantity, order_date)
-    VALUES ('P123', 100, NOW());
-    
-    -- Update inventory with the new stock
-    UPDATE inventory
-    SET stock = stock + 100
-    WHERE product_id = 'P123';
-END IF;
-
--- Commit the transaction
-COMMIT;
-
--- Rollback if there's an error in either operation
--- Error handling would be required here
-
-*/
->>>>>>> 640025947f2c3cdb5217c8259753aa98ff291c0d

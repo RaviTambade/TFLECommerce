@@ -431,3 +431,26 @@ INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date, re
 (3, -5.50, '2024-05-30 08:00:00', 'Refund for overcharge'),
 (4, 25.00, '2024-07-10 12:00:00', 'Late fee');
 
+
+-- Insert sample data into the `returns` table
+INSERT INTO returns (order_id, product_id, return_reason, return_date, status) VALUES
+(1, 1, 'Defective item', '2024-07-27', 'Pending'),  -- Return for Smartphone in Order 1
+(2, 3, 'Incorrect item received', '2024-07-28', 'Pending'),  -- Return for Fiction Novel in Order 2
+(3, 5, 'Product not as described', '2024-07-29', 'Pending'),  -- Return for Smartwatch in Order 3
+(4, 6, 'Wrong item received', '2024-07-30', 'Pending'),  -- Return for Tablet in Order 4
+(5, 8, 'Changed mind', '2024-07-31', 'Pending'),  -- Return for Shirt in Order 5
+(6, 10, 'Defective item', '2024-08-01', 'Pending'),  -- Return for Bluetooth Speaker in Order 6
+(7, 10, 'Product not as described', '2024-08-02', 'Pending'),  -- Return for Bluetooth Speaker in Order 7
+(8, 11, 'Changed mind', '2024-08-03', 'Pending'),  -- Return for Historical Novel in Order 8
+(9, 13, 'Defective item', '2024-08-04', 'Pending'),  -- Return for Camera in Order 9
+(10, 14, 'Incorrect item received', '2024-08-05', 'Pending'),  -- Return for Smart TV in Order 10
+(11, 17, 'Defective item', '2024-08-06', 'Pending'),  -- Return for Wireless Charger in Order 11
+(12, 18, 'Changed mind', '2024-08-07', 'Pending'),  -- Return for Mystery Novel in Order 12
+(13, 19, 'Product not as described', '2024-08-08', 'Pending'),  -- Return for Sneakers in Order 13
+(14, 20, 'Wrong item received', '2024-08-09', 'Pending'),  -- Return for Bluetooth Earbuds in Order 14
+(15, 20, 'Defective item', '2024-08-10', 'Pending'),  -- Return for Bluetooth Earbuds in Order 15
+(16, 17, 'Defective item', '2024-08-11', 'Pending'),  -- Return for Wireless Charger in Order 16
+(17, 5, 'Product not as described', '2024-08-12', 'Pending'),  -- Return for Smartwatch in Order 17
+(18, 6, 'Changed mind', '2024-08-13', 'Pending'),  -- Return for Tablet in Order 18
+(19, 13, 'Incorrect item received', '2024-08-14', 'Pending'),  -- Return for Camera in Order 19
+(20, 20, 'Defective item', '2024-08-15', 'Pending');  -- Return for Bluetooth Earbuds in Order 20
