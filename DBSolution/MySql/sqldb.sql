@@ -447,6 +447,8 @@ JOIN products p ON oi.item_id = p.id
 LEFT JOIN discount_codes d ON d.code = o.id  -- Assuming discount code is related to order ID for this example
 WHERE o.order_date BETWEEN '2024-01-01' AND '2024-07-31';
 
+
+
 -- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
 
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.stock
