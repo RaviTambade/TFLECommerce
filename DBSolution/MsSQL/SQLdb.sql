@@ -320,4 +320,46 @@ SELECT p1.id AS product_id, p1.name AS product_name, p2.name AS similar_product_
 FROM products p1
 JOIN products p2 ON p1.category_id = p2.category_id AND p1.id <> p2.id;
 
+-- 6. Join with Aggregation: Retrieve Total Sales Per Product
+SELECT p.id AS product_id, p.name AS product_name, SUM(oi.quantity * p.price) AS total_sales
+FROM products p
+JOIN order_items oi ON p.id = oi.item_id
+GROUP BY p.id, p.name;
+
+-- 7. Join with Filtering: Retrieve Orders for a Specific User with Item Details
+SELECT o.id AS order_id, o.order_date, oi.item_id, p.name AS product_name, oi.quantity, p.price
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.item_id = p.id
+WHERE o.customer_id = 2;  -- Replace with the user ID
+
+
+-- 8. Join with Subquery: Retrieve Users Who Have Purchased Products in a Specific Category
+SELECT DISTINCT u.id, u.username
+FROM users u
+JOIN orders o ON u.id = o.customer_id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.item_id = p.id
+WHERE p.category_id = (SELECT id FROM categories WHERE name = 'Clothing');
+
+-- 9. Complex Join: Retrieve Orders with Product Details and Discount Information
+
+SELECT  o.id AS order_id, o.order_date, p.name AS product_name,  oi.quantity, p.price, d.code AS discount_code, (oi.quantity * p.price) AS total_price
+FROM orders o
+INNER JOIN order_items oi ON o.id = oi.order_id
+INNER JOIN products p ON oi.item_id = p.id
+LEFT JOIN order_discounts od ON o.id = od.order_id  -- Join orders with order_discounts
+LEFT JOIN  discount_codes d ON od.discount_code = d.code  -- Join order_discounts with discount_codes
+WHERE  o.order_date BETWEEN '2024-01-01' AND '2024-07-31';
+
+
+-- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
+
+SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.stock
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.item_id = p.id
+WHERE oi.quantity <= p.stock
+ORDER BY oi.quantity ASC;
+
 
