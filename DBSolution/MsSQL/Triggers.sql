@@ -77,3 +77,81 @@ BEGIN
         SET NEW.total_amount = NEW.total_amount * 0.9; -- Apply 10% discount
     END IF;
 END//
+
+
+--5 Trigger to Automatically Apply Discount to Orders Over a Certain Amount
+
+CREATE TRIGGER trg_before_order_insert
+ON orders
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @total_amount DECIMAL(10, 2);
+    SELECT @total_amount = total_amount FROM inserted;
+
+    IF @total_amount > 1000
+    BEGIN
+        INSERT INTO orders (order_date, customer_id, total_amount, status)
+        SELECT order_date, customer_id, total_amount * 0.9, status
+        FROM inserted;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO orders (order_date, customer_id, total_amount, status)
+        SELECT order_date, customer_id, total_amount, status
+        FROM inserted;
+    END
+END
+
+
+--6 Trigger for Insert on Products 
+
+CREATE TRIGGER trg_after_product_insert
+ON inventory
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO product_audit(Product_id, action_type, new_stock_quantity, action_timestamp)
+    SELECT product_id, 'INSERT', stock_quantity, GETDATE()
+    FROM inserted;
+END
+
+
+-- 7 Trigger for UPDATE on Products (Audit)
+CREATE TRIGGER trg_before_product_update
+ON inventory
+FOR UPDATE
+AS
+BEGIN
+    INSERT INTO product_audit(product_id, action_type, old_stock_quantity, new_stock_quantity)
+    SELECT old.product_id, 'UPDATE', old.stock_quantity, new.stock_quantity
+    FROM deleted old
+    JOIN inserted new ON old.product_id = new.product_id;
+END
+
+--9  Trigger for DELETE on Products (Audit)
+
+CREATE TRIGGER trg_after_product_delete
+ON inventory
+AFTER DELETE
+AS
+BEGIN
+    INSERT INTO product_audit(product_id, action_type, old_stock_quantity)
+    SELECT product_id, 'DELETE', stock_quantity
+    FROM deleted;
+END
+
+
+--9  Trigger for DELETE on order_items
+CREATE TRIGGER trg_after_order_item_delete
+ON order_items
+AFTER DELETE
+AS
+BEGIN
+    UPDATE inventory
+    SET stock_quantity = stock_quantity + deleted.quantity
+    FROM deleted
+    WHERE inventory.product_id = deleted.item_id;
+END
+
+
