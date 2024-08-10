@@ -56,7 +56,7 @@ END;
 
 -- 4. Trigger to Log Changes to Product Prices
 
-CREATE TRIGGER after_product_price_update
+CREATE TRIGGER after_product_priceupdate
 ON products
 AFTER UPDATE 
 AS
@@ -66,17 +66,6 @@ BEGIN
     VALUES (1, 1199.99, 1149.99, GETDATE());
 END
 
-
-CREATE TRIGGER before_order_insert
-ON orders
-BEFORE INSERT 
-
-BEGIN
-    -- Apply discount if order total exceeds 1000
-    IF NEW.total_amount > 1000 THEN
-        SET NEW.total_amount = NEW.total_amount * 0.9; -- Apply 10% discount
-    END IF;
-END//
 
 
 --5 Trigger to Automatically Apply Discount to Orders Over a Certain Amount
@@ -141,17 +130,23 @@ BEGIN
     FROM deleted;
 END
 
+-- 10. Trigger to Automatically Update User Points Based on Order Total
 
---9  Trigger for DELETE on order_items
-CREATE TRIGGER trg_after_order_item_delete
-ON order_items
-AFTER DELETE
+CREATE TRIGGER update_user_points
+ON orders -- Replace 'orders' with your actual table name
+AFTER INSERT 
 AS
 BEGIN
-    UPDATE inventory
-    SET stock_quantity = stock_quantity + deleted.quantity
-    FROM deleted
-    WHERE inventory.product_id = deleted.item_id;
-END
-
-
+    -- Ensure the points column exists in the users table
+    IF COL_LENGTH('users', 'points') IS NOT NULL
+    BEGIN
+        UPDATE users
+        SET points = points + FLOOR(INSERTED.total_amount / 10)
+        FROM INSERTED
+        WHERE users.id = INSERTED.customer_id;
+    END
+    ELSE
+    BEGIN
+        PRINT 'Column "points" does not exist in the "users" table.';
+    END
+END;
