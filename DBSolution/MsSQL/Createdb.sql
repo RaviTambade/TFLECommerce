@@ -46,6 +46,8 @@ CREATE TABLE orders (
         ON DELETE CASCADE
 );
 
+
+
 CREATE TABLE order_status (
     order_id INT NOT NULL,
 	status VARCHAR(50) CHECK(
