@@ -1,4 +1,4 @@
-using ShoppingStoreApp.Server.Entities;
+using ShoppingStoreApp.Server.Models;
 namespace ShoppingStoreApp.Server.Repositories.Interfaces;
 
 public interface IProductRepository{
@@ -13,11 +13,11 @@ public interface IProductRepository{
      public bool Delete(int id);*/
 
 
-    //Non-Blocking call  : Aysynchronous call
-    public   Task<List<Product>> GetAll();
-    public   Task<Product> GetById(int id);
-    public   Task<bool> Insert(Product product);
-    public   Task<bool> Update(Product product);
-    public   Task<bool> Delete(int id);
+    Task<IEnumerable<Product>> GetAll();
+    Task<Product> GetById(int productId);
+    Task<bool> Insert(Product product);
+    Task<bool> Update(Product product);
+    Task<bool> Delete(int ProductId);
+    Task<bool> HikePrice(double percentage);
 }
 
