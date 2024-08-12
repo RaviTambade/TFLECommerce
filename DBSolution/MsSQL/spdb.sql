@@ -128,3 +128,5 @@ END;
 
 
 EXEC MonthlySalesReport @p_year = 2024, @p_month = 8;
+
+select * from products;

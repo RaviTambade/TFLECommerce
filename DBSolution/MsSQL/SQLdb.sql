@@ -1,44 +1,193 @@
+------ Products API -------
+
 -- 1. Retrieve All Products
+-- Endpoint: /api/products
+-- Method: GET
+
+
 -- 2. Retrieve Products in a Specific Category
+-- Endpoint: /api/products/category/{categoryId}
+-- Method: GET
+
+-- 4. Retrieve Products and Their Categories 
+-- Endpoint: /api/products/with-categories
+-- Method: GET
+
+
 -- 3. Retrieve a User's Order History
+-- Endpoint: /api/products/{productId}/reviews
+-- Method: GET
+
+
 -- 4. Find Products with Low Stock
+-- Endpoint: /api/products/low-stock?threshold={threshold}
+-- Method: GET
+
 -- 5. Retrieve Product Reviews
+-- Endpoint: /api/products/{productId}/reviews
+-- Method: GET
+
+-- 6. Find Most Expensive Products in Each Category
+-- Endpoint: /api/products/most-expensive-per-category
+-- Method: GET
+
+
 -- 6. Add a new Product
+-- Endpoint: /api/products
+-- Method: POST
+
+
 -- 7 Update Stock for a Product
+-- Endpoint: /api/products/{productId}/stock
+-- Method: PUT
+
+
+-- 8. List Top 3 Products by Total Sales
+-- Endpoint: /api/products/top-sales
+-- Method: GET
+
+
+-- 16. Count Products in Each Category
+-- Endpoint: /api/products/count-by-category
+-- Method: GET
+
+
+-- 18. Find Products That Have Never Been Ordered
+-- Endpoint: /api/products/never-ordered
+-- Method: GET
+
+
+-- 18. Retrieve Products with More than a Specified Stock
+-- Endpoint: /api/orders/date-range?startDate={startDate}&endDate={endDate}
+-- Method: GET
+
+
+------ Orders API ------
+
+-- 13. Retrieve Users with More Than One Order
+-- Endpoint: /api/users/multiple-orders
+-- Method: GET
+
 -- 8. Delete an Order
+-- Endpoint: /api/orders/{orderId}/
+-- Method: DELETE
+
+
 -- 9. Calculate Total Sales for a Given Month
+-- Endpoint: /api/sales/total?month={month}&year={year}
+-- Method: GET
+
+
+-- 7. Retrieve Orders Placed Within a Specific Date Range
+-- Endpoint: /api/orders/date-range
+-- Method: GET
+
+
 -- 10. Apply a Discount Code
 		-- First, check if the discount code is valid
 		-- Then apply the discount to an order
 		-- Assuming the discount percentage was retrieved and is valid
+-- Endpoint: /api/orders/{orderId}/apply-discount
+-- Method: POST
+
+
 -- 11. Retrieve Monthly Sales Report
+-- Endpoint: /api/sales/report/monthly?month={month}&year={year}
+-- Method: GET
+
+
 -- 12. Retrieve Orders with Their Total Amounts
--- 13. Retrieve Users with More Than One Order
+-- Endpoint: /api/orders/total-amount
+-- Method: GET
+
+
+-- 5. Get Total Revenue Per Product 
+-- Endpoint: /api/products/revenue
+-- Method: GET
+
+
 -- 14. Find Top Rated Products
+-- Endpoint: /api/products/top-rated
+-- Method: GET
+
+
 -- 15. Retrieve Latest Orders
--- 16. Count Products in Each Category
--- 17. Find Orders with Products Above a Certain Price
--- 18. Retrieve Products with More than a Specified Stock
-               
--- 2. Get All Orders with Their Items and Prices
--- 3. Find Users with the Most Orders
--- 4. Retrieve Products and Their Categories
--- 5. Get Total Revenue Per Product
--- 6. Find Most Expensive Products in Each Category
--- 7. Retrieve Orders Placed Within a Specific Date Range
--- 8. List Top 3 Products by Total Sales
--- 9. Retrieve Orders with Discounts Applied
--- 10. Get Average Rating for Each Product
--- 11. Find Customers Who Have Never Made a Purchase
--- 12. Retrieve Top 5 Most Reviewed Products
+-- Endpoint: /api/orders/latest?limit={limit}
+-- Method: GET
+
+
+-- 17. Find Orders with Products Above a Certain Price 
+-- Endpoint: /api/orders/above-price
+-- Method: GET
+
+
 -- 13. Retrieve Order Details Including User Information
--- 14. Find Average Order Amount Per User
--- 15. Retrieve All Products with Reviews and Their Average Rating
--- 16. Find the Most Recent Review for Each Product
--- 17. Retrieve Orders with Items and Their Prices Above a Certain Amount
--- 18. Find Products That Have Never Been Ordered
+-- Endpoint: /api/orders/{orderId}/details
+-- Method: GET
+
+               
+------ Users API -----
+
+-- 1. Find Users with the Most Orders
+-- Endpoint: /api/users/most-orders?limit={limit}
+-- Method: GET
+
+
 -- 19. Get Total Orders and Total Amount Spent by Each User
--- 20. Retrieve Products with the Most Positive Reviews
+-- Endpoint: /api/users/orders-total
+-- Method: GET
+
+
+-- 17. Retrieve Orders with Items and Their Prices Above a Certain Amount
+-- Endpoint: /api/orders/with-total-price
+-- Method: GET
+
+
+
+-- 9. Retrieve Orders with Discounts Applied
+-- Endpoint: /api/orders/with-discounts
+-- Method: GET
+
+
+-- 14. Find Average Order Amount Per User
+-- Endpoint: /api/users/average-order-amount
+-- Method: GET
+
+
+-- 11. Find Customers Who Have Never Made a Purchase
+-- Endpoint: /api/users/no-purchase
+-- Method: GET
+
+------- Rating API--------
+
+--1 Retrieve Products with the Most Positive Reviews
+-- Endpoint: /api/products/top-reviewed
+-- Method: GET
+
+--2 Retrieve All Products with Reviews and Their Average Rating
+-- Endpoint: /api/products/average-rating
+-- Method: GET
+
+
+-- 12. Retrieve Top 5 Most Reviewed Products
+-- Endpoint: /api/products/top-reviewed?limit=5
+-- Method: GET
+
+
+
+-- 16. Find the Most Recent Review for Each Product
+-- Endpoint: /api/products/{productId}/latest-review
+-- Method: GET
+
+
+
+-- 10. Get Average Rating for Each Product
+-- Endpoint: /api/products/average-rating
+-- Method: GET
+
+
+
+
 
 -- JOIN Queries
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
@@ -73,6 +222,8 @@
 -- 17. Get Total Revenue from Each Category
 -- 18. List Orders and Their Associated Review Ratings
 -- 19. Find Most Frequently Purchased Products
+
+
 
 -- 1. Retrieve Products in a Specific Category
 SELECT p.id, p.name, p.price, p.stock
