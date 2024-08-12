@@ -98,10 +98,12 @@ FROM reviews r
 JOIN users u ON r.user_id = u.id
 WHERE r.product_id = 1;  -- Replace with the product ID you're interested in
 
+
 --5. Get Product Reviews 
 SELECT r.rating, r.review_text, u.username
 FROM reviews r ,users u
 WHERE r.product_id = 1;
+
 
 -- 6. Add a new Product
 INSERT INTO products (name, description, price, stock, category_id)
