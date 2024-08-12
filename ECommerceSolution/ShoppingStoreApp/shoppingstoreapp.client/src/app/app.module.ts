@@ -8,16 +8,19 @@ import { ListComponent } from './list/list.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
+
   declarations: [
-    AppComponent,
-    ListComponent,
-    LoginComponent
+                  AppComponent,ListComponent,LoginComponent
   ],
+
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule
   ],
+
   providers: [],
+
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
