@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderProcessing", "OrderPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MembershipRoles", "MembershipRoles\MembershipRoles.csproj", "{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserWebAPI", "UserWebAPI\UserWebAPI.csproj", "{8D6D59E2-9F24-4B4D-9392-5D7782D4B8F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BCA90AF-AE4E-48D0-85F5-0F16039C0BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6D59E2-9F24-4B4D-9392-5D7782D4B8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6D59E2-9F24-4B4D-9392-5D7782D4B8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6D59E2-9F24-4B4D-9392-5D7782D4B8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6D59E2-9F24-4B4D-9392-5D7782D4B8F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
