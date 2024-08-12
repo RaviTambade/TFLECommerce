@@ -1,4 +1,4 @@
-using ShoppingStoreApp.Server.Entities;
+using ShoppingStoreApp.Server.Models;
 using ShoppingStoreApp.Server.Repositories.Interfaces;
 using ShoppingStoreApp.Server.Services.Interfaces;
 
@@ -6,33 +6,22 @@ public class ProductService : IProductService
 {
     private IProductRepository _repository;
 
-    public ProductService(IProductRepository repository)
+    private readonly IProductRepository _repo;
+    public ProductService(IProductRepository repo)
     {
-        _repository = repository;
+        _repo = repo;
     }
 
-    public  async Task<bool> Delete(int id)
+    public async Task<IEnumerable<Product>> GetAll()
     {
-       return await _repository.Delete(id);
+        var products = _repo.GetAll();
+        Console.WriteLine("service");
+        return await products;
     }
+    public async Task<Product> GetById(int productId) => await _repo.GetById(productId);
+    public async Task<bool> Insert(Product product) => await _repo.Insert(product);
+    public async Task<bool> Update(Product product) => await _repo.Update(product);
+    public async Task<bool> Delete(int productId) => await _repo.Delete(productId);
+    public async Task<bool> HikePrice(double percentage) => await _repo.HikePrice(percentage);
 
-    public async Task<List<Product>> GetAll()
-    {
-       return  await _repository.GetAll();
-    }
-
-    public async Task<Product> GetById(int id)
-    {   
-        return await _repository.GetById(id);   
-    }
-
-    public async Task<bool> Insert(Product product)
-    {
-        return await _repository.Insert(product);
-    }
-
-    public async Task<bool> Update(Product product)
-    {
-        return await _repository.Update(product);
-    }
 }

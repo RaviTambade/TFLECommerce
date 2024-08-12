@@ -23,10 +23,8 @@
     </tbody>
 </table>
 
-
 <hr/>
 <h2>Todays Fresh Flower from Transflower</h2>
-
 
 <table *ngIf="products">
   <thead>
@@ -39,10 +37,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td>{{ product.id }}</td>
-      <td>{{ product.name }}</td>
+      <td>{{ product.productId }}</td>
+      <td>{{ product.productTitle }}</td>
       <td>{{ product.description }}</td>
-      <td>{{ product.quantity}}</td>
+      <td>{{ product.stockAvailable}}</td>
     </tr>
   </tbody>
 </table>

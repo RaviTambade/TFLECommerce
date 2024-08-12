@@ -1,8 +1,11 @@
 CREATE DATABASE tflecommerce;
 Use tflecommerce;
 
+ALTER DATABASE tflecommerce SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 
-CREATE TABLE users (
+DROP DATABASE tflecommerce;
+
+ CREATE TABLE users (
     id INT Identity (1,1)PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -42,6 +45,8 @@ CREATE TABLE orders (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+
 
 CREATE TABLE order_status (
     order_id INT NOT NULL,

@@ -433,8 +433,6 @@ INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date, re
 
 
 
-
-
 -- Insert sample data into the `returns` table
 INSERT INTO returns (order_id, product_id, return_reason, return_date, status) VALUES
 (1, 1, 'Defective item', '2024-07-27', 'Pending'),  -- Return for Smartphone in Order 1

@@ -1,7 +1,5 @@
 
 -- 1. Retrieve All Products
-
-
 -- 2. Retrieve Products in a Specific Category
 -- 3. Retrieve a User's Order History
 -- 4. Find Products with Low Stock
@@ -446,6 +444,8 @@ JOIN order_items oi ON o.id = oi.order_id
 JOIN products p ON oi.item_id = p.id
 LEFT JOIN discount_codes d ON d.code = o.id  -- Assuming discount code is related to order ID for this example
 WHERE o.order_date BETWEEN '2024-01-01' AND '2024-07-31';
+
+
 
 -- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
 
