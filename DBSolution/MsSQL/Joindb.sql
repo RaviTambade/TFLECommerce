@@ -1,10 +1,33 @@
+
+
 -- JOIN Queries
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
+-- Endpoint: /api/orders/items/products
+-- Method: GET
+
+
 -- 2. Left Join: Retrieve All Products and Their Categories
- -- 3.Right Join: Retrieve All Categories and Products in Each Category
+-- Endpoint: /api/products/categories
+-- Method: GET
+
+
+-- 3.Right Join: Retrieve All Categories and Products in Each Category
+-- Endpoint: /api/categories/products
+-- Method: GET
+
 -- 4. Full Outer Join: Retrieve All Products and Reviews, Even If Some Products Have No Reviews
+-- Endpoint: /api/products/reviews
+-- Method: GET
+
 -- 5. Self Join: Retrieve Products and Their Similar Products Based on Category
+-- Endpoint: /api/products/similar-products
+-- Method: GET
+
 -- 6. Join with Aggregation: Retrieve Total Sales Per Product
+-- Endpoint: /api/products{productID}/total-sales
+-- Method: GET
+
+
 -- 7. Join with Filtering: Retrieve Orders for a Specific User with Item Details
 -- 8. Join with Subquery: Retrieve Users Who Have Purchased Products in a Specific Category
 -- 9. Complex Join: Retrieve Orders with Product Details and Discount Information
@@ -35,7 +58,9 @@
 -- 17. Get Total Revenue from Each Category
 -- 18. List Orders and Their Associated Review Ratings
 -- 19. Find Most Frequently Purchased Products
--- JOIN QUERIES
+
+
+------ JOIN QUERIES ----------
 
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
@@ -109,6 +134,8 @@ FROM users u
 JOIN orders o ON u.id = o.customer_id
 WHERE o.order_date > DATEADD(DAY, -1, GETDATE());
  
+
+
  
  -- 1. Retrieve Orders with Shipping Address and User Information
 SELECT o.id AS order_id, o.order_date, o.shipping_address, u.username, u.email

@@ -10,7 +10,7 @@
 -- Method: GET
 
 -- 3. Retrieve Products and Their Categories 
--- Endpoint: /api/products/with-categories
+-- Endpoint: /api/products/categories
 -- Method: GET
 
 -- 4. Find Products with Low Stock
