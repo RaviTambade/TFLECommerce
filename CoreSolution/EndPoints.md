@@ -20,11 +20,10 @@
 -- 3. Calculate Total Sales for a Given Month        GET/api/sales/total?month={month}&year={year}
 -- 4. Retrieve a User's Order History                GET/api/users/{userId}/orders
 -- 5. Retrieve Orders Placed Within a Specific Date Range       GET/api/orders/date-range
--- 6. Apply a Discount Code
+-- 6. Apply a Discount Code                      POST/api/orders/{orderId}/apply-discount
 		-- First, check if the discount code is valid
 		-- Then apply the discount to an order
 		-- Assuming the discount percentage was retrieved and is valid
-                                           POST/api/orders/{orderId}/apply-discount
 -- 7. Retrieve Monthly Sales Report        GET/api/sales/report/monthly?month={month}&year={year}
 -- 8. Retrieve Orders with Their Total Amounts      GET/api/orders/total-amount
 -- 9. Get Total Revenue Per Product                 GET/api/products/revenue
@@ -70,7 +69,7 @@
 
 -- JOIN Queries API
 
--- 1. Inner Join/Retrieve Orders with Their Items and Product Details     GET/api/orders/items/products
+-- 1. Inner Join/Retrieve Orders with Their Items and Product Details   GET/api/orders/items/products
 -- 2. Left Join/Retrieve All Products and Their Categories              GET/api/products/categories
 -- 3.Right Join/Retrieve All Categories and Products in Each Category   GET/api/categories/products
 -- 4. Full Outer Join/Retrieve All Products and Reviews, Even If Some Products Have No Reviews                         GET/api/products/reviews
@@ -79,8 +78,8 @@
 -- 7. Join with Filtering/Retrieve Orders for a Specific User with Item Details        GET/api/orders/users/{userID}/item-details
 -- 8. Join with Subquery/Retrieve Users Who Have Purchased Products in a Specific Category               GET/api/users/{userID}/categories{categoryID}
 -- 9. Complex Join/Retrieve Orders with Product Details and Discount Information       GET/api/orders/products/{productID}/discount-Applied
--- 10. Join for Data Consistency/Retrieve Orders and Verify Product Availability      GET/api/orders/products/{productID}/stock-available
--- 11. Join to Retrieve High-Rated Products with Their Categories                  GET/api/products/{productID}/categories
+-- 10. Join for Data Consistency/Retrieve Orders and Verify Product Availability       GET/api/orders/products/{productID}/stock-available
+-- 11. Join to Retrieve High-Rated Products with Their Categories                      GET/api/products/{productID}/categories
 
 ECommerce Solution:
 
@@ -92,26 +91,16 @@ ECommerce Solution:
 	1. Retrieve All Products			 GET /api/products
  	2. Retrieve Products in a Specific Category	 GET /api/products/category/{categoryId}
  	3. Retrieve Products and Their Categories 	 GET /api/products/categories
- 	4. Find Products with Low Stock			 GET /api/products/low-stock?threshold={threshold}
+ 	4. Find Products with Low Stock	     GET /api/products/low-stock?threshold={threshold}
  	5. Retrieve Product Reviews			 GET /api/products/{productId}/reviews
     6. Find Most Expensive Products in Each Category         GET/api/products/most-expensive-per-category
-    7. Add a new Product                 POST/api/products
-    8. Update Stock for a Product         PUT/api/products/{productId}/stock
-    9. List Top 3 Products by Total Sales GET/api/products/top-sales
+    7. Add a new Product                   POST/api/products
+    8. Update Stock for a Product          PUT/api/products/{productId}/stock
+    9. List Top 3 Products by Total Sales  GET/api/products/top-sales
+    10. Count Products in Each Category    GET/api/products/count-by-category
+    11. Find Products That Have Never Been Ordered           GET/api/products/never-ordered
+    12. Retrieve Products with More than a Specified Stock   GET/api/orders/date-range?startDate={startDate}&endDate={endDate}
 
--- 10. Count Products in Each Category
--- Endpoint: /api/products/count-by-category
--- Method: GET
-
-
--- 11. Find Products That Have Never Been Ordered
--- Endpoint: /api/products/never-ordered
--- Method: GET
-
-
--- 12. Retrieve Products with More than a Specified Stock
--- Endpoint: /api/orders/date-range?startDate={startDate}&endDate={endDate}
--- Method: GET
 		controllers (MVC framework)
 		services
 		Repositories
@@ -149,7 +138,6 @@ ECommerce Solution:
 	OrderProcessing
 		api's
 		
-
 		controllers
 		services
 		Repositories
@@ -159,12 +147,9 @@ ECommerce Solution:
 	reviews, comments
 		api's
 
-			
-			
-
 			1. Add a Comment			POST /api/products/{productId}/comments
-			2. Get Product Comments			GET /api/products/{productId}/comments	
-			3. Get Comment Details			GET /api/comments/{commentId}	
+			2. Get Product Comments	    GET /api/products/{productId}/comments	
+			3. Get Comment Details		GET /api/comments/{commentId}	
 			4. Update a Comment			PUT /api/comments/{commentId}	
 			5. Delete a Comment			DELETE /api/comments/{commentId}		
 			6. Get Comment Count for Product	GET /api/products/{productId}/comments/count
@@ -192,11 +177,11 @@ ECommerce Solution:
 	Billing and Payment processing
 
 		api's
-			1. Create Invoice	POST /api/orders/{orderId}/invoice
+			1. Create Invoice	    POST /api/orders/{orderId}/invoice
 			2. Get Invoice Details	GET /api/invoices/{invoiceId}
-			3. Process Payment	POST /api/orders/{orderId}/payment
+			3. Process Payment	    POST /api/orders/{orderId}/payment
 			4. Get Payment Status	GET /api/payments/{transactionId}	
-			5. Initiate Refund	POST /api/payments/{transactionId}/refund
+			5. Initiate Refund	    POST /api/payments/{transactionId}/refund
 			6. Get Refund Status	GET /api/refunds/{refundId}
 			7. Add Payment Method	POST /api/customers/{customerId}/payment-methods
 			8. Get Payment Methods 	GET /api/customers/{customerId}/payment-methods
@@ -211,8 +196,8 @@ ECommerce Solution:
 			1. Create Shipment  		POST /api/orders/{orderId}/shipments
 			2. Get Shipment Details 	GET /api/shipments/{shipmentId}
 			3. Update Shipment Status 	PUT /api/shipments/{shipmentId}/status
-			4. Cancel Shipment		DELETE /api/shipments/{shipmentId}
-			5. Track Shipment		GET /api/shipments/track/{trackingNumber}
+			4. Cancel Shipment		    DELETE /api/shipments/{shipmentId}
+			5. Track Shipment		    GET /api/shipments/track/{trackingNumber}
 			6. Generate Shipping Label	POST /api/shipments/{shipmentId}/label   
 			7. Get Shipping Policies	GET /api/shipping/policies	  	
 			
@@ -227,8 +212,8 @@ ECommerce Solution:
 		api's
 			1. Initiate a Return 	POST /api/orders/{orderId}/return--------- class controller------service class-------repository
 			2. Get Return Status    GET /api/returns/{returnId}
-			3. Process Return	PUT /api/returns/{returnId}/process
-			4. Issue Refund		POST /api/returns/{returnId}/refund
+			3. Process Return	    PUT /api/returns/{returnId}/process
+			4. Issue Refund		    POST /api/returns/{returnId}/refund
 			5. Get Refund Status	GET /api/refunds/{refundId}
 			6. Get Return Policies  GET /api/returns/policy
 	
@@ -238,10 +223,6 @@ ECommerce Solution:
 		Repositories
 		ADO.NET, Entity Framework, Dapper	
 		tables, queries, txns, Stored procedures, Triggers--------------------done
-
-
-
-
 
 
 		INSERT INTO	  --------SQL-------------------database
