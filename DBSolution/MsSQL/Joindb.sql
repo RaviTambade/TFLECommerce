@@ -40,7 +40,7 @@
 -- 19. Find Most Frequently Purchased Products
 
 
------- JOIN QUERIES ----------
+------ JOIN QUERIES -------
 
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
 SELECT o.id AS order_id, o.order_date, p.name AS product_name, oi.quantity, p.price, (oi.quantity * p.price) AS total_price
