@@ -29,8 +29,7 @@
 -- Method: GET
 
 
--- 7. Add a new Product
--- Endpoint: /api/products
+-- 7. Add a new Product  POST /api/products
 -- Method: POST
 
 
@@ -294,3 +293,189 @@
 -- 11. Join to Retrieve High-Rated Products with Their Categories
 -- Endpoint: /api/products/{productID}/categories
 -- Method: GET
+
+
+
+
+
+ECommerce Solution:
+
+	(Modules)
+		
+		
+	Product catalog
+		api's-------------------------rest api
+
+	1. Retrieve All Products			 GET /api/products
+ 	2. Retrieve Products in a Specific Category	 GET /api/products/category/{categoryId}
+ 	3. Retrieve Products and Their Categories 	 GET /api/products/categories
+ 	4. Find Products with Low Stock			 GET /api/products/low-stock?threshold={threshold}
+ 	5. Retrieve Product Reviews			 GET /api/products/{productId}/reviews
+ 
+
+-- 6. Find Most Expensive Products in Each Category
+-- Endpoint: /api/products/most-expensive-per-category
+-- Method: GET
+
+
+-- 7. Add a new Product
+-- Endpoint: /api/products
+-- Method: POST
+
+
+-- 8. Update Stock for a Product
+-- Endpoint: /api/products/{productId}/stock
+-- Method: PUT
+
+
+-- 9. List Top 3 Products by Total Sales
+-- Endpoint: /api/products/top-sales
+-- Method: GET
+
+
+-- 10. Count Products in Each Category
+-- Endpoint: /api/products/count-by-category
+-- Method: GET
+
+
+-- 11. Find Products That Have Never Been Ordered
+-- Endpoint: /api/products/never-ordered
+-- Method: GET
+
+
+-- 12. Retrieve Products with More than a Specified Stock
+-- Endpoint: /api/orders/date-range?startDate={startDate}&endDate={endDate}
+-- Method: GET
+		controllers (MVC framework)
+		services
+		Repositories
+			ADO.NET, Entity Framework, Dapper	
+		RDBMS elements
+			tables, queries, txns, Stored procedures, Triggers--------done
+
+	Shopping Cart
+		api's
+			Add Item to Cart
+				POST /api/cart
+			View Cart
+				GET /api/cart
+			Update Item Quantity	
+				PUT /api/cart/items/{itemId}
+			Remove Item from Cart
+				DELETE /api/cart/items/{itemId}
+			Clear Cart
+				DELETE /api/cart
+
+
+		C#
+			controllers
+			services
+			Repositories
+			ADO.NET, Entity Framework, Dapper	
+	
+			DDL,DML,SQL
+
+			tables, queries, txns, Stored procedures, Triggers-----------------done
+
+
+	OrderProcessing
+		api's
+		
+
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers----------------done
+		
+	reviews, comments
+		api's
+
+			
+			
+
+			1. Add a Comment			POST /api/products/{productId}/comments
+			2. Get Product Comments			GET /api/products/{productId}/comments	
+			3. Get Comment Details			GET /api/comments/{commentId}	
+			4. Update a Comment			PUT /api/comments/{commentId}	
+			5. Delete a Comment			DELETE /api/comments/{commentId}		
+			6. Get Comment Count for Product	GET /api/products/{productId}/comments/count
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers------------------done
+
+	Customer Relationship Management
+		api's
+			POST /api/crm/customers
+			GET  /api/crm/customers/{customerId}
+			POST /api/crm/orders
+			GET  /api/crm/orders/{orderId}
+			POST /api/crm/campaigns
+			GET /api/crm/campaigns/{campaignId}
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers------------------done
+
+
+	Billing and Payment processing
+
+		api's
+			1. Create Invoice	POST /api/orders/{orderId}/invoice
+			2. Get Invoice Details	GET /api/invoices/{invoiceId}
+			3. Process Payment	POST /api/orders/{orderId}/payment
+			4. Get Payment Status	GET /api/payments/{transactionId}	
+			5. Initiate Refund	POST /api/payments/{transactionId}/refund
+			6. Get Refund Status	GET /api/refunds/{refundId}
+			7. Add Payment Method	POST /api/customers/{customerId}/payment-methods
+			8. Get Payment Methods 	GET /api/customers/{customerId}/payment-methods
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers-------------------done
+
+	Shipment
+		api's
+			1. Create Shipment  		POST /api/orders/{orderId}/shipments
+			2. Get Shipment Details 	GET /api/shipments/{shipmentId}
+			3. Update Shipment Status 	PUT /api/shipments/{shipmentId}/status
+			4. Cancel Shipment		DELETE /api/shipments/{shipmentId}
+			5. Track Shipment		GET /api/shipments/track/{trackingNumber}
+			6. Generate Shipping Label	POST /api/shipments/{shipmentId}/label   
+			7. Get Shipping Policies	GET /api/shipping/policies	  	
+			
+		
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers-------------------done
+
+	Refund and Return Policy
+		api's
+			1. Initiate a Return 	POST /api/orders/{orderId}/return--------- class controller------service class-------repository
+			2. Get Return Status    GET /api/returns/{returnId}
+			3. Process Return	PUT /api/returns/{returnId}/process
+			4. Issue Refund		POST /api/returns/{returnId}/refund
+			5. Get Refund Status	GET /api/refunds/{refundId}
+			6. Get Return Policies  GET /api/returns/policy
+	
+
+		controllers
+		services
+		Repositories
+		ADO.NET, Entity Framework, Dapper	
+		tables, queries, txns, Stored procedures, Triggers--------------------done
+
+
+
+
+
+
+		INSERT INTO	  --------SQL-------------------database
+		UPDATE emloye set   ------SQL
+		DELETE from --------------SQL
