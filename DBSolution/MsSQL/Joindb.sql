@@ -1,33 +1,13 @@
 
 
--- JOIN Queries
+---- JOIN Queries ----
+
 -- 1. Inner Join: Retrieve Orders with Their Items and Product Details
--- Endpoint: /api/orders/items/products
--- Method: GET
-
-
 -- 2. Left Join: Retrieve All Products and Their Categories
--- Endpoint: /api/products/categories
--- Method: GET
-
-
 -- 3.Right Join: Retrieve All Categories and Products in Each Category
--- Endpoint: /api/categories/products
--- Method: GET
-
 -- 4. Full Outer Join: Retrieve All Products and Reviews, Even If Some Products Have No Reviews
--- Endpoint: /api/products/reviews
--- Method: GET
-
 -- 5. Self Join: Retrieve Products and Their Similar Products Based on Category
--- Endpoint: /api/products/similar-products
--- Method: GET
-
 -- 6. Join with Aggregation: Retrieve Total Sales Per Product
--- Endpoint: /api/products{productID}/total-sales
--- Method: GET
-
-
 -- 7. Join with Filtering: Retrieve Orders for a Specific User with Item Details
 -- 8. Join with Subquery: Retrieve Users Who Have Purchased Products in a Specific Category
 -- 9. Complex Join: Retrieve Orders with Product Details and Discount Information

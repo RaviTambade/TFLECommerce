@@ -196,6 +196,56 @@
 
 
 
+-------- Shopping Cart ----------
+
+-- 1. Add Item to Cart
+-- Endpoint: /api/cart
+-- Method: POST
+
+
+--2. View Cart
+-- Endpoint: /cart/{user_id}
+-- Method: GET
+
+
+--3. Update Item Quantity
+-- Endpoint: /cart/{user_id}/item/{product_id}
+-- Method: PUT
+
+
+--4. Remove Item from Cart
+-- Endpoint: /cart/{user_id}/item/{product_id}
+-- Method: DELETE
+
+
+--5. Clear Cart
+-- Endpoint: /cart/{user_id}
+-- Method: DELETE
+
+
+------ Shipment API --------
+
+--1. Create a Shipment
+-- Endpoint: /shipments/
+-- Method: POST
+
+
+--2. Get Shipment Details
+-- Endpoint: /shipments/{shipment_id}
+-- Method: GET
+
+--3. Update Shipment Status
+-- Endpoint: /shipments/{shipment_id}/status
+-- Method: PUT
+
+--4. Add Shipment Items
+-- Endpoint: /shipments/{shipment_id}/items
+-- Method: POST
+
+--5. Get Shipping Methods
+-- Endpoint: shipment/shipping-methods
+-- Method: GET
+
 
 -- JOIN Queries API
 
@@ -225,4 +275,22 @@
 -- Endpoint: /api/products{productID}/total-sales
 -- Method: GET
 
+-- 7. Join with Filtering: Retrieve Orders for a Specific User with Item Details
+-- Endpoint: /api/orders/users/{userID}/item-details
+-- Method: GET
 
+-- 8. Join with Subquery: Retrieve Users Who Have Purchased Products in a Specific Category
+-- Endpoint: /api/users/{userID}/categories{categoryID}
+-- Method: GET
+
+-- 9. Complex Join: Retrieve Orders with Product Details and Discount Information
+-- Endpoint: /api/orders/products/{productID}/discount-Applied
+-- Method: GET
+
+-- 10. Join for Data Consistency: Retrieve Orders and Verify Product Availability
+-- Endpoint: /api/orders/products/{productID}/stock-available
+-- Method: GET
+
+-- 11. Join to Retrieve High-Rated Products with Their Categories
+-- Endpoint: /api/products/{productID}/categories
+-- Method: GET
