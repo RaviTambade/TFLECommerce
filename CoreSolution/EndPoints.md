@@ -353,6 +353,8 @@ ECommerce Solution:
 		RDBMS elements
 			tables, queries, txns, Stored procedures, Triggers--------done
 
+
+
 	Shopping Cart
 		api's
 			Add Item to Cart
