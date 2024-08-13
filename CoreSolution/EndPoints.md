@@ -1,3 +1,8 @@
+
+ECommerce Solution:
+
+	(Modules)
+		
 ------ Products API -------
 
 -- 1. Retrieve All Products                                      GET/api/products
@@ -48,28 +53,47 @@
 
 ------- Reviews API--------
 
---1 Retrieve Products with the Most Positive Reviews       GET/api/products/top-reviewed
---2 Retrieve All Products with
+-- 1 Retrieve Products with the Most Positive Reviews       GET/api/products/top-reviewed
+-- 2 Retrieve All Products with
     Reviews and Their Average Rating                       GET/api/products/average-rating
 -- 3. Retrieve Top 5 Most Reviewed Products                GET/api/products/top-reviewed?limit=5
 -- 4. Find the Most Recent Review for Each Product         GET/api/products/{productId}/latest-review
 -- 5. Get Average Rating for Each Product                  GET/api/products/average-rating
+-- 6. Add a Comment			                               POST /api/products/{productId}/comments
+-- 7. Get Product Comments	                               GET /api/products/{productId}/comments	
+-- 8. Get Comment Details	                               GET /api/comments/{commentId}	
+-- 9. Update a Comment			                           PUT /api/comments/{commentId}	
+-- 10. Delete a Comment			                           DELETE /api/comments/{commentId}		
+-- 11. Get Comment Count for Product	                   GET /api/products/{productId}/comments/count
+
+
 
 -------- Shopping Cart ----------
 
 -- 1. Add Item to Cart          POST/api/cart
---2. View Cart                  GET/cart/{user_id}
---3. Update Item Quantity       PUT/cart/{user_id}/item/{product_id}
---4. Remove Item from Cart      DELETE/cart/{user_id}/item/{product_id}
---5. Clear Cart                 DELETE/cart/{user_id}
+-- 2. View Cart                  GET/cart/{user_id}
+-- 3. Update Item Quantity       PUT/cart/{user_id}/item/{product_id}
+-- 4. Remove Item from Cart      DELETE/cart/{user_id}/item/{product_id}
+-- 5. Clear Cart                 DELETE/cart/{user_id}
 
 ------ Shipment API --------
 
---1. Create a Shipment          POST/shipments
---2. Get Shipment Details       GET/shipments/{shipment_id}
---3. Update Shipment Status     PUT/shipments/{shipment_id}/status
---4. Add Shipment Items         POST/shipments/{shipment_id}/items
---5. Get Shipping Methods       GET/shipment/shipping-methods
+-- 1. Create a Shipment          POST/shipments
+-- 2. Get Shipment Details       GET/shipments/{shipment_id}
+-- 3. Update Shipment Status     PUT/shipments/{shipment_id}/status
+-- 4. Add Shipment Items         POST/shipments/{shipment_id}/items
+-- 5. Get Shipping Methods       GET/shipment/shipping-methods
+
+
+Customer Relationship Management
+		api's
+			POST /api/crm/customers
+			GET  /api/crm/customers/{customerId}
+			POST /api/crm/orders
+			GET  /api/crm/orders/{orderId}
+			POST /api/crm/campaigns
+			GET /api/crm/campaigns/{campaignId}
+
 
 -- JOIN Queries API
 
@@ -89,25 +113,6 @@
        Orders and Verify Product Availability                                              GET/api/orders/products/{productID}/stock-available
 -- 11. Join to Retrieve High-Rated Products with Their Categories                          GET/api/products/{productID}/categories
 
-ECommerce Solution:
-
-	(Modules)
-		
-	Product catalog
-		api's-------------------------rest api
-
-	1. Retrieve All Products			                         GET /api/products
- 	2. Retrieve Products in a Specific Category   	             GET /api/products/category/{categoryId}
- 	3. Retrieve Products and Their Categories 	                 GET /api/products/categories
- 	4. Find Products with Low Stock	                             GET /api/products/low-stock?threshold={threshold}
- 	5. Retrieve Product Reviews			                         GET /api/products/{productId}/reviews
-    6. Find Most Expensive Products in Each Category             GET/api/products/most-expensive-per-category
-    7. Add a new Product                                         POST/api/products
-    8. Update Stock for a Product                                PUT/api/products/{productId}/stock
-    9. List Top 3 Products by Total Sales                        GET/api/products/top-sales
-    10. Count Products in Each Category                          GET/api/products/count-by-category
-    11. Find Products That Have Never Been Ordered               GET/api/products/never-ordered
-    12. Retrieve Products with More than a Specified Stock       GET/api/orders/date-range?startDate={startDate}&endDate={endDate}
 
 		controllers (MVC framework)
 		services
@@ -116,70 +121,14 @@ ECommerce Solution:
 		RDBMS elements
 			tables, queries, txns, Stored procedures, Triggers--------done
 
-
-
-	Shopping Cart
-		api's
-			Add Item to Cart
-				POST /api/cart
-			View Cart
-				GET /api/cart
-			Update Item Quantity	
-				PUT /api/cart/items/{itemId}
-			Remove Item from Cart
-				DELETE /api/cart/items/{itemId}
-			Clear Cart
-				DELETE /api/cart
-
-
 		C#
 			controllers
 			services
 			Repositories
 			ADO.NET, Entity Framework, Dapper	
-	
 			DDL,DML,SQL
-
 			tables, queries, txns, Stored procedures, Triggers-----------------done
 
-
-	OrderProcessing
-		api's
-		
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers----------------done
-		
-	reviews, comments
-		api's
-
-			1. Add a Comment			POST /api/products/{productId}/comments
-			2. Get Product Comments	    GET /api/products/{productId}/comments	
-			3. Get Comment Details		GET /api/comments/{commentId}	
-			4. Update a Comment			PUT /api/comments/{commentId}	
-			5. Delete a Comment			DELETE /api/comments/{commentId}		
-			6. Get Comment Count for Product	GET /api/products/{productId}/comments/count
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers------------------done
-
-	Customer Relationship Management
-		api's
-			POST /api/crm/customers
-			GET  /api/crm/customers/{customerId}
-			POST /api/crm/orders
-			GET  /api/crm/orders/{orderId}
-			POST /api/crm/campaigns
-			GET /api/crm/campaigns/{campaignId}
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers------------------done
 
 
 	Billing and Payment processing
