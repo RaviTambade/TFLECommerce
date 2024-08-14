@@ -1,15 +1,13 @@
-
 ECommerce Solution:
+	
+Products
+api's
 
-	(Modules)
-		
------- Products API -------
-
--- 1. Retrieve All Products                                      GET/api/products
--- 2. Retrieve Products in a Specific Category                   GET/api/products/category/{categoryId}
--- 3. Retrieve Products and Their Categories                     GET/api/products/categories
--- 4. Find Products with Low Stock                               GET/api/products/low-stock?threshold={threshold}
--- 5. Retrieve Product Reviews                                   GET/api/products/{productId}/reviews
+1. Retrieve All Products                        GET /api/products
+2. Retrieve Products in a Specific Category     GET /api/products/category/{categoryId}
+3. Retrieve Products and Their Categories       GET /api/products/categories
+4. Find Products with Low Stock                 GET /api/products/low-stock
+5. Retrieve Product Reviews                     GET/api/products/{productId}/reviews
 -- 6. Find Most Expensive Products in Each Category              GET/api/products/most-expensive-per-category
 -- 7. Add a new Product                                          POST/api/products
 -- 8. Update Stock for a Product                                 PUT/api/products/{productId}/stock   
