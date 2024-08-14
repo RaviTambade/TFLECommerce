@@ -18,7 +18,7 @@ ECommerce Solution:
 -- 11. Find Products That Have Never Been Ordered                GET/api/products/never-ordered
 -- 12. Retrieve Products with More than a Specified Stock        GET/api/orders/date-range?startDate={startDate}&endDate={endDate}
 
------- Orders API ------
+Orders API ------
 
 -- 1. Retrieve Users with More Than One Order                     GET/api/users/multiple-orders
 -- 2. Delete an Order                                             DELETE/api/orders/{orderId}
@@ -51,30 +51,25 @@ ECommerce Solution:
 -- 5. Find Average Order Amount Per User                  GET/api/users/average-order-amount
 -- 6. Find Customers Who Have Never Made a Purchase       GET/api/users/no-purchase
 
-------- Reviews API--------
+Reviews API
+	1 Retrieve Products with the Most Positive Reviews       		GET/api/products/top-reviewed
+	2 Retrieve All Products with Reviews and Their Average Rating   GET/api/products/average-rating
+	3. Retrieve Top 5 Most Reviewed Products                		GET/api/products/top-reviewed?limit=5
+	4. Find the Most Recent Review for Each Product         		GET/api/products/{productId}/latest-review
+	5. Get Average Rating for Each Product                  		GET/api/products/average-rating
+	6. Add a Comment			                               		POST /api/products/{productId}/comments
+	7. Get Product Comments	                               			GET /api/products/{productId}/comments	
+	8. Get Comment Details	                               			GET /api/comments/{commentId}	
+	9. Update a Comment			                           			PUT /api/comments/{commentId}	
+	10. Delete a Comment			                           		DELETE /api/comments/{commentId}		
+	11. Get Comment Count for Product	                   			GET /api/products/{productId}/comments/count
 
--- 1 Retrieve Products with the Most Positive Reviews       GET/api/products/top-reviewed
--- 2 Retrieve All Products with
-    Reviews and Their Average Rating                       GET/api/products/average-rating
--- 3. Retrieve Top 5 Most Reviewed Products                GET/api/products/top-reviewed?limit=5
--- 4. Find the Most Recent Review for Each Product         GET/api/products/{productId}/latest-review
--- 5. Get Average Rating for Each Product                  GET/api/products/average-rating
--- 6. Add a Comment			                               POST /api/products/{productId}/comments
--- 7. Get Product Comments	                               GET /api/products/{productId}/comments	
--- 8. Get Comment Details	                               GET /api/comments/{commentId}	
--- 9. Update a Comment			                           PUT /api/comments/{commentId}	
--- 10. Delete a Comment			                           DELETE /api/comments/{commentId}		
--- 11. Get Comment Count for Product	                   GET /api/products/{productId}/comments/count
-
-
-
--------- Shopping Cart ----------
-
--- 1. Add Item to Cart          POST/api/cart
--- 2. View Cart                  GET/cart/{user_id}
--- 3. Update Item Quantity       PUT/cart/{user_id}/item/{product_id}
--- 4. Remove Item from Cart      DELETE/cart/{user_id}/item/{product_id}
--- 5. Clear Cart                 DELETE/cart/{user_id}
+Shopping Cart
+	1. Add Item to Cart          POST/api/cart
+	2. View Cart                  GET/cart/{user_id}
+	3. Update Item Quantity       PUT/cart/{user_id}/item/{product_id}
+	4. Remove Item from Cart      DELETE/cart/{user_id}/item/{product_id}
+	5. Clear Cart                 DELETE/cart/{user_id}
 
 ------ Shipment API --------
 
@@ -86,99 +81,53 @@ ECommerce Solution:
 
 
 Customer Relationship Management
-		api's
-			POST /api/crm/customers
-			GET  /api/crm/customers/{customerId}
-			POST /api/crm/orders
-			GET  /api/crm/orders/{orderId}
-			POST /api/crm/campaigns
-			GET /api/crm/campaigns/{campaignId}
+api's
+									POST /api/crm/customers
+									GET  /api/crm/customers/{customerId}
+									POST /api/crm/orders
+									GET  /api/crm/orders/{orderId}
+									POST /api/crm/campaigns
+									GET /api/crm/campaigns/{campaignId}
 
 
--- JOIN Queries API
 
-	1. Retrieve Orders with Their Items and Product Details    	GET /api/orders/items/products
-	2. Retrieve All Products and Their Categories             	GET /api/products/categories
-	3. Retrieve All Categories and Products in Each Category  	GET /api/categories/products
-	4. All Products and Reviews                               	GET /api/products/reviews
-	5. Retrieve Products and Their Similar Products Based on Category  GET/api/products/similar-products
-	6.Retrieve Total Sales Per Product                        GET  /api/products{productID}/total-sales
-	7. Retrieve Orders for a Specific User with Item Details  GET  /api/orders/users/{userID}/item-details
--- 8. Join with Subquery/Retrieve Users Who Have Purchased Products in a Specific Category  GET /api/users/{userID}/categories{categoryID}
--- 9. Complex Join/Retrieve Orders with Product Details and Discount Information    GET /api/orders/products/{productID}/discount-Applied
-	  10. Join for Data Consistency/Retrieve
-	  	       Orders and Verify Product Availability  GET  /api/orders/products/{productID}/stock-available
+		1. Retrieve Orders with Their Items and Product Details    	GET /api/orders/items/products
+		2. Retrieve All Products and Their Categories             	GET /api/products/categories
+		3. Retrieve All Categories and Products in Each Category  	GET /api/categories/products
+		4. All Products and Reviews                               	GET /api/products/reviews
+		5. Retrieve Products and Their Similar Products Based on Category  GET/api/products/similar-products
+		6. Retrieve Total Sales Per Product                        GET  /api/products{productID}/total-sales
+		8. Users Who Have Purchased Products in a Specific Category  GET /api/users/{userID}/categories
+		9. Complex Join/Retrieve Orders with Product Details and Discount Information    GET /api/orders/products/{productID}/discount-Applied
+		10. Orders and Verify Product Availability  GET  /api/orders/products/{productID}/stock-available
 		11. Join to Retrieve High-Rated Products with Their Categories  GET /api/products/{productID}/categories
 
-
-		controllers (MVC framework)
-		services
-		Repositories
-			ADO.NET, Entity Framework, Dapper	
-		RDBMS elements
-			tables, queries, txns, Stored procedures, Triggers--------done
-
-		C#
-			controllers
-			services
-			Repositories
-			ADO.NET, Entity Framework, Dapper	
-			DDL,DML,SQL
-			tables, queries, txns, Stored procedures, Triggers-----------------done
-
-
-
 	Billing and Payment processing
-
-		api's
-			1. Create Invoice	    POST /api/orders/{orderId}/invoice
-			2. Get Invoice Details	GET /api/invoices/{invoiceId}
-			3. Process Payment	    POST /api/orders/{orderId}/payment
-			4. Get Payment Status	GET /api/payments/{transactionId}	
-			5. Initiate Refund	    POST /api/payments/{transactionId}/refund
-			6. Get Refund Status	GET /api/refunds/{refundId}
-			7. Add Payment Method	POST /api/customers/{customerId}/payment-methods
-			8. Get Payment Methods 	GET /api/customers/{customerId}/payment-methods
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers-------------------done
-
-	Shipment
-		api's
-			1. Create Shipment  		POST /api/orders/{orderId}/shipments
-			2. Get Shipment Details 	GET /api/shipments/{shipmentId}
-			3. Update Shipment Status 	PUT /api/shipments/{shipmentId}/status
-			4. Cancel Shipment		    DELETE /api/shipments/{shipmentId}
-			5. Track Shipment		    GET /api/shipments/track/{trackingNumber}
-			6. Generate Shipping Label	POST /api/shipments/{shipmentId}/label   
-			7. Get Shipping Policies	GET /api/shipping/policies	  	
-			
-		
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers-------------------done
-
-	Refund and Return Policy
-		api's
-			1. Initiate a Return 	POST /api/orders/{orderId}/return--------- class controller------service class-------repository
-			2. Get Return Status    GET /api/returns/{returnId}
-			3. Process Return	    PUT /api/returns/{returnId}/process
-			4. Issue Refund		    POST /api/returns/{returnId}/refund
-			5. Get Refund Status	GET /api/refunds/{refundId}
-			6. Get Return Policies  GET /api/returns/policy
+	api's
+		1. Create Invoice	    	POST 	/api/orders/{orderId}/invoice
+		2. Get Invoice Details		GET 	/api/invoices/{invoiceId}
+		3. Process Payment	    	POST 	/api/orders/{orderId}/payment
+		4. Get Payment Status		GET 	/api/payments/{transactionId}	
+		5. Initiate Refund	    	POST 	/api/payments/{transactionId}/refund
+		6. Get Refund Status		GET 	/api/refunds/{refundId}
+		7. Add Payment Method		POST 	/api/customers/{customerId}/payment-methods
+		8. Get Payment Methods 		GET 	/api/customers/{customerId}/payment-methods
 	
-
-		controllers
-		services
-		Repositories
-		ADO.NET, Entity Framework, Dapper	
-		tables, queries, txns, Stored procedures, Triggers--------------------done
-
-
-		INSERT INTO	  --------SQL-------------------database
-		UPDATE emloye set   ------SQL
-		DELETE from --------------SQL
+	Shipment
+	api's
+		1. Create Shipment  		POST /api/orders/{orderId}/shipments
+		2. Get Shipment Details 	GET /api/shipments/{shipmentId}
+		3. Update Shipment Status 	PUT /api/shipments/{shipmentId}/status
+		4. Cancel Shipment		    DELETE /api/shipments/{shipmentId}
+		5. Track Shipment		    GET /api/shipments/track/{trackingNumber}
+		6. Generate Shipping Label	POST /api/shipments/{shipmentId}/label   
+		7. Get Shipping Policies	GET /api/shipping/policies	  	
+			
+	Refund and Return Policy
+	api's
+		1. Initiate a Return 	POST /api/orders/{orderId}/return
+		2. Get Return Status    GET /api/returns/{returnId}
+		3. Process Return	    PUT /api/returns/{returnId}/process
+		4. Issue Refund		    POST /api/returns/{returnId}/refund
+		5. Get Refund Status	GET /api/refunds/{refundId}
+		6. Get Return Policies  GET /api/returns/policy
