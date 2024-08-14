@@ -121,9 +121,9 @@ api's
 Customer Relationship Management
 api's
 
-									POST /api/crm/customers
-									GET  /api/crm/customers/{customerId}
-									POST /api/crm/orders
-									GET  /api/crm/orders/{orderId}
-									POST /api/crm/campaigns
-									GET  /api/crm/campaigns/{campaignId}
+    1.	Add new Customers to CRM						              POST /api/crm/customers
+	2.	Get Customer details by Customer Id	from CRM	              GET  /api/crm/customers/{customerId}
+	3.	Insert orders in CRM						                  POST /api/crm/orders
+	4.	Get order details by Order Id from CRM		    	          GET  /api/crm/orders/{orderId}
+	5.	Add new Campaigns to CRM							          POST /api/crm/campaigns
+	6.	Get Campaign details by Campaign Id from CRM			      GET  /api/crm/campaigns/{campaignId}
