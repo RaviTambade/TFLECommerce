@@ -95,8 +95,10 @@ api's
 		7. Add Payment Method		POST /api/customers/{customerId}/payment-methods
 		8. Get Payment Methods 		GET  /api/customers/{customerId}/payment-methods
 			
+   
 Refund and Return Policy
 api's
+
 		1. Initiate a Return 	    POST /api/orders/{orderId}/return
 		2. Get Return Status        GET /api/returns/{returnId}
 		3. Process Return	    PUT /api/returns/{returnId}/process
@@ -107,7 +109,7 @@ api's
 Join Queries
 api's
 
-                1. Retrieve Orders with Their Items and Product Details    	     GET /api/orders/items/products
+		1. Retrieve Orders with Their Items and Product Details    	     GET /api/orders/items/products
 	        2. Retrieve All Products and Their Categories             	     GET /api/products/categories
 		3. Retrieve All Categories and Products in Each Category  	     GET /api/categories/products
 		4. All Products and Reviews                                          GET /api/products/reviews
