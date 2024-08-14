@@ -73,15 +73,15 @@ api's
 Shipment
 api's
 
-		1. Create Shipment  		    POST /api/orders/{orderId}/shipments
-		2. Get Shipment Details 	    GET /api/shipments/{shipmentId}
-		3. Update Shipment Status 	    PUT /api/shipments/{shipmentId}/status
-		4. Cancel Shipment		        DELETE /api/shipments/{shipmentId}
-		5. Track Shipment		        GET /api/shipments/track/{trackingNumber}
-		6. Generate Shipping Label      POST /api/shipments/{shipmentId}/label   
-		7. Get Shipping Policies	    GET /api/shipping/policies
-		8. Add Shipment Items           POST /shipments/{shipment_id}/items
-        9. Get Shipping Methods         GET  /shipment/shipping-methods
+		1. Create Shipment  		      POST   /api/orders/{orderId}/shipments
+		2. Get Shipment Details 	      GET    /api/shipments/{shipmentId}
+		3. Update Shipment Status 	      PUT    /api/shipments/{shipmentId}/status
+		4. Cancel Shipment		          DELETE /api/shipments/{shipmentId}
+		5. Track Shipment		          GET    /api/shipments/track/{trackingNumber}
+		6. Generate Shipping Label        POST   /api/shipments/{shipmentId}/label   
+		7. Get Shipping Policies	      GET    /api/shipping/policies
+		8. Add Shipment Items             POST   /shipments/{shipment_id}/items
+        9. Get Shipping Methods           GET    /shipment/shipping-methods
 
 Billing and Payment processing
 api's
@@ -107,16 +107,16 @@ api's
 Join Queries
 api's
 
-        1. Retrieve Orders with Their Items and Product Details    	       GET /api/orders/items/products
-		2. Retrieve All Products and Their Categories             	       GET /api/products/categories
-		3. Retrieve All Categories and Products in Each Category  	       GET /api/categories/products
-		4. All Products and Reviews                                        GET /api/products/reviews
-		5. Products and Their Similar Products Based on Category           GET /api/products/similar-products
-		6. Retrieve Total Sales Per Product                                GET /api/products{productID}/total-sales
-		8. Users Who Have Purchased Products in a Specific Category        GET /api/users/{userID}/categories
-		9. Orders with Product Details and Discount Information            GET /api/orders/products/{productID}/discount-Applied
-		10. Orders and Verify Product Availability                         GET /api/orders/products/{productID}/stock-available
-		11. High-Rated Products with Their Categories                      GET /api/products/{productID}/categories
+        1. Retrieve Orders with Their Items and Product Details    	         GET /api/orders/items/products
+	    2. Retrieve All Products and Their Categories             	         GET /api/products/categories
+		3. Retrieve All Categories and Products in Each Category  	         GET /api/categories/products
+		4. All Products and Reviews                                          GET /api/products/reviews
+		5. Products and Their Similar Products Based on Category             GET /api/products/similar-products
+		6. Retrieve Total Sales Per Product                                  GET /api/products{productID}/total-sales
+		8. Users Who Have Purchased Products in a Specific Category          GET /api/users/{userID}/categories
+		9. Orders with Product Details and Discount Information              GET /api/orders/products/{productID}/discount-Applied
+		10. Orders and Verify Product Availability                           GET /api/orders/products/{productID}/stock-available
+		11. High-Rated Products with Their Categories                        GET /api/products/{productID}/categories
 
 Customer Relationship Management
 api's
