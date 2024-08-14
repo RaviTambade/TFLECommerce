@@ -97,21 +97,18 @@ Customer Relationship Management
 
 -- JOIN Queries API
 
--- 1. Inner Join/Retrieve Orders with Their Items and Product Details                      GET/api/orders/items/products
--- 2. Left Join/Retrieve All Products and Their Categories                                 GET/api/products/categories
--- 3.Right Join/Retrieve All Categories and Products in Each Category                      GET/api/categories/products
--- 4. Full Outer Join/Retrieve All Products and Reviews, 
-      Even If Some Products Have No Reviews                                                GET/api/products/reviews
--- 5. Self Join/Retrieve Products and Their Similar Products Based on Category             GET/api/products/similar-products
--- 6. Join with Aggregation/Retrieve Total Sales Per Product                               GET/api/products{productID}/total-sales
--- 7. Join with Filtering/Retrieve Orders for a Specific User with Item Details            GET/api/orders/users/{userID}/item-details
--- 8. Join with Subquery/Retrieve Users Who Have 
-      Purchased Products in a Specific Category                                            GET/api/users/{userID}/categories{categoryID}
--- 9. Complex Join/Retrieve Orders with Product 
-      Details and Discount Information                                                     GET/api/orders/products/{productID}/discount-Applied
--- 10. Join for Data Consistency/Retrieve
-       Orders and Verify Product Availability                                              GET/api/orders/products/{productID}/stock-available
--- 11. Join to Retrieve High-Rated Products with Their Categories                          GET/api/products/{productID}/categories
+	1. Retrieve Orders with Their Items and Product Details    	GET /api/orders/items/products
+	2. Retrieve All Products and Their Categories             	GET /api/products/categories
+	3. Retrieve All Categories and Products in Each Category  	GET /api/categories/products
+	4. All Products and Reviews                               	GET /api/products/reviews
+	5. Retrieve Products and Their Similar Products Based on Category  GET/api/products/similar-products
+	6.Retrieve Total Sales Per Product                        GET  /api/products{productID}/total-sales
+	7. Retrieve Orders for a Specific User with Item Details  GET  /api/orders/users/{userID}/item-details
+-- 8. Join with Subquery/Retrieve Users Who Have Purchased Products in a Specific Category  GET /api/users/{userID}/categories{categoryID}
+-- 9. Complex Join/Retrieve Orders with Product Details and Discount Information    GET /api/orders/products/{productID}/discount-Applied
+	  10. Join for Data Consistency/Retrieve
+	  	       Orders and Verify Product Availability  GET  /api/orders/products/{productID}/stock-available
+		11. Join to Retrieve High-Rated Products with Their Categories  GET /api/products/{productID}/categories
 
 
 		controllers (MVC framework)
