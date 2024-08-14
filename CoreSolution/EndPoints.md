@@ -79,8 +79,8 @@ api's
 		4. Cancel Shipment		      DELETE /api/shipments/{shipmentId}
 		5. Track Shipment		      GET /api/shipments/track/{trackingNumber}
 		6. Generate Shipping Label    POST /api/shipments/{shipmentId}/label   
-		7. Get Shipping Policies	  GET /api/shipping/policies	  	
-        8. Add Shipment Items         POST /shipments/{shipment_id}/items
+		7. Get Shipping Policies	  GET /api/shipping/policies
+		8. Add Shipment Items         POST /shipments/{shipment_id}/items
         9. Get Shipping Methods       GET  /shipment/shipping-methods
 
 Billing and Payment processing
@@ -121,9 +121,9 @@ api's
 Customer Relationship Management
 api's
 
-									POST /api/crm/customers
-									GET  /api/crm/customers/{customerId}
-									POST /api/crm/orders
-									GET  /api/crm/orders/{orderId}
-									POST /api/crm/campaigns
-									GET  /api/crm/campaigns/{campaignId}
+	        POST /api/crm/customers
+			GET  /api/crm/customers/{customerId}
+			POST /api/crm/orders
+			GET  /api/crm/orders/{orderId}
+			POST /api/crm/campaigns
+			GET  /api/crm/campaigns/{campaignId}
