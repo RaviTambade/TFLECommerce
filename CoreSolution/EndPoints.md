@@ -3,18 +3,18 @@ ECommerce Solution:
 Products
 api's
 
-    1. Retrieve All Products                        GET /api/products
-    2. Retrieve Products in a Specific Category     GET /api/products/category/{categoryId}
-    3. Retrieve Products and Their Categories       GET /api/products/categories
-    4. Find Products with Low Stock                 GET /api/products/low-stock
-    5. Retrieve Product Reviews                     GET /api/products/{productId}/reviews
-    6. Most Expensive Products in Each Category     GET /api/products/categories/most-expensive
-    7. Add a new Product                            POST /api/products
-    8. Update Stock for a Product                   PUT /api/products/{productId}/stock   
-    9. List Top 3 Products by Total Sales           GET /api/products/top-sales
-    10. Count Products in Each Category             GET /api/products/count-by-category
-    11. Find Products That Have Never Been Ordered  GET /api/products/never-ordered
-    12. Products with More than a Specified Stock   GET /api/products/stock-above/{quantity}
+    1. Retrieve All Products                            GET /api/products
+    2. Retrieve Products in a Specific Category         GET /api/products/category/{categoryId}
+    3. Retrieve Products and Their Categories           GET /api/products/categories
+    4. Find Products with Low Stock                     GET /api/products/low-stock
+    5. Retrieve Product Reviews                         GET /api/products/{productId}/reviews
+    6. Most Expensive Products in Each Category         GET /api/products/categories/most-expensive
+    7. Add a new Product                                POST /api/products
+    8. Update Stock for a Product                       PUT /api/products/{productId}/stock   
+    9. List Top 3 Products by Total Sales               GET /api/products/top-sales
+    10. Count Products in Each Category                 GET /api/products/count-by-category
+    11. Find Products That Have Never Been Ordered      GET /api/products/never-ordered
+    12. Products with More than a Specified Stock       GET /api/products/stock-above/{quantity}
 
 Orders
 api's
@@ -49,16 +49,16 @@ Reviews
 api's
 
 	1. Retrieve Products with the Most Positive Reviews       		  GET /api/products/top-reviewed
-	2. Retrieve All Products with Reviews and Their Average Rating    GET /api/products/average-rating
+	2. Retrieve All Products with Reviews and Their Average Rating            GET /api/products/average-rating
 	3. Retrieve Top 5 Most Reviewed Products                		  GET /api/products/top-reviewed?limit=5
 	4. Find the Most Recent Review for Each Product         		  GET /api/products/{productId}/latest-review
 	5. Get Average Rating for Each Product                  		  GET /api/products/average-rating
-	6. Add a Comment			                               		  POST /api/products/{productId}/comments
+	6. Add a Comment			                                  POST /api/products/{productId}/comments
 	7. Get Product Comments	                               			  GET /api/products/{productId}/comments	
 	8. Get Comment Details	                               			  GET /api/comments/{commentId}	
-	9. Update a Comment			                           			  PUT /api/comments/{commentId}	
-	10. Delete a Comment			                           		  DELETE /api/comments/{commentId}		
-	11. Get Comment Count for Product	                   			  GET /api/products/{productId}/comments/count
+	9. Update a Comment			                                  PUT /api/comments/{commentId}	
+	10. Delete a Comment			                                  DELETE /api/comments/{commentId}		
+	11. Get Comment Count for Product	                   	          GET /api/products/{productId}/comments/count
 
 Shopping Cart
 api's
@@ -76,12 +76,12 @@ api's
 		1. Create Shipment  		      POST   /api/orders/{orderId}/shipments
 		2. Get Shipment Details 	      GET    /api/shipments/{shipmentId}
 		3. Update Shipment Status 	      PUT    /api/shipments/{shipmentId}/status
-		4. Cancel Shipment		          DELETE /api/shipments/{shipmentId}
-		5. Track Shipment		          GET    /api/shipments/track/{trackingNumber}
-		6. Generate Shipping Label        POST   /api/shipments/{shipmentId}/label   
+		4. Cancel Shipment		      DELETE /api/shipments/{shipmentId}
+		5. Track Shipment		      GET    /api/shipments/track/{trackingNumber}
+		6. Generate Shipping Label            POST   /api/shipments/{shipmentId}/label   
 		7. Get Shipping Policies	      GET    /api/shipping/policies
-		8. Add Shipment Items             POST   /shipments/{shipment_id}/items
-        9. Get Shipping Methods           GET    /shipment/shipping-methods
+		8. Add Shipment Items                 POST   /shipments/{shipment_id}/items
+                9. Get Shipping Methods                       GET    /shipment/shipping-methods
 
 Billing and Payment processing
 api's
@@ -97,19 +97,19 @@ api's
 			
 Refund and Return Policy
 api's
-		1. Initiate a Return 	POST /api/orders/{orderId}/return
-		2. Get Return Status    GET /api/returns/{returnId}
+		1. Initiate a Return 	    POST /api/orders/{orderId}/return
+		2. Get Return Status        GET /api/returns/{returnId}
 		3. Process Return	    PUT /api/returns/{returnId}/process
 		4. Issue Refund		    POST /api/returns/{returnId}/refund
-		5. Get Refund Status	GET /api/refunds/{refundId}
-		6. Get Return Policies  GET /api/returns/policy
+		5. Get Refund Status	    GET /api/refunds/{refundId}
+		6. Get Return Policies      GET /api/returns/policy
 
 Join Queries
 api's
 
-        1. Retrieve Orders with Their Items and Product Details    	         GET /api/orders/items/products
-	    2. Retrieve All Products and Their Categories             	         GET /api/products/categories
-		3. Retrieve All Categories and Products in Each Category  	         GET /api/categories/products
+        1. Retrieve Orders with Their Items and Product Details    	             GET /api/orders/items/products
+	    2. Retrieve All Products and Their Categories             	             GET /api/products/categories
+		3. Retrieve All Categories and Products in Each Category  	     GET /api/categories/products
 		4. All Products and Reviews                                          GET /api/products/reviews
 		5. Products and Their Similar Products Based on Category             GET /api/products/similar-products
 		6. Retrieve Total Sales Per Product                                  GET /api/products{productID}/total-sales
@@ -121,7 +121,7 @@ api's
 Customer Relationship Management
 api's
 
-	        POST /api/crm/customers
+	                POST /api/crm/customers
 			GET  /api/crm/customers/{customerId}
 			POST /api/crm/orders
 			GET  /api/crm/orders/{orderId}
