@@ -1,0 +1,117 @@
+
+
+	HTML & CSS
+ 	JavaScript
+	
+	Getting Started with React
+	
+		Introduction React
+		Core concepts
+		React Hook
+		Event Handling
+		Conditional Rendering
+		Lists, map, arrow functions
+		Single Page Application React
+		React Router
+		React State management
+		Form Handling
+		Performance Optimization
+
+		Unit Testing
+		Deployment
+		Progressive Web Application
+		React using Typescript
+		
+		UI Libraries
+			Tailwind CSS, Material-UI
+
+
+	Introduction React:
+			React js is java script library
+			open source lib provided and maintained by Meta (Facebook)
+			React is Component based UI Library
+			
+				index.html-----------------------Single Page Application (SPA)
+
+				Home | About | Contact | Services
+				-------------------------------------------------------------------------
+				<div>
+
+				</div>
+
+				Multiple Pages----->	Multiple components
+				home.html---------------home component---------------------------.jsx---------.js
+				about.html--------------about component--------------------------.jsx---------.js
+				contact.html------------contact component------------------------.jsx---------.js
+				services.html-----------service component------------------------.jsx---------.js
+
+
+
+	Create simple React Hello World Application
+	 Way:
+			1.Visual Studio .net 2022 Community Edition
+
+					Solution
+						solution.client
+							package.json
+							index.html
+							public
+							src
+							   app.jsx
+							   app.css
+							   main.jsx
+
+						solution.server
+							program.cs
+							controllers
+								WeatherforcastController.cs
+							models
+								Weatherforcast.cs
+
+			2. using npm and node js  : npx create-react-app   tfl-store-app
+						index.js
+						public
+							index.html
+						src
+							app.js
+							app.css
+							app.test.js
+						package.json
+							 react dependencies
+									 "react": "^18.3.1",
+    									  "react-dom": "^18.3.1",
+									  "react-scripts": "5.0.1",
+									  "tfl-store-react": "file:",
+									
+
+			
+			
+	React js application playing with
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
