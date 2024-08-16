@@ -1,0 +1,6 @@
+@TFLFullStackSolution.Server_HostAddress = http://localhost:5087
+
+GET {{TFLFullStackSolution.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

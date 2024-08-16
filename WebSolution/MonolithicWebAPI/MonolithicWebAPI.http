@@ -1,0 +1,6 @@
+@MonolithicWebAPI_HostAddress = http://localhost:5079
+
+GET {{MonolithicWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
