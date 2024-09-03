@@ -33,6 +33,7 @@ CREATE TABLE products (
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
+create table ajinkya;
 
 -- Create orders table
 CREATE TABLE orders (
