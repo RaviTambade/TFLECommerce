@@ -1,7 +1,11 @@
--- Drop and recreate the database
-DROP DATABASE IF EXISTS tflecommerce;
 CREATE DATABASE tflecommerce;
 USE tflecommerce;
+
+select * from tflecommerce.users;
+select * from tflecommerce.categories;
+select * from tflecommerce.orders;
+select * from tflecommerce.inventory;
+SELECT * FROM inventory WHERE product_id = 5;
 
 -- Create users table
 CREATE TABLE users (
@@ -33,6 +37,7 @@ CREATE TABLE products (
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
+
 
 -- Create orders table
 CREATE TABLE orders (
@@ -276,7 +281,7 @@ CREATE TABLE shipping_addresses (
 );
 
 -- Create subscriptions table
-Drop table subscriptions;
+
 CREATE TABLE subscriptions (
     subscription_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
