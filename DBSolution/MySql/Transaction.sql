@@ -74,6 +74,8 @@ DELIMITER ;
 
 -- CALL update_order_fulfillment
 Call update_order_fulfillment(1,5,'TRACK011');
+
+
 -- Check the stock level
 SELECT product_id, stock_quantity
 FROM inventory
@@ -124,8 +126,12 @@ WHERE return_id = p_return_id;
 COMMIT;
 END
 
+-- Execute Transaction
+CALL update_product_refund(1,5,4,199.99);
+select * from returns;
+select * from refunds;
 
-SELECT product_id, stock_quantity 
+/*SELECT product_id, stock_quantity 
 FROM inventory 
 WHERE product_id = '5';
 
@@ -138,7 +144,7 @@ FROM returns
 WHERE return_id = '3';
 
 select * from refunds ;
-select * from returns ;
+select * from returns ;*/
 
 -- 4 Transaction to Update Subscription
 -- Start a transaction
@@ -160,5 +166,8 @@ BEGIN
 COMMIT;
 END
 
-
+-- Excecute Transaction
+CALL update_subscriptions(1,30.00,'Buy A New Plan');
+select * from subscriptions;
+select * from billing_adjustments;
 
