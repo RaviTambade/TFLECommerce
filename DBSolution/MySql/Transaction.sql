@@ -46,23 +46,34 @@ SELECT * FROM inventory ;
 -- 2. E-commerce Order Fulfillment
 -- Scenario: Process an order, update stock levels, and manage shipping details. Ensure all steps are successful before finalizing the order.
 
+-- Wrapping Transaction in the Procedure
+DELIMITER //
+
+CREATE PROCEDURE update_order_fulfillment(IN p_product_id INT,IN orderId INT,IN o_f_tracking_number varchar(20))
+BEGIN
 START TRANSACTION;
 
 -- Update stock levels
-UPDATE inventory SET stock_quantity = stock_quantity - 1 WHERE product_id = '5';
+UPDATE inventory SET stock_quantity = stock_quantity - 1 WHERE product_id = p_product_id;
 
 -- Record order fulfillment
 INSERT INTO order_fulfillment (order_id, fulfillment_date, status, tracking_number, carrier_name, fulfillment_notes)
-VALUES ('5', NOW(), 'Packed', 'TRK123', 'Carrier Shipment', 'Order packed ');
+VALUES (orderId, NOW(), 'Packed', o_f_tracking_number, 'Carrier Shipment', 'Order packed ');
 
 -- Update shipment details
 UPDATE shipments
-SET status = 'Shipped', shipment_date = NOW(), tracking_number = 'TRK123456'
-WHERE order_id = '5';
+SET status = 'Shipped', shipment_date = NOW(), tracking_number = o_f_tracking_number
+WHERE order_id = orderId;
 
 -- Commit the transaction
 COMMIT;
+END //
 
+DELIMITER ;
+
+
+-- CALL update_order_fulfillment
+Call update_order_fulfillment(1,5,'TRACK011');
 -- Check the stock level
 SELECT product_id, stock_quantity
 FROM inventory
