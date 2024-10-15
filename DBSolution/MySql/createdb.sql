@@ -33,6 +33,7 @@ CREATE TABLE products (
     stock INT NOT NULL,
     category_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
