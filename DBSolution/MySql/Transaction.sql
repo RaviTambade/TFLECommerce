@@ -99,24 +99,30 @@ WHERE order_id = '5';
 -- 3. Product Returns and Refunds
 -- Scenario: Process a product return and issue a refund, 
 -- Start a transaction
-START TRANSACTION;
+CREATE PROCEDURE update_product_refund(IN p_product_id INT,
+	IN p_order_id INT,
+	IN p_return_id INT,
+	IN p_refund_amount DECIMAL(10,2))
+BEGIN
+	START TRANSACTION;
 
 -- Update inventory to add the returned product
 UPDATE inventory 
 SET stock_quantity = stock_quantity + 1 
-WHERE product_id = '5';
+WHERE product_id = p_product_id;
 
 -- Process refund
-INSERT INTO refunds (order_id, product_id, refund_amount, refund_date) 
-VALUES ('3', '5', 199.99, NOW());
+INSERT INTO refunds(order_id, product_id, refund_amount, refund_date) 
+VALUES (p_order_id, p_product_id, p_refund_amount, NOW());
 
 -- Update return status
 UPDATE returns 
 SET status = 'Processed' 
-WHERE return_id = '3';
+WHERE return_id = p_return_id;
 
 -- Commit the transaction
 COMMIT;
+END
 
 
 SELECT product_id, stock_quantity 
