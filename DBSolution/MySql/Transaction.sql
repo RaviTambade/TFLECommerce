@@ -142,22 +142,23 @@ select * from returns ;
 
 -- 4 Transaction to Update Subscription
 -- Start a transaction
-START TRANSACTION;
+CREATE PROCEDURE update_subscriptions(IN p_users_id INT,
+IN p_adjustment_amount DECIMAL(10,2),
+IN p_reason VARCHAR(300))
+BEGIN
+	START TRANSACTION;
 
--- Update subscription plan
-UPDATE subscriptions
-SET plan = 'Premium', start_date = NOW(),status = 'Active',end_date= DATE_ADD(Now(), INTERVAL 30 DAY)
-WHERE user_id = 1;
+	UPDATE subscriptions
+	SET plan = 'Premium', start_date = NOW(),status = 'Active',end_date= DATE_ADD(Now(), INTERVAL 30 DAY)
+	WHERE user_id = p_users_id;
 
--- Adjust billing
--- Assuming you have a table to record billing adjustments
-INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date,reason)
-VALUES (1, 20.00, NOW(),'Bought New Plan');
+	-- Adjust billing
+	-- Assuming you have a table to record billing adjustments
+	INSERT INTO billing_adjustments (user_id, adjustment_amount, adjustment_date,reason)
+	VALUES (p_users_id,p_adjustment_amount, NOW(),p_reason);
 
--- Commit the transaction
 COMMIT;
--- Rollback if either update fails
--- Proper error handling should be implemented here
+END
 
 
 
