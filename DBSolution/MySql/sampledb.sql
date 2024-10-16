@@ -171,7 +171,7 @@ INSERT INTO purchase_orders(order_id,quantity,order_date,product_id)values
 (5,50,'2024-07-25',1),
 (6,50,'2024-07-25',1);
 
-insert into product_audit(product_id,action_type,old_stock_quantity,new_stock_quantity,action_timestamp)values
+insert into product_audit(inventory_id, action_type,old_stock_quantity,new_stock_quantity,action_timestamp)values
 (2,'INSERT',40,20,'2025-08-21'),
 (3,'UPDATE',40,20,'2025-08-21'),
 (4,'DELETE',40,20,'2025-08-21'),
@@ -412,3 +412,8 @@ INSERT INTO returns (order_id, product_id, return_reason, return_date, status) V
 (18, 6, 'Changed mind', '2024-08-13', 'Pending'),  -- Return for Tablet in Order 18
 (19, 13, 'Incorrect item received', '2024-08-14', 'Pending'),  -- Return for Camera in Order 19
 (20, 20, 'Defective item', '2024-08-15', 'Pending');  -- Return for Bluetooth Earbuds in Order 20
+
+-- Insert sample data into the closed_dates table:
+INSERT INTO closed_dates(close_date, event_name) values
+('2024-10-15', "Diwali"),
+('2024-09-18', "Dussehra"); 

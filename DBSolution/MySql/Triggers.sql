@@ -195,7 +195,7 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE TRIGGER before_order_insert
+CREATE TRIGGER prevent_order_insert
 BEFORE INSERT ON orders
 FOR EACH ROW
 BEGIN
@@ -203,7 +203,7 @@ BEGIN
     IF EXISTS (
         SELECT 1
         FROM closed_dates
-        WHERE date = NEW.order_date
+        WHERE close_date = NEW.order_date
     ) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Cannot place orders on closed dates.';
@@ -212,6 +212,12 @@ END//
 
 DELIMITER ;
 
+<<<<<<< HEAD
+=======
+INSERT INTO orders(customer_id,order_date,shipping_address,total_amount,shipping_date,status) values
+(1,'2024-10-15',"pune", 12000, now(), "shipped");
+
+>>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 -- 10. Trigger to Automatically Update User Points Based on Order Total
 DELIMITER //
 
@@ -228,7 +234,7 @@ END//
 DELIMITER ;
 
 -- 11. Trigger for Insert on Products 
-DROP TRIGGER after_product_insert;
+-- DROP TRIGGER after_product_insert;
 
 	DELIMITER //
 
@@ -236,38 +242,40 @@ DROP TRIGGER after_product_insert;
 	AFTER INSERT ON inventory
 	FOR EACH ROW 
 	BEGIN
-	INSERT INTO product_audit(Product_id, action_type, new_stock_quantity, action_timestamp )
-	VALUES(NEW.product_id, 'INSERT', NEW.stock_quantity , NOW());
+	INSERT INTO product_audit(inventory_id, action_type, new_stock_quantity, action_timestamp )
+	VALUES(NEW.id, 'INSERT', NEW.stock_quantity , NOW());
 	END//
 
 	DELIMITER ; 
 
+INSERT INTO inventory(product_id, stock_quantity) VALUES
+(17, 25);
 
 -- 12 Trigger for UPDATE on Products
 
 
-DROP TRIGGER before_product_update;
+-- DROP TRIGGER before_product_update;
 
 DELIMITER //
 
-CREATE TRIGGER before_product_update
+CREATE TRIGGER product_update
 BEFORE UPDATE ON inventory
 FOR EACH ROW
 BEGIN
-    INSERT INTO product_audit (product_id, action_type, old_stock_quantity, new_stock_quantity)
-    VALUES (OLD.product_id, 'UPDATE', OLD.stock_quantity, NEW.stock_quantity);
+    INSERT INTO product_audit (inventory_id, action_type, old_stock_quantity, new_stock_quantity)
+    VALUES (OLD.id, 'UPDATE', OLD.stock_quantity, NEW.stock_quantity);
 END//
 
 DELIMITER ;
 
 
 update inventory
-SET stock_quantity = 600
-WHERE product_id=1;
+SET stock_quantity = 700
+WHERE product_id=2;
 
 
 
--- 12 Trigger for DELETE on Products
+-- 13 Trigger for DELETE on Products
 DROP TRIGGER after_product_delete;
 
 DELIMITER //
@@ -276,18 +284,24 @@ CREATE TRIGGER after_product_delete
 AFTER DELETE ON inventory
 FOR EACH ROW
 BEGIN
+<<<<<<< HEAD
     INSERT INTO product_audit(inventory_id, action_type, old_stock_quantity, new_stock_quantity)
     VALUES(OLD.inventory_id, 'DELETE', OLD.stock_quantity, 0);
+=======
+INSERT INTO product_audit(inventory_id,action_type,old_stock_quantity,new_stock_quantity)
+VALUES(old.id,'DELETE', old.stock_quantity, 0);
+>>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 END //
 
 DELIMITER ;
 
+-- drop trigger after_product_delete;
 select * from product_audit;
-DELETE FROM inventory WHERE product_id=2;
+DELETE FROM inventory WHERE id=3;
 
 
--- 13 Trigger for DELETE on `order_items
-DROP TRIGGER after_order_item_delete;
+-- 14 Trigger for DELETE on `order_items
+-- DROP TRIGGER after_order_item_delete;
 
 DELIMITER //
 
@@ -302,16 +316,21 @@ END//
 
 DELIMITER ;
 
+<<<<<<< HEAD
 DELETE FROM order_items WHERE order_id = 10 AND item_id = 8;
 SELECT * FROM inventory WHERE product_id = 2;
+=======
+DELETE FROM order_items WHERE id = 13;
+
+SELECT * FROM inventory WHERE product_id = 10;
+>>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 
 
 
---  14 Automatically Set Order Status Based on Inventory Levels
+--  15 Automatically Set Order Status Based on Inventory Levels
 -- Trigger for AFTER INSERT on order_items
 
 DROP TRIGGER IF EXISTS after_order_item_insert;
-
 
 DELIMITER //
 
@@ -343,7 +362,7 @@ SELECT stock FROM products WHERE id = 2;
 INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 50);
 
 
--- 15 Update Total Order Price
+-- 16 Update Total Order Price
 -- Trigger for AFTER INSERT on order_items
 
 DROP TRIGGER IF EXISTS after_order_item_insert;
@@ -378,7 +397,7 @@ SELECT * FROM orders WHERE id = 5;
 
 
 
--- 16 Automatically Update total_amount in orders Table After Deleting an Item from order_items.
+-- 17 Automatically Update total_amount in orders Table After Deleting an Item from order_items.
 
 DROP TRIGGER IF EXISTS after_order_item_deleted;
 
