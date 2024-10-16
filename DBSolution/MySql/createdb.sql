@@ -108,9 +108,10 @@ CREATE TABLE payments (
 
 -- Create inventory table
 CREATE TABLE inventory (
-    product_id INT PRIMARY KEY,
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT ,
     stock_quantity INT,
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -128,14 +129,11 @@ CREATE TABLE purchase_orders (
 -- Create product_audit table
 CREATE TABLE product_audit (
     audit_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
+    inventory_id INT,
     action_type ENUM('INSERT', 'UPDATE', 'DELETE'),
     old_stock_quantity INT,
     new_stock_quantity INT,
-    action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create discount_codes table
@@ -339,6 +337,12 @@ create table archieved_orders (
     STATUS VARCHAR(50)
 );
 
+-- create table closed_dates:
+create table closed_dates(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    close_date DATE not null,
+    event_name varchar(255)
+);
 -- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_product_name ON products(name);
