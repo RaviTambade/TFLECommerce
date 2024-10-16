@@ -330,6 +330,15 @@ CREATE TABLE IF NOT EXISTS returns (
         ON DELETE CASCADE
 );
 
+-- create table archieved_orders:
+create table archieved_orders (
+	order_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_date DATETIME NOT NULL,
+    customer_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    STATUS VARCHAR(50)
+);
+
 -- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_product_name ON products(name);
