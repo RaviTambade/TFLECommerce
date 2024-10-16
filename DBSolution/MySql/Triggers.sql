@@ -15,14 +15,15 @@
 -- 1. Trigger to Update Stock After an Order is Placed
 DELIMITER //
 
-CREATE TRIGGER after_order_item_insert
+CREATE TRIGGER after_order_items_insert
 AFTER INSERT ON order_items
 FOR EACH ROW
 BEGIN
-    -- Update stock for the item being ordered
+    -- Update stock for each item in the order
     UPDATE products p
+    JOIN order_items oi ON p.id = oi.item_id
     SET p.stock = p.stock - NEW.quantity
-    WHERE p.id = NEW.item_id;
+    WHERE p.id= NEW.item_id;
 END//
 
 DELIMITER ;
