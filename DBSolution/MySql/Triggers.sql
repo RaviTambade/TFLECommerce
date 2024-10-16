@@ -211,6 +211,7 @@ BEGIN
 END//
 
 DELIMITER ;
+
 -- 10. Trigger to Automatically Update User Points Based on Order Total
 DELIMITER //
 
@@ -268,14 +269,15 @@ WHERE product_id=1;
 
 -- 12 Trigger for DELETE on Products
 DROP TRIGGER after_product_delete;
+
 DELIMITER //
 
 CREATE TRIGGER after_product_delete
 AFTER DELETE ON inventory
 FOR EACH ROW
 BEGIN
-INSERT INTO product_audit(product_id,action_type,old_stock_quantity)
-VALUES(OLD.product_id,'DELETE', OLD.stock_quantity);
+    INSERT INTO product_audit(inventory_id, action_type, old_stock_quantity, new_stock_quantity)
+    VALUES(OLD.inventory_id, 'DELETE', OLD.stock_quantity, 0);
 END //
 
 DELIMITER ;
@@ -301,7 +303,6 @@ END//
 DELIMITER ;
 
 DELETE FROM order_items WHERE order_id = 10 AND item_id = 8;
-
 SELECT * FROM inventory WHERE product_id = 2;
 
 
