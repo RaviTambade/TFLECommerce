@@ -135,7 +135,7 @@ CREATE TRIGGER before_order_delete
 BEFORE DELETE ON orders
 FOR EACH ROW
 BEGIN
-    -- Insert the order into the archeived_orders table
+    -- Insert the order into the archieved_orders table
     INSERT INTO archieved_orders (order_date, customer_id, total_amount, status)
     VALUES (OLD.order_date, OLD.customer_id, OLD.total_amount, OLD.status);
 END//
