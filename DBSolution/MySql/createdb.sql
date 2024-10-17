@@ -337,21 +337,12 @@ create table archieved_orders (
     STATUS VARCHAR(50)
 );
 
-<<<<<<< HEAD
 create table closed_dates(
     close_id INT AUTO_INCREMENT PRIMARY KEY,
     closed_dates DATETIME NOT NULL,
     events VARCHAR(255)
 );
 
-=======
--- create table closed_dates:
-create table closed_dates(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    close_date DATE not null,
-    event_name varchar(255)
-);
->>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 -- Indexes for performance improvement
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_product_name ON products(name);
