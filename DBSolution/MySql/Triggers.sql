@@ -362,24 +362,24 @@ INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 200);
 -- Trigger for AFTER INSERT on order_items
 
 DROP TRIGGER IF EXISTS after_order_item_insert;
-
+DROP TRIGGER IF EXISTS after_order_item_insert_totalamount;
 DELIMITER //
 
-CREATE TRIGGER after_order_item_insert
+CREATE TRIGGER after_order_item_insert_totalamount
 AFTER INSERT ON order_items
 FOR EACH ROW
 BEGIN
-    DECLARE total_amount DECIMAL(10, 2);
+    DECLARE totalamount DECIMAL(10, 2) ;
 
     -- Calculate the new total price for the order using the price from products table
-    SELECT SUM(p.price * oi.quantity) INTO total_amount
+    SELECT SUM(p.price * oi.quantity) INTO totalamount
     FROM order_items oi
     JOIN products p ON oi.item_id = p.id
     WHERE oi.order_id = NEW.order_id;
 
     -- Update the order's total price
     UPDATE orders
-    SET total_amount = total_amount
+    SET total_amount = total_amount + totalamount
     WHERE id = NEW.order_id;
 END//
 
@@ -387,9 +387,12 @@ DELIMITER ;
 
 
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(5, 5, 5); -- 2 Smartphones
+(3, 3, 1); -- 2 Smartphones
 
-SELECT * FROM orders WHERE id = 5;
+select * from products;
+select *from orders;
+select * from order_items;
+SELECT * FROM orders WHERE id = 20;
 
 
 
