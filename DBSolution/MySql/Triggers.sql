@@ -334,9 +334,9 @@ BEGIN
     DECLARE available_stock INT;
 
     -- Check the stock for the newly inserted item
-    SELECT stock INTO available_stock
-    FROM products
-    WHERE id = NEW.item_id;
+    SELECT stock_quantity INTO available_stock
+    FROM inventory
+    WHERE product_id = NEW.item_id;
 
     -- If stock is insufficient, set the order status to "Cancelled"
     IF available_stock < NEW.quantity THEN
@@ -350,9 +350,9 @@ DELIMITER ;
 
 
 SELECT * FROM orders WHERE id = 2;
-SELECT stock FROM products WHERE id = 2;
+SELECT stock_quantity FROM inventory WHERE inventory_id = 2;
 
-INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 50);
+INSERT INTO order_items (order_id, item_id, quantity) VALUES (2, 2, 200);
 
 
 -- 16 Update Total Order Price
