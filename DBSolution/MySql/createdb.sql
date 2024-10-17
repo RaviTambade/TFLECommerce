@@ -108,11 +108,7 @@ CREATE TABLE payments (
 
 -- Create inventory table
 CREATE TABLE inventory (
-<<<<<<< HEAD
     inventory_id INT AUTO_INCREMENT PRIMARY KEY,
-=======
-	id INT AUTO_INCREMENT PRIMARY KEY,
->>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
     product_id INT ,
     stock_quantity INT,
     CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id)

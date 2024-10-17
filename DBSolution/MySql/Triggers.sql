@@ -212,12 +212,6 @@ END//
 
 DELIMITER ;
 
-<<<<<<< HEAD
-=======
-INSERT INTO orders(customer_id,order_date,shipping_address,total_amount,shipping_date,status) values
-(1,'2024-10-15',"pune", 12000, now(), "shipped");
-
->>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 -- 10. Trigger to Automatically Update User Points Based on Order Total
 DELIMITER //
 
@@ -243,7 +237,7 @@ DELIMITER ;
 	FOR EACH ROW 
 	BEGIN
 	INSERT INTO product_audit(inventory_id, action_type, new_stock_quantity, action_timestamp )
-	VALUES(NEW.id, 'INSERT', NEW.stock_quantity , NOW());
+	VALUES(NEW.inventory_id, 'INSERT', NEW.stock_quantity , NOW());
 	END//
 
 	DELIMITER ; 
@@ -263,7 +257,7 @@ BEFORE UPDATE ON inventory
 FOR EACH ROW
 BEGIN
     INSERT INTO product_audit (inventory_id, action_type, old_stock_quantity, new_stock_quantity)
-    VALUES (OLD.id, 'UPDATE', OLD.stock_quantity, NEW.stock_quantity);
+    VALUES (OLD.inventory_id, 'UPDATE', OLD.stock_quantity, NEW.stock_quantity);
 END//
 
 DELIMITER ;
@@ -284,13 +278,8 @@ CREATE TRIGGER after_product_delete
 AFTER DELETE ON inventory
 FOR EACH ROW
 BEGIN
-<<<<<<< HEAD
-    INSERT INTO product_audit(inventory_id, action_type, old_stock_quantity, new_stock_quantity)
+    INSERT INTO product_audit(inventory_id, action_type, old_stock_quantity,new_stock_quantity)
     VALUES(OLD.inventory_id, 'DELETE', OLD.stock_quantity, 0);
-=======
-INSERT INTO product_audit(inventory_id,action_type,old_stock_quantity,new_stock_quantity)
-VALUES(old.id,'DELETE', old.stock_quantity, 0);
->>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
 END //
 
 DELIMITER ;
@@ -316,16 +305,8 @@ END//
 
 DELIMITER ;
 
-<<<<<<< HEAD
 DELETE FROM order_items WHERE order_id = 10 AND item_id = 8;
 SELECT * FROM inventory WHERE product_id = 2;
-=======
-DELETE FROM order_items WHERE id = 13;
-
-SELECT * FROM inventory WHERE product_id = 10;
->>>>>>> 2427be6f34c6f24a9e4eeb208fe77a25458b4a03
-
-
 
 --  15 Automatically Set Order Status Based on Inventory Levels
 -- Trigger for AFTER INSERT on order_items
