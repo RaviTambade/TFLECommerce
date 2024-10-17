@@ -365,31 +365,33 @@ DROP TRIGGER IF EXISTS after_order_item_insert;
 
 DELIMITER //
 
-CREATE TRIGGER after_order_item_insert
+CREATE TRIGGER after_order_item_insert_subtotal
 AFTER INSERT ON order_items
 FOR EACH ROW
 BEGIN
-    DECLARE total_amount DECIMAL(10, 2);
+	DECLARE p_price DECIMAL(10,2);
+    DECLARE totalamount DECIMAL(10, 2);
 
     -- Calculate the new total price for the order using the price from products table
-    SELECT SUM(p.price * oi.quantity) INTO total_amount
-    FROM order_items oi
-    JOIN products p ON oi.item_id = p.id
-    WHERE oi.order_id = NEW.order_id;
-
-    -- Update the order's total price
+    SELECT p.price INTO p_price 
+    FROM products p
+    WHERE p.id = NEW.item_id;
+	
+    SET totalamount = p_price * NEW.quantity;
+    
     UPDATE orders
-    SET total_amount = total_amount
+    SET	total_amount = total_amount + totalamount
     WHERE id = NEW.order_id;
+    
 END//
 
 DELIMITER ;
 
-
+-- DROP TRIGGER after_order_item_insert_subtotal;
 INSERT INTO order_items (order_id, item_id, quantity) VALUES
-(5, 5, 5); -- 2 Smartphones
+(1, 1, 3); -- 2 Smartphones
 
-SELECT * FROM orders WHERE id = 5;
+SELECT * FROM orders WHERE id = 1;
 
 
 
