@@ -15,20 +15,20 @@ END
  -- 2. Creating a Stored Procedure for User Login
 
 CREATE PROCEDURE LoginUser
-    @p_username VARCHAR(50),
-    @p_password VARCHAR(255)
+    @p_username NVARCHAR(50),
+    @p_password NVARCHAR(255)
 AS
 BEGIN
     SELECT id, username, email
     FROM users
-    WHERE username = p_username AND password = p_password;
-END
+    WHERE username = @p_username AND password = @p_password;
+END;
+
 
 
 
 -- 3. Creating a Stored Procedure for Updating User Information
 
-DROP PROCEDURE IF EXISTS UpdateUserInfo;
 
 CREATE PROCEDURE UpdateUserInfo
     @p_user_id INT,
@@ -39,14 +39,7 @@ BEGIN
     UPDATE users
     SET email = @p_email, address = @p_address
     WHERE id = @p_user_id;
-END
-
-
-
-EXEC UpdateUserInfo @p_user_id = 1, @p_email = 'ajinkya@gmail.com', @p_address = 'Sahakar Nagar 1';
-
-
-select * from users;
+END;
 
 
 

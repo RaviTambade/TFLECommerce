@@ -21,17 +21,19 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE products (
-    id INT Identity(1,1) PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
-    category_id INT,
+    category_id INT NULL,
     created_at DATETIME DEFAULT GETDATE(),
+    last_modified DATETIME DEFAULT GETDATE(),  -- new column
     FOREIGN KEY (category_id) REFERENCES categories(id)
         ON UPDATE CASCADE
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
+
 
 CREATE TABLE orders (
     id INT Identity(1,1) PRIMARY KEY,
@@ -58,6 +60,20 @@ CREATE TABLE order_status (
         ON DELETE CASCADE,
     PRIMARY KEY (order_id, status_date)
 );
+
+ CREATE TABLE refunds (
+    refund_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    refund_amount DECIMAL(10, 2) NOT NULL,
+    refund_date DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
  
 CREATE TABLE order_fulfillment (
     fulfillment_id INT Identity(1,1) PRIMARY KEY,
@@ -73,15 +89,23 @@ CREATE TABLE order_fulfillment (
         ON DELETE CASCADE
 );
  
- CREATE TABLE refunds (
-    refund_id INT IDENTITY(1,1) PRIMARY KEY,
+ CREATE TABLE payments (
+    payment_id INT Identity(1,1) PRIMARY KEY,
     order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    refund_amount DECIMAL(10, 2) NOT NULL,
-    refund_date DATETIME DEFAULT GETDATE(),
+    payment_date DATETIME DEFAULT GETDATE(),
+    payment_amount DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50) CHECK( payment_method IN ('Credit Card', 'Debit Card', 'PayPal', 'Bank Transfer')) NOT NULL,
+    payment_status VARCHAR(50) CHECK( payment_status IN ('Completed', 'Pending', 'Failed')) DEFAULT 'Pending',
     FOREIGN KEY (order_id) REFERENCES orders(id)
         ON UPDATE CASCADE
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE inventory (
+    inventory_id INT  Identity(1,1) PRIMARY KEY,
+    product_id INT,
+    stock_quantity INT,
     FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -95,6 +119,16 @@ CREATE TABLE purchase_orders (
     FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
+);
+
+
+CREATE TABLE product_audit (
+    audit_id INT Identity(1,1) PRIMARY KEY,
+    product_id INT,
+    action_type VARCHAR(50) CHECK( action_type IN ('INSERT', 'UPDATE', 'DELETE') ),
+    old_stock_quantity INT,
+    new_stock_quantity INT,
+    action_timestamp DATETIME DEFAULT GETDATE()
 );
  
 CREATE TABLE discount_codes (
@@ -115,6 +149,17 @@ CREATE TABLE order_discounts (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+CREATE TABLE price_changes (
+    change_id INT Identity(1,1) PRIMARY KEY,
+    product_id INT NOT NULL,
+    old_price DECIMAL(10, 2) NOT NULL,
+    new_price DECIMAL(10, 2) NOT NULL,
+    change_date DATETIME NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
  
 CREATE TABLE order_items (
     id INT Identity(1,1) PRIMARY KEY,
@@ -129,67 +174,6 @@ CREATE TABLE order_items (
         ON DELETE CASCADE
 );
 
-CREATE TABLE returns (
-    return_id INT IDENTITY(1,1) PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    return_reason VARCHAR(255) NOT NULL,
-    return_date DATE NOT NULL,
-    status VARCHAR(50) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
-
- 
-CREATE TABLE inventory (
-    product_id INT PRIMARY KEY,
-    stock_quantity INT,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
- 
-CREATE TABLE product_audit (
-    audit_id INT Identity(1,1) PRIMARY KEY,
-    product_id INT,
-    action_type VARCHAR(50) CHECK( action_type IN ('INSERT', 'UPDATE', 'DELETE') ),
-    old_stock_quantity INT,
-    new_stock_quantity INT,
-    action_timestamp DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
- 
-CREATE TABLE price_changes (
-    change_id INT Identity(1,1) PRIMARY KEY,
-    product_id INT NOT NULL,
-    old_price DECIMAL(10, 2) NOT NULL,
-    new_price DECIMAL(10, 2) NOT NULL,
-    change_date DATETIME NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
- 
-CREATE TABLE payments (
-    payment_id INT Identity(1,1) PRIMARY KEY,
-    order_id INT NOT NULL,
-    payment_date DATETIME DEFAULT GETDATE(),
-    payment_amount DECIMAL(10, 2) NOT NULL,
-    payment_method VARCHAR(50) CHECK( payment_method IN ('Credit Card', 'Debit Card', 'PayPal', 'Bank Transfer')) NOT NULL,
-    payment_status VARCHAR(50) CHECK( payment_status IN ('Completed', 'Pending', 'Failed')) DEFAULT 'Pending',
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
-
-
--- Create reviews table
 CREATE TABLE reviews (
     id INT Identity(1,1) PRIMARY KEY,
     product_id INT NOT NULL,
@@ -203,8 +187,8 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
-);
--- Create cart table
+); 
+
 CREATE TABLE cart (
     cart_id INT Identity(1,1) PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -213,8 +197,7 @@ CREATE TABLE cart (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
- 
--- Create cart_items table
+
 CREATE TABLE cart_items (
     cart_item_id INT Identity(1,1) PRIMARY KEY,
     cart_id INT NOT NULL,
@@ -227,16 +210,14 @@ CREATE TABLE cart_items (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
- 
--- Create shipping_methods table
+
 CREATE TABLE shipping_methods (
     shipping_method_id INT Identity(1,1) PRIMARY KEY,
     method_name VARCHAR(100) NOT NULL,
     description TEXT,
     cost DECIMAL(10, 2) NOT NULL
 );
- 
--- Create shipments table
+
 CREATE TABLE shipments (
     shipment_id INT Identity(1,1) PRIMARY KEY,
     order_id INT NOT NULL,
@@ -251,8 +232,7 @@ CREATE TABLE shipments (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
- 
--- Create shipment_items table
+
 CREATE TABLE shipment_items (
     shipment_item_id INT IDENTITY(1,1) PRIMARY KEY,
     shipment_id INT NOT NULL,
@@ -265,8 +245,7 @@ CREATE TABLE shipment_items (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
- 
--- Create shipping_addresses table
+
 CREATE TABLE shipping_addresses (
     shipping_address_id INT Identity(1,1) PRIMARY KEY,
     order_id INT NOT NULL,
@@ -279,9 +258,7 @@ CREATE TABLE shipping_addresses (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
- 
--- Create subscriptions table
- 
+
 CREATE TABLE subscriptions (
     subscription_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -291,9 +268,8 @@ CREATE TABLE subscriptions (
     status VARCHAR(50) CHECK (status IN ('Active', 'Expired', 'Cancelled')) DEFAULT 'Active',
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
- 
- 
--- Create table loyalty_redemption
+
+
 CREATE TABLE loyalty_redemptions (
     redemption_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -303,7 +279,7 @@ CREATE TABLE loyalty_redemptions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );                                   -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  
--- Create billing_adjustments table
+
 CREATE TABLE billing_adjustments (
     adjustment_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -312,3 +288,59 @@ CREATE TABLE billing_adjustments (
     reason VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE returns (
+    return_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    return_reason VARCHAR(255) NOT NULL,
+    return_date DATETIME DEFAULT GETDATE(),
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE archived_orders (
+    order_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_date DATETIME NOT NULL,
+    customer_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status NVARCHAR(50)
+);
+
+CREATE TABLE closed_dates (
+    close_id INT IDENTITY(1,1) PRIMARY KEY,
+    closed_date DATETIME NOT NULL,
+    events NVARCHAR(255)
+);
+
+
+CREATE INDEX idx_username ON users(username);
+CREATE INDEX idx_product_name ON products(name);
+CREATE INDEX idx_order_date ON orders(order_date);
+CREATE INDEX idx_order_item ON order_items(order_id, item_id);
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- Create shipping_addresses table
+
+ 
+-- Create subscriptions table
+ 
+
+ 
+ 
+-- Create table loyalty_redemption
+
