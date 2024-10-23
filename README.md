@@ -1,5 +1,6 @@
 ### **Software Requirements Specification (SRS) for eCommerce Application**
 
+<---   ---->
 A Software Requirements Specification (SRS) document for an eCommerce application provides a comprehensive description of the system's functionality, performance, design constraints, and interactions with users and other systems. It serves as a guide for developers, testers, and stakeholders throughout the development process. Below is a structured template for an SRS document tailored to an eCommerce application:
 
 #### **1. Introduction**

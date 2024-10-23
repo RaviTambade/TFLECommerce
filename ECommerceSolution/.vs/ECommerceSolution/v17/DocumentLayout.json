@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+<<<<<<< HEAD
+      "AbsoluteMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.server\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B190A45A-DFD7-4415-B4D1-6FF4083ECD9F}|ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj|d:\\ravi\\tap\\tap\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.client\\src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B190A45A-DFD7-4415-B4D1-6FF4083ECD9F}|ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.client\\src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|d:\\ravi\\tap\\tap\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.server\\repositories\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\repositories\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
       "AbsoluteMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|d:\\transflower\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.server\\shoppingstoreapp.server.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\shoppingstoreapp.server.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
@@ -29,6 +45,7 @@
     {
       "AbsoluteMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|d:\\transflower\\tflecommerce\\ecommercesolution\\shoppingstoreapp\\shoppingstoreapp.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73EEECA9-CF40-4D86-9D2D-A9BCC4CB8372}|ShoppingStoreApp\\ShoppingStoreApp.Server\\ShoppingStoreApp.Server.csproj|solutionrelative:shoppingstoreapp\\shoppingstoreapp.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> 400a6df3082b19239190fec5fa36e0cd9ef5efb8
     }
   ],
   "DocumentGroupContainers": [
@@ -38,13 +55,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
+          "SelectedChildIndex": 1,
+=======
           "SelectedChildIndex": 6,
+>>>>>>> 400a6df3082b19239190fec5fa36e0cd9ef5efb8
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+<<<<<<< HEAD
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "shoppingstoreapp.client.esproj",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj",
+=======
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "ShoppingStoreApp.Server",
@@ -74,16 +101,61 @@
               "DocumentIndex": 3,
               "Title": "shoppingstoreapp.client.esproj",
               "DocumentMoniker": "D:\\Transflower\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj",
+>>>>>>> 400a6df3082b19239190fec5fa36e0cd9ef5efb8
               "RelativeDocumentMoniker": "ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj",
               "ToolTip": "D:\\Transflower\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj",
               "RelativeToolTip": "ShoppingStoreApp\\shoppingstoreapp.client\\shoppingstoreapp.client.esproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAKAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+<<<<<<< HEAD
+              "WhenOpened": "2024-08-02T09:12:33.12Z",
+=======
               "WhenOpened": "2024-08-01T06:21:31.917Z",
+>>>>>>> 400a6df3082b19239190fec5fa36e0cd9ef5efb8
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Program.cs",
+              "RelativeDocumentMoniker": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Program.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Program.cs",
+              "RelativeToolTip": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Program.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAADEAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-02T09:09:25.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Repositories\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Repositories\\IProductRepository.cs",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Repositories\\IProductRepository.cs",
+              "RelativeToolTip": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Repositories\\IProductRepository.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBEAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-02T09:02:43.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "app.component.html",
+              "DocumentMoniker": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\src\\app\\app.component.html",
+              "RelativeDocumentMoniker": "ShoppingStoreApp\\shoppingstoreapp.client\\src\\app\\app.component.html",
+              "ToolTip": "D:\\Ravi\\TAP\\TAP\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\src\\app\\app.component.html",
+              "RelativeToolTip": "ShoppingStoreApp\\shoppingstoreapp.client\\src\\app\\app.component.html",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAB4AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-08-02T05:37:05.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+=======
               "DocumentIndex": 5,
               "Title": "app.component.spec.ts",
               "DocumentMoniker": "D:\\Transflower\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\shoppingstoreapp.client\\src\\app\\app.component.spec.ts",
@@ -109,14 +181,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+>>>>>>> 400a6df3082b19239190fec5fa36e0cd9ef5efb8
               "Title": "ProductsController.cs",
               "DocumentMoniker": "D:\\Transflower\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Controllers\\ProductsController.cs",
               "ToolTip": "D:\\Transflower\\TFLECommerce\\ECommerceSolution\\ShoppingStoreApp\\ShoppingStoreApp.Server\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "ShoppingStoreApp\\ShoppingStoreApp.Server\\Controllers\\ProductsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAsAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAA1wBkAAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T06:17:22.664Z",
+              "WhenOpened": "2024-08-02T05:32:53.884Z",
               "EditorCaption": ""
             },
             {

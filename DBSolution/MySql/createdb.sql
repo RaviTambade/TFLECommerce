@@ -1,7 +1,11 @@
--- Drop and recreate the database
-DROP DATABASE IF EXISTS tflecommerce;
 CREATE DATABASE tflecommerce;
 USE tflecommerce;
+
+select * from tflecommerce.users;
+select * from tflecommerce.categories;
+select * from tflecommerce.orders;
+select * from tflecommerce.inventory;
+SELECT * FROM inventory WHERE product_id = 5;
 
 -- Create users table
 CREATE TABLE users (
@@ -29,10 +33,12 @@ CREATE TABLE products (
     stock INT NOT NULL,
     category_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
+
 
 -- Create orders table
 CREATE TABLE orders (
@@ -102,9 +108,10 @@ CREATE TABLE payments (
 
 -- Create inventory table
 CREATE TABLE inventory (
-    product_id INT PRIMARY KEY,
+    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT ,
     stock_quantity INT,
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -122,14 +129,11 @@ CREATE TABLE purchase_orders (
 -- Create product_audit table
 CREATE TABLE product_audit (
     audit_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
+    inventory_id INT,
     action_type ENUM('INSERT', 'UPDATE', 'DELETE'),
     old_stock_quantity INT,
     new_stock_quantity INT,
-    action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES inventory(product_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    action_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create discount_codes table
@@ -276,7 +280,7 @@ CREATE TABLE shipping_addresses (
 );
 
 -- Create subscriptions table
-Drop table subscriptions;
+
 CREATE TABLE subscriptions (
     subscription_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -322,6 +326,21 @@ CREATE TABLE IF NOT EXISTS returns (
     FOREIGN KEY (product_id) REFERENCES products(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
+);
+
+-- create table archieved_orders:
+create table archieved_orders (
+	order_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_date DATETIME NOT NULL,
+    customer_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    STATUS VARCHAR(50)
+);
+
+create table closed_dates(
+    close_id INT AUTO_INCREMENT PRIMARY KEY,
+    closed_dates DATETIME NOT NULL,
+    events VARCHAR(255)
 );
 
 -- Indexes for performance improvement

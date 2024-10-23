@@ -453,3 +453,7 @@ INSERT INTO subscriptions (user_id, subscription_plan, start_date, end_date, sta
 (2, 'Premium Plan', '2024-03-01', NULL, 'Active'),
 (3, 'Standard Plan', '2024-05-20', '2024-11-20', 'Active'),
 (4, 'Basic Plan', '2024-02-10', '2024-08-10', 'Expired');
+
+INSERT INTO closed_dates(closed_date, events) values
+('2024-10-15', 'Diwali'),
+('2024-09-18', 'Dussehra');

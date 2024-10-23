@@ -9,11 +9,12 @@ interface WeatherForecast {
 }
 
 interface Product {
-  id: number;
-  name: string;
+  productId: number;
+  productTitle: string;
   description: string;
-  price: number;
-  quantity:number
+  category: string;
+  unitprice: number;
+  stockAvailable:number
 }
 
 
@@ -48,10 +49,13 @@ export class AppComponent implements OnInit {
   }
 
   getProducts() {
+
     this.http.get<Product[]>('http://localhost:5268/api/products').subscribe(
       (result) => {
         this.products = result;
+        console.log(result);
       },
+
       (error) => {
         console.error(error);
       }
