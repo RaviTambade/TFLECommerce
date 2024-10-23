@@ -55,6 +55,7 @@ BEGIN
 END;
 
 -- 4. Trigger to Log Changes to Product Prices
+drop trigger after_product_priceupdate;
 
 CREATE TRIGGER after_product_priceupdate
 ON products
@@ -63,9 +64,13 @@ AS
 BEGIN
     -- Insert a record into the price_changes table
     INSERT INTO price_changes (product_id, old_price, new_price, change_date)
-    VALUES (1, 1199.99, 1149.99, GETDATE());
+	select d.id,d.price,i.price,GETDATE() from deleted d 
+	join inserted i on d.id=i.id;
 END
-
+update products set price=1000 where id=1;
+update products set price=900 where id=1;
+select *from products;
+select *from price_changes;
 
 
 --5 Trigger to Automatically Apply Discount to Orders Over a Certain Amount
