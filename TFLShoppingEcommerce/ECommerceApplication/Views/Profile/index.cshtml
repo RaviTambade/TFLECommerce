@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Customer Profile";
+    Customer customer = (Customer)ViewData["CustomerProfile"];
+}
+
+<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+<link rel="stylesheet" href="~/css/NavBarStyle.css" />
+<link rel="stylesheet" href="~/css/ProfileStyle.css" />
+
+<div class="main">
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="~/images/user.jpg" alt="Profile Picture" class="profile-pic" />
+                <h2>@customer.UserName</h2>
+                <span class="customer-id">ID: @customer.CustomerId</span>
+            </div>
+            <div class="profile-info">
+                <p><strong>City:</strong> @customer.Address</p>
+                <p><strong>Email:</strong> @customer.Email</p>
+                <p><strong>Password:</strong> @customer.Password</p>
+            </div>
+            <div class="profile-actions">
+                <a href="/Customer/UpdateProfile/@customer.CustomerId">
+                    <button class="update-btn">Update Profile</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

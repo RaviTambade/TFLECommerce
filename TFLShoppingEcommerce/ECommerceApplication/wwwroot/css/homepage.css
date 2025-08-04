@@ -1,0 +1,73 @@
+/* Fade and slide animations */
+@keyframes fadein {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadein {
+    animation: fadein 1s ease-in-out;
+}
+
+.animate-slideup {
+    animation: fadein 1.2s ease-in-out;
+}
+
+/* Gradient Hero Heading */
+.gradient-text {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* 3D Tilt-like Card Effect */
+.tilt-effect {
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.tilt-effect:hover {
+    transform: rotateY(8deg) rotateX(4deg) scale(1.03);
+}
+
+/* Glassy Category Cards */
+.category-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.category-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.category-card .content {
+    padding: 15px;
+    color: #fff;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+}
+
+/* Animated Button */
+.btn-animated {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,123,255,0.5);
+    text-decoration: none;
+}
+
+.btn-animated:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,123,255,0.6);
+}

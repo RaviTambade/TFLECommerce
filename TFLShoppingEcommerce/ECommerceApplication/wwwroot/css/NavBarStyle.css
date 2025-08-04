@@ -1,0 +1,50 @@
+.navbartabs {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.navbartabs a {
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 
+        background-color 0.3s ease, 
+        color 0.3s ease, 
+        transform 0.2s ease, 
+        box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbartabs a:hover {
+    background-color: #e8cb29;
+    color: white;
+    border-color: #e8cb29;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgb(239, 239, 96);
+}
+
+.navbartabs a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #efbc05;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbartabs a:hover::after {
+    transform: scaleX(1);
+}

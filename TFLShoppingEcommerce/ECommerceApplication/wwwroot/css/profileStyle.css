@@ -1,0 +1,69 @@
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.profile-card {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 25px 30px;
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #007BFF;
+}
+
+.customer-id {
+    display: block;
+    color: #888;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.profile-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
+
+.profile-info p strong {
+    display: inline-block;
+    width: 120px;
+    color: #555;
+}
+
+.profile-actions {
+    margin-top: 25px;
+}
+
+.update-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.update-btn:hover {
+    background-color: #0056b3;
+}

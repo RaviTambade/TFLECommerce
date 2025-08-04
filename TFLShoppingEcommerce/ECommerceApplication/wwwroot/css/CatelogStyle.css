@@ -1,0 +1,176 @@
+
+/* Styling the container div */
+.data{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+/* Styling the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Styling table rows and cells */
+table tr td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+/* Input fields styling */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type="password"]  {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+/* Buttons styling */
+.data .submitButton {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+input[type="button"] {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+/* Specific styling for button alignment */
+table tr:last-child td {
+    text-align: center;
+}
+
+/* Placeholder text styling */
+input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+
+.container
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* Creates 5 equal-width columns */
+    gap: 25px;
+  
+}
+
+ .cart
+{
+    padding: 16px;
+    width:100%;
+    margin: 2px;
+    box-shadow:  0 8px 16px rgba(0, 0, 0, 0.1) ;
+    border-radius: 20px;
+     display: flex;              /* Enable flexbox on .cart */
+    flex-direction: column;     /* Stack children vertically */
+    align-items: center;        /* Center horizontally */
+    justify-content: flex-start;
+}
+
+.cart h2{
+    text-align: center;
+}
+.cart img
+{
+    width: 230px;
+    height: 230px;
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.1) ;
+    margin-bottom: 10px;
+}
+
+.cart p
+{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+button
+{
+    padding: 8px 16px;
+    font-size: 1rem;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+ button:hover {
+    background-color: #45a049;
+}
+
+.main h1
+{
+    text-align: center;
+}
+
+
+/* details page */
+.details 
+{
+    margin-left: 400px;
+    text-align: center;
+
+}
+.details .cart{
+   width:600px;
+   margin-top: 100px;
+}
+
+.details .cart p
+{
+   margin-bottom: 5px;
+}
+
+.btn
+{
+    margin-left:90%;
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+.btn:hover
+{
+    margin-left:90%;
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+

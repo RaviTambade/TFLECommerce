@@ -1,0 +1,266 @@
+/* Parallax Hero Section */
+.parallax-hero {
+    background: url('../images/about_bg.jpeg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 100px 20px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.parallax-hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    animation: fadeInUp 1s ease;
+}
+
+/* Flip Cards */
+.flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 380px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front Side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 25px;
+}
+
+.flip-card-front {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Set Background Images per Card */
+.fashion-card .flip-card-front {
+    background-image: url('../images/fashion_logo.jpeg');
+}
+
+.electronics-card .flip-card-front {
+    background-image: url('../images/electronics_logo.jpeg');
+}
+
+.home-card .flip-card-front {
+    background-image: url('../images/home_logo.jpeg');
+}
+
+
+.flip-card-front h5 {
+    font-size: 1.6rem;
+    margin-top: auto;
+}
+
+.flip-card-front p {
+    margin-bottom: auto;
+}
+
+/* Back Side */
+.flip-card-back {
+    background: linear-gradient(135deg, #e5e7ea, #021b3e);
+    transform: rotateY(180deg);
+    text-align: left;
+}
+
+.flip-card-back h5 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.flip-card-back p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e3f2fd;
+}
+
+/* Section Title */
+.services-section h2 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .flip-card {
+        height: 320px;
+    }
+}
+
+/* === Timeline Animation & Reveal === */
+.timeline-item {
+    opacity: 1;
+    transform: translateY(40px);
+    transition: all 0.7s ease-in-out;
+}
+
+.timeline-item.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #007bff, #00c6ff);
+    animation: pulseLine 5s linear infinite alternate;
+}
+
+@keyframes pulseLine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.timeline-item .dot {
+    position: absolute;
+    top: 1.5rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    border: 4px solid #007bff;
+    animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.timeline-item .content {
+    background: white;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: relative;
+}
+
+.timeline-item.left {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item.right {
+    left: 50%;
+    text-align: left;
+}
+
+.timeline-item.left .dot {
+    right: -10px;
+}
+
+.timeline-item.right .dot {
+    left: -10px;
+}
+
+.timeline-item h5 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 0.3rem;
+}
+
+.timeline-item p {
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timeline::after {
+        left: 20px;
+    }
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left;
+        padding-left: 40px;
+    }
+    .timeline-item .dot {
+        left: 0 !important;
+        right: auto;
+    }
+}

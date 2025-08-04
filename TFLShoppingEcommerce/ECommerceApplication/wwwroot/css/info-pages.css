@@ -1,0 +1,208 @@
+/* ========== Container & Typography ========== */
+.container {
+    max-width: 960px;
+    margin: auto;
+    padding: 2rem 1rem;
+}
+
+h1, h2, h3, h4 {
+    font-weight: bold;
+    color: #007bff;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+p, li {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ========== Hero Banner ========== */
+.contact-hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/contact-bg.jpg') center/cover no-repeat;
+    padding: 90px 20px;
+    color: white;
+    text-align: center;
+    margin-left: -1.5rem; /* adjusts for sidebar layout */
+    margin-right: -1.5rem;
+}
+
+.contact-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    animation: fadeInDown 1s ease-in-out;
+    color: #fff;
+}
+
+.contact-hero p {
+    font-size: 1.2rem;
+    animation: fadeInUp 1s ease-in-out;
+    color: #ffffffc8;
+}
+
+/* ========== Form Styling ========== */
+form label {
+    font-weight: 500;
+    color: #333;
+}
+
+form input,
+form textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: border 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+/* Floating labels */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    opacity: 1;
+    transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
+}
+
+/* ========== Submit Button ========== */
+button[type="submit"],
+.btn-gradient {
+    background: linear-gradient(to right, #007bff, #00bcd4);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover,
+.btn-gradient:hover {
+    background: linear-gradient(to right, #0056b3, #0097a7);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* ========== Google Map & Images ========== */
+iframe {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ========== Contact Cards & Effects ========== */
+.contact-card, .info-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover, .info-box:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* ========== Animation Classes ========== */
+.animate-fade,
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease-in-out;
+}
+
+.animate-fade.reveal,
+.animate-slide-up.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Responsive Adjustments ========== */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .contact-hero h1 {
+        font-size: 2rem;
+    }
+
+    .contact-hero p {
+        font-size: 1rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+}
+.privacy-hero {
+    position: relative;
+    background: url('../images/privacy-hero.jpg') center/cover no-repeat;
+    padding: 100px 20px;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.privacy-hero .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.privacy-hero h1{
+    color: #fff;
+}
+.privacy-hero p{
+    color: #ebdddd;
+}
+
+.privacy-hero .content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.accordion-button {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.accordion-body ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.accordion-body ul li::before {
+    content: "✔";
+    color: #007bff;
+    margin-right: 8px;
+}
+
+.accordion-body ul li {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+}

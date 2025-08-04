@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<link rel="stylesheet" href="~/css/info-pages.css" />
+<script src="~/js/contact.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<div class="privacy-hero text-center text-white">
+    <div class="overlay"></div>
+    <div class="content animate-fade">
+        <h1 class="display-5 fw-bold">Your Privacy Matters to Us</h1>
+        <p class="lead">We believe in transparency and your right to control your data</p>
+    </div>
+</div>
+
+<div class="container my-5 animate-slide-up">
+    <div class="accordion" id="privacyAccordion">
+
+        <!-- 1 -->
+        <div class="accordion-item shadow-sm mb-3">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    1. Information We Collect
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                 data-bs-parent="#privacyAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Your name, email, phone number, and shipping address during checkout or sign-up</li>
+                        <li>Technical data like IP address, device type, browser info, and navigation patterns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="accordion-item shadow-sm mb-3">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    2. How We Use Your Information
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                 data-bs-parent="#privacyAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>To fulfill your orders and send delivery updates</li>
+                        <li>To share offers, newsletters, or product recommendations</li>
+                        <li>To analyze usage and enhance your shopping experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="accordion-item shadow-sm mb-3">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    3. Data Security
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                 data-bs-parent="#privacyAccordion">
+                <div class="accordion-body">
+                    <p>
+                        We implement advanced security practices like HTTPS, encryption, and firewalls.
+                        Your data is never sold and only shared with trusted partners upon consent.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="accordion-item shadow-sm mb-3">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    4. Your Rights
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                 data-bs-parent="#privacyAccordion">
+                <div class="accordion-body">
+                    <p>
+                        You can view, edit, or delete your information anytime.
+                        Contact us at <strong>privacy@shopsmart.com</strong> to raise any concerns or inquiries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-end mt-4 text-muted"><em>Last updated: June 2025</em></p>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-light pt-5 pb-4 mt-5">
+    <div class="container text-center text-md-left">
+        <div class="row">
+
+            <!-- About -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-warning">ShopSmart</h5>
+                <p style="color:#fff;">Your one-stop destination for the latest in fashion, electronics, home essentials and more.</p>
+            </div>
+
+            <!-- Links -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Quick Links</h5>
+                <p style="color:#fff;"><a href="/catelog/index" class="text-light text-decoration-none">Products</a></p>
+                <p style="color:#fff;"><a href="/Home/about" class="text-light text-decoration-none">About Us</a></p>
+                <p style="color:#fff;"><a href="/home/contact" class="text-light text-decoration-none">Contact</a></p>
+                <p style="color:#fff;"><a href="/home/privacy" class="text-light text-decoration-none">Privacy Policy</a></p>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
+                <p style="color:#fff;"><i class="fas fa-home me-2"></i> Pune, India</p>
+                <p style="color:#fff;"><i class="fas fa-envelope me-2"></i> support@shopsmart.com</p>
+                <p style="color:#fff;"><i class="fas fa-phone me-2"></i> +91 98765 43210</p>
+            </div>
+
+            <!-- Social -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mt-3 text-center">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
+                <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+
+        <hr class="mb-4" />
+
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <p style="color:#fff;" class="mb-0">&copy; 2025 ShopSmart. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>

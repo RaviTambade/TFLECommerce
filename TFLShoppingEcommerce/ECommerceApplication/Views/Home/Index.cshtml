@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+   <script src="~/js/site.js" asp-append-version="true"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+<!-- Hero Section -->
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold">Welcome to ShopSmart</h1>
+        <p class="lead text-muted">Your one-stop shop for everything you love — fashion, electronics, home decor and more!</p>
+        <a class="btn btn-primary btn-lg mt-3" href="/catelog/index">Start Shopping</a>
+    </div>
+</div>
+
+<!-- Featured Categories -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Explore Categories</h2>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="~/images/fashion_logo.jpeg" class="card-img-top" alt="Fashion">
+                <div class="card-body">
+                    <h5 class="card-title">Fashion</h5>
+                    <p class="card-text text-muted">Trendy clothing and accessories for everyone.</p>
+                    <a href="/category/Fashion" class="btn btn-outline-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="~/images/electronics_logo.jpeg" class="card-img-top" alt="Electronics">
+                <div class="card-body">
+                    <h5 class="card-title">Electronics</h5>
+                    <p class="card-text text-muted">Latest gadgets and devices at best prices.</p>
+                    <a href="/category/ElectronicDevices" class="btn btn-outline-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="~/images/home_logo.jpeg" class="card-img-top" alt="Home & Living">
+                <div class="card-body">
+                    <h5 class="card-title">Home & Furniture</h5>
+                    <p class="card-text text-muted">Furniture, decor, and everything in between.</p>
+                    <a href="/category/Home_Farniture" class="btn btn-outline-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter or Offer -->
+<div class="container my-5 p-5 bg-light rounded text-center">
+    <h4>Don't miss our weekly deals!</h4>
+    <p class="text-muted">Sign up to get exclusive discounts and latest product updates.</p>
+    <form class="row justify-content-center">
+        <div class="col-md-6 col-sm-8">
+            <input type="email" class="form-control mb-2" placeholder="Enter your email" />
+        </div>
+        <div class="col-md-2 col-sm-4">
+            <button class="btn btn-primary w-100" type="submit">Subscribe</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- Customer Reviews -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">What Our Customers Say</h2>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 review-card">
+                <div class="card-body">
+                    <img src="~/images/user1.jpeg" alt="User 1" class="rounded-circle mb-3" width="80" height="80">
+                    <h5 class="card-title">Aditi Sharma</h5>
+                    <p class="text-warning mb-1">★★★★★</p>
+                    <p class="card-text text-muted">“Loved the fashion collection! Smooth checkout and fast delivery. Will shop again.”</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 review-card">
+                <div class="card-body">
+                    <img src="~/images/user2.jpeg" alt="User 2" class="rounded-circle mb-3" width="80" height="80">
+                    <h5 class="card-title">Rohan Deshmukh</h5>
+                    <p class="text-warning mb-1">★★★★★</p>
+                    <p class="card-text text-muted">“The electronics I ordered were exactly as described. Impressive customer support too!”</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 review-card">
+                <div class="card-body">
+                    <img src="~/images/user3.jpeg" alt="User 3" class="rounded-circle mb-3" width="80" height="80">
+                    <h5 class="card-title">Sneha Patil</h5>
+                    <p class="text-warning mb-1">★★★★☆</p>
+                    <p class="card-text text-muted">“Good variety in home décor. One item was delayed but quality was worth the wait.”</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Footer -->
+<footer class="bg-dark text-light pt-5 pb-4 mt-5">
+    <div class="container text-center text-md-left">
+        <div class="row">
+
+            <!-- About -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-warning">ShopSmart</h5>
+                <p>Your one-stop destination for the latest in fashion, electronics, home essentials and more.</p>
+            </div>
+
+            <!-- Links -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Quick Links</h5>
+                <p><a href="/catelog/index" class="text-light text-decoration-none">Products</a></p>
+                <p><a href="/Home/about" class="text-light text-decoration-none">About Us</a></p>
+                <p><a href="/home/contact" class="text-light text-decoration-none">Contact</a></p>
+                <p><a href="/home/privacy" class="text-light text-decoration-none">Privacy Policy</a></p>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
+                <p><i class="fas fa-home me-2"></i> Pune, India</p>
+                <p><i class="fas fa-envelope me-2"></i> support@shopsmart.com</p>
+                <p><i class="fas fa-phone me-2"></i> +91 98765 43210</p>
+            </div>
+
+            <!-- Social -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mt-3 text-center">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
+                <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+
+        <hr class="mb-4" />
+
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <p class="mb-0">&copy; 2025 ShopSmart. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+

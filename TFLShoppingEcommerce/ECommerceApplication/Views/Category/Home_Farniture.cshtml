@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "product catelog";
+}
+<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+<link rel="stylesheet" href="~/css/NavBarStyle.css" />
+
+<div class="main">
+    @* <h1>All products</h1> *@
+    <div class="navbartabs">
+        <a href="/catelog/">All Products</a>
+        <a href="/category/Flowers">Flowers</a>
+        <a href="/category/Beauty_PersonalCare">Beauty& PersonalCare</a>
+        <a href="/category/ElectronicDevices">Electronic Devices</a>
+        <a href="/category/Fashion">Fashion</a>
+        <a href="/category/Grocery">Grocery</a>
+        <a href="/category/Home_Farniture">Home_Farniture</a>
+        <a href="/category/Toys_Books">Toys_Books</a>
+    </div>
+
+    @{
+        List<Product> products = (List<Product>)ViewData["Home_FarnitureProducts"];
+        <div class="container">
+            @foreach (Product product in products)
+            {
+                <div class="cart">
+                    <h2>@product.ProductTitle</h2>
+                    <img src="@product.ProductImage" width="80" height="80" />
+                    @* <p><b>ProductId:</b> @product.ProductId</p> *@
+                    <p><b>Title: </b>@product.ProductTitle</p>
+                    @* <p><b>Description:</b> @product.Description</p> *@
+                    <p><b>Price:</b> @product.UnitPrice</p>
+                    @* <p><b>Available stock:</b> @product.Quantity</p> *@
+                    <a href="/catelog/Details/@product.ProductId"> <button>Details</button></a>
+
+                </div>
+            }
+        </div>
+    }
+</div>

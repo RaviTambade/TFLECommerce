@@ -1,0 +1,37 @@
+@model ECommerceApplication.Models.Customer
+
+<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+
+<div class="data">
+    <h1>UPDATE PROFILE</h1>
+    <form asp-action="Update" asp-controller="Customer" method="post">
+        <table>
+            <tr>
+                <td>Customer Id:</td>
+                <td><input type="text" name="id" value="@Model.CustomerId" readonly /></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="name" value="@Model.UserName" required /></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" name="city" value="@Model.Address" required /></td>
+            </tr>
+        
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" value="@Model.Email" required /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" value="@Model.Password" required /></td>
+            </tr>
+           
+            <tr>
+                <td></td>
+                <td><input type="submit" class="submitButton" value="Update" /></td>
+            </tr>
+        </table>
+    </form>
+</div>

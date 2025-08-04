@@ -1,0 +1,125 @@
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #3f51b5, #5a55ae);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .register-container {
+        margin-left: 500px;
+        margin-top: 80px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .register-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: border 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #3f51b5;
+        outline: none;
+    }
+
+    .btn-register {
+        width: 100%;
+        padding: 12px;
+        background-color: #3f51b5;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-register:hover {
+        background-color: #2e3ea3;
+    }
+
+    .register-footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .register-footer a {
+        color: #3f51b5;
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
+
+<div class="register-container">
+    <h2>Register</h2>
+    <form action="/Authentication/Register" method="post">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="number" name="id" id="id" required />
+        </div>
+
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name" required />
+        </div>
+
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" required />
+        </div>
+
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <div class="register-footer">
+        Already have an account? <a href="/Authentication/Login">Login</a>
+    </div>
+</div>

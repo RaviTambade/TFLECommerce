@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ECommerceApplication</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" /> <!-- custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ECommerceApplication.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="layout-container">
+        <aside class="sidebar">
+            <div class="logo">🛍️ ShopSmart</div>
+            <nav class="menu">
+                <a href="/Home/index" class="active">🏠 Dashboard</a>
+                <a href="/Catelog/index">📦 Products</a>
+                <a href="/category/index">🗂️ Categories</a>
+                <a href="/Customer/index">👥 Customers</a>
+                <a href="/ShoppingCart/index">🛒 Cart</a>
+                <a href="/orders/index">📑 Orders</a>
+                <a href="/profile/index">🙍‍♂️ Profile</a>
+                <a href="/Authentication/logout">🚪 Logout</a>
+            </nav>
+        </aside>
+
+        <main role="main" class="main">
+            <header class="main-header">
+                <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+            </header>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

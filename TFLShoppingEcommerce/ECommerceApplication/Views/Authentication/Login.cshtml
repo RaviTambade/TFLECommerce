@@ -1,0 +1,123 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #3f51b5, #5a55ae);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .login-container {
+        margin-left: 500px;
+        margin-top: 200px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: border 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #3f51b5;
+        outline: none;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 12px;
+        background-color: #3f51b5;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background-color: #2e3ea3;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .login-footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .login-footer a {
+        color: #3f51b5;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+   
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="/Authentication/Login/"  method="post">
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" name="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+
+        <!-- Optional error message display -->
+        @if (ViewData["ErrorMessage"] != null)
+        {
+            <div class="error-message">@ViewData["ErrorMessage"]</div>
+        }
+    </form>
+
+    <div class="login-footer">
+        Don't have an account? <a href="/Authentication/Register">Register</a>
+    </div>
+</div>
