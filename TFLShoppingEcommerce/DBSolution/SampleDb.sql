@@ -251,6 +251,14 @@ VALUES  (2, 9, 2, '/images/flowers/RainbowSorbet.jpeg');        -- RainbowSorbet
 INSERT INTO cart_items (cart_id, product_id, quantity, ItemImage)
 VALUES  (3, 27, 1, '/images/Beauty_PersonalCare/facewash.jpeg');        -- face wash
 
+INSERT INTO shipping_addresses (order_id, address, city, state, zip_code, country) VALUES
+(1, '123 Elm Street', 'Springfield', 'IL', '62701', 'USA'),
+(2, '456 Oak Avenue', 'Metropolis', 'NY', '10001', 'USA'),
+(3, '789 Pine Road', 'Gotham', 'NJ', '07001', 'USA'),
+(4, '101 Maple Lane', 'Smallville', 'KS', '66101', 'USA'),
+(5, '202 Birch Boulevard', 'Star City', 'CA', '90210', 'USA'),
+(6, '303 Cedar Drive', 'Haven', 'PA', '19001', 'USA');
+
 
 -- insert into orders
 INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES
@@ -261,6 +269,14 @@ INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shi
 (5, '2025-08-01', '789 MG Road, Chennai', 499.98, '2024-08-02', 'Processing'), -- Order with Historical Novel and Trousers
 (6, '2025-08-02', '101 Nehru Place, Delhi', 449.98, '2024-08-03', 'Shipped'), -- Order with Camera and Dress
 (7, '2025-08-03', '123 Banjara Hills, Hyderabad', 389.98, '2024-08-04', 'Processing'); -- Order with Smart TV and Shirt
+
+update orders set shipping_address_id=1 where id=1;
+update orders set shipping_address_id=2 where id=2;
+update orders set shipping_address_id=3 where id=3;
+update orders set shipping_address_id=4 where id=4;
+update orders set shipping_address_id=5 where id=5;
+update orders set shipping_address_id=6 where id=6;
+update orders set shipping_address_id=4 where id=7;
 
 -- insert into order status
 INSERT INTO order_status (order_id, status, status_date) VALUES
@@ -396,13 +412,6 @@ INSERT INTO shipments (order_id, shipping_method_id, shipment_date, tracking_num
 (6, 6, '2025-07-30', 'TRACK006', 'Shipped'),
 (7, 7, '2025-07-31', 'TRACK007', 'Delivered');
 
-INSERT INTO shipping_addresses (order_id, address, city, state, zip_code, country) VALUES
-(1, '123 Elm Street', 'Springfield', 'IL', '62701', 'USA'),
-(2, '456 Oak Avenue', 'Metropolis', 'NY', '10001', 'USA'),
-(3, '789 Pine Road', 'Gotham', 'NJ', '07001', 'USA'),
-(4, '101 Maple Lane', 'Smallville', 'KS', '66101', 'USA'),
-(5, '202 Birch Boulevard', 'Star City', 'CA', '90210', 'USA'),
-(6, '303 Cedar Drive', 'Haven', 'PA', '19001', 'USA');
 
 -- Sample data for subscriptions
 INSERT INTO subscriptions (user_id, plan, start_date, end_date, status) VALUES

@@ -96,6 +96,16 @@ CREATE TABLE cart_items (
         ON DELETE CASCADE
 );
 
+-- Create shipping_addresses table
+CREATE TABLE shipping_addresses (
+    shipping_address_id INT AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    zip_code VARCHAR(10) NOT NULL,
+    country VARCHAR(50) NOT NULL
+);
+
 
 -- Create orders table
 CREATE TABLE orders (
@@ -110,6 +120,16 @@ CREATE TABLE orders (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+ALTER TABLE orders 
+ADD column shipping_address_id int,
+ADD CONSTRAINT fk_shipping_address
+FOREIGN KEY (shipping_address_id)
+REFERENCES shipping_addresses(shipping_address_id)
+ON UPDATE CASCADE
+ON DELETE SET NULL; 
+
+ALTER TABLE orders DROP COLUMN shipping_address;
 
 
 CREATE TABLE order_status (
@@ -309,19 +329,7 @@ CREATE TABLE shipment_items (
 
 
 
--- Create shipping_addresses table
-CREATE TABLE shipping_addresses (
-    shipping_address_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    state VARCHAR(50) NOT NULL,
-    zip_code VARCHAR(10) NOT NULL,
-    country VARCHAR(50) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
+
 
 -- Create subscriptions table
 
