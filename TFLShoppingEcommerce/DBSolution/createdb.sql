@@ -108,6 +108,7 @@ CREATE TABLE shipping_addresses (
 
 
 -- Create orders table
+-- upadate table of order add sippingaddress foreign key
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -395,6 +396,13 @@ create table closed_dates(
     events VARCHAR(255)
 );
 
+
+ALTER TABLE shipping_addresses
+ADD COLUMN UserId INT;
+
+ALTER TABLE shipping_addresses
+ADD CONSTRAINT fk_user_shipping
+FOREIGN KEY (UserId) REFERENCES users(id);
 
 drop table subcategories;
 drop table products;

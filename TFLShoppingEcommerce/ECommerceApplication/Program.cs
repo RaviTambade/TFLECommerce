@@ -13,8 +13,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryServices>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
-builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // register distributed cache memory for session management
 builder.Services.AddDistributedMemoryCache();

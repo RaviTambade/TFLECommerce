@@ -477,3 +477,7 @@ INSERT INTO price_changes (product_id, old_price, new_price, change_date) VALUES
 (1, 250, 200, '2025-08-01 10:00:00'),  -- crocs
 (2, 590, 500, '2025-08-01 11:00:00'), -- high heels
 (3, 450, 420, '2025-08-02 09:00:00');    -- sneaker
+
+
+
+update shipping_addresses set userid=1 where shipping_address_id=6;

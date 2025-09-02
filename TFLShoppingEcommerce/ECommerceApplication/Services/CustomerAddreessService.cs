@@ -1,21 +1,13 @@
 using ECommerceApplication.Models;
-using ECommerceApplication.Repository.Interfaces;
 using ECommerceApplication.Services.Interfaces;
 
 namespace ECommerceApplication.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class CustomerAddressService : ICustomerAddressService
     {
-        private readonly IAuthenticationRepository _AuthRepo;
-
-        public AuthenticationService(IAuthenticationRepository repo)
-        {
-            _AuthRepo = repo;
-        }
         public bool addCustomer(Customer customer)
         {
-            bool status = _AuthRepo.addCustomer(customer);
-            return status;
+            throw new NotImplementedException();
         }
 
         public bool deleteCustomer(int id)
@@ -25,19 +17,17 @@ namespace ECommerceApplication.Services
 
         public List<Customer> getAllCustomers()
         {
-            List<Customer> customers = _AuthRepo.getAllCustomers();
-            return customers;
+            throw new NotImplementedException();
         }
 
         public Customer getCustomerByEmail(string email)
         {
-            Customer customer = _AuthRepo.getCustomerByEmail(email);
-            return customer;
+            throw new NotImplementedException();
         }
 
         public Customer getCustomerById(int id)
         {
-            return _AuthRepo.getCustomerById(id);
+            throw new NotImplementedException();
         }
 
         public Customer getCustomerByName(string title)
@@ -47,8 +37,7 @@ namespace ECommerceApplication.Services
 
         public bool updateCustomer(Customer customer)
         {
-            bool status = _AuthRepo.updateCustomer(customer);
-            return status;
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,9 +11,9 @@ public class AuthenticationController : Controller
 {
     private readonly ILogger<AuthenticationController> _logger;
 
-    IAuthenticationService _AuthSrv;
+    ICustomerRepository _AuthSrv;
 
-    public AuthenticationController(ILogger<AuthenticationController> logger, IAuthenticationService authsrv)
+    public AuthenticationController(ILogger<AuthenticationController> logger, ICustomerRepository authsrv)
     {
         _logger = logger;
         _AuthSrv = authsrv;

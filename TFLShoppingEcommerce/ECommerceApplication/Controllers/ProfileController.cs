@@ -11,9 +11,9 @@ public class ProfileController : Controller
 {
     private readonly ILogger<ProfileController> _logger;
 
-    IAuthenticationService _AuthSrv;
+    ICustomerService _AuthSrv;
 
-    public ProfileController(ILogger<ProfileController> logger, IAuthenticationService authsrv)
+    public ProfileController(ILogger<ProfileController> logger, ICustomerService authsrv)
     {
         _logger = logger;
         _AuthSrv = authsrv;

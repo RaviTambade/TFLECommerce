@@ -12,9 +12,9 @@ public class ShoppingCartController : Controller
     private readonly ILogger<ShoppingCartController> _logger;
     IShoppingCartService _cartsrv;
     IProductService _productsrv;
-    IAuthenticationService _AuthSrv;
+    ICustomerService _AuthSrv;
 
-    public ShoppingCartController(ILogger<ShoppingCartController> logger, IShoppingCartService cartsrv, IProductService productsrv, IAuthenticationService authsrv)
+    public ShoppingCartController(ILogger<ShoppingCartController> logger, IShoppingCartService cartsrv, IProductService productsrv, ICustomerService authsrv)
     {
         _logger = logger;
         _cartsrv = cartsrv;

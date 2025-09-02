@@ -2,7 +2,7 @@ using ECommerceApplication.Models;
 
 namespace ECommerceApplication.Repository.Interfaces
 {
-    public interface IAuthenticationRepository
+    public interface ICustomerRepository
     {
         List<Customer> getAllCustomers();
         Customer getCustomerById(int id);

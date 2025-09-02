@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace ECommerceApplication.Repository
 {
-    public class AuthenticationRepository : IAuthenticationRepository
+    public class CustomerRepository : ICustomerRepository
     {
         public bool addCustomer(Customer customer)
         {
