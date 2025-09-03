@@ -1,43 +1,40 @@
 using ECommerceApplication.Models;
+using ECommerceApplication.Repository.Interfaces;
 using ECommerceApplication.Services.Interfaces;
 
 namespace ECommerceApplication.Services
 {
     public class CustomerAddressService : ICustomerAddressService
     {
-        public bool addCustomer(Customer customer)
+        ICustomerAddressRepository _repo;
+        public CustomerAddressService(ICustomerAddressRepository repo)
         {
-            throw new NotImplementedException();
+            _repo = repo;
         }
 
-        public bool deleteCustomer(int id)
+        public bool addCustomerAddress(ShippingAddress customerAddress, int userid)
         {
-            throw new NotImplementedException();
+            return _repo.addCustomerAddress(customerAddress, userid);
         }
 
-        public List<Customer> getAllCustomers()
+        public bool deleteCustomerAddress(int id)
         {
-            throw new NotImplementedException();
+            return _repo.deleteCustomerAddress(id);
         }
 
-        public Customer getCustomerByEmail(string email)
+        public List<ShippingAddress> getAllCustomerAddresses(int userid)
         {
-            throw new NotImplementedException();
+            return _repo.getAllCustomerAddresses(userid);
         }
 
-        public Customer getCustomerById(int id)
+        public ShippingAddress getCustomerAddressById(int id)
         {
-            throw new NotImplementedException();
+            return getCustomerAddressById(id);
         }
 
-        public Customer getCustomerByName(string title)
+        public bool updateCustomerAddress(ShippingAddress customerAddress)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool updateCustomer(Customer customer)
-        {
-            throw new NotImplementedException();
+            return updateCustomerAddress(customerAddress);
         }
     }
 }

@@ -2,8 +2,8 @@ using ECommerceApplication.Repository.Interfaces;
 
 namespace ECommerceApplication.Services.Interfaces
 {
-    public interface ICustomerAddressService : ICustomerRepository
+    public interface ICustomerAddressService : ICustomerAddressRepository
     {
-        
+
     }
 }

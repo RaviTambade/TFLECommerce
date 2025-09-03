@@ -73,6 +73,7 @@ namespace ECommerceApplication.Repository
                 while (reader.Read())
                 {
                     ShippingAddress add = new ShippingAddress();
+                    add.AddressId = int.Parse(reader["shipping_address_id"].ToString());
                     add.Address = reader["address"].ToString();
                     add.City = reader["city"].ToString();
                     add.State = reader["state"].ToString();
@@ -100,17 +101,17 @@ namespace ECommerceApplication.Repository
                 connection.Open();
                 cmd.Connection = connection;
                 cmd.CommandText = query;
-                cmd.Parameters.Add(new MySqlParameter("@shipping_address_id", addressId));
+                cmd.Parameters.Add(new MySqlParameter("@addressId", addressId));
 
                 IDataReader reader = cmd.ExecuteReader();
                 reader.Read();
 
-                ShippingAddress add = new ShippingAddress();
-                add.Address = reader["address"].ToString();
-                add.City = reader["city"].ToString();
-                add.State = reader["state"].ToString();
-                add.ZipCode = int.Parse(reader["zip_code"].ToString());
-                add.Country = reader["country"].ToString();
+                customerAddress.AddressId = int.Parse(reader["shipping_address_id"].ToString());
+                customerAddress.Address = reader["address"].ToString();
+                customerAddress.City = reader["city"].ToString();
+                customerAddress.State = reader["state"].ToString();
+                customerAddress.ZipCode = int.Parse(reader["zip_code"].ToString());
+                customerAddress.Country = reader["country"].ToString();
 
             }
             catch (Exception e)
@@ -125,7 +126,7 @@ namespace ECommerceApplication.Repository
             bool status = false;
             IDbConnection connection = DatabaseConnection.getConnection();
             IDbCommand cmd = new MySqlCommand();
-            string query = "update shipping_address set address=@address city=@city, state=@state,zipcode=@zip country=@country where shipping_address_id=@addressid ";
+            string query = "update shipping_addresses set address=@address, city=@city, state=@state,zip_code=@zip, country=@country where shipping_address_id=@addressid ";
             try
             {
                 connection.Open();
@@ -135,6 +136,7 @@ namespace ECommerceApplication.Repository
                 cmd.Parameters.Add(new MySqlParameter("@city", customerAddress.City));
                 cmd.Parameters.Add(new MySqlParameter("@state", customerAddress.State));
                 cmd.Parameters.Add(new MySqlParameter("@zip", customerAddress.ZipCode));
+                cmd.Parameters.Add(new MySqlParameter("@country", customerAddress.Country));
                 cmd.Parameters.Add(new MySqlParameter("@addressid", customerAddress.AddressId));
 
                 cmd.ExecuteNonQuery();
