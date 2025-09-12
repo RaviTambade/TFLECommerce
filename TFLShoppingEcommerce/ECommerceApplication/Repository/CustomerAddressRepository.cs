@@ -13,7 +13,7 @@ namespace ECommerceApplication.Repository
             bool status = false;
             IDbConnection connection = DatabaseConnection.getConnection();
             IDbCommand cmd = new MySqlCommand();
-            string query = "insert into shipping_addresses (address,city,state,zip_zode,country,userid) values(@address,@city,@state,@zip,@country,@userid)";
+            string query = "insert into shipping_addresses (address,city,state,zip_code,country,userid) values(@address,@city,@state,@zip,@country,@userid)";
             try
             {
                 connection.Open();
@@ -23,6 +23,7 @@ namespace ECommerceApplication.Repository
                 cmd.Parameters.Add(new MySqlParameter("@city", customerAddress.City));
                 cmd.Parameters.Add(new MySqlParameter("@state", customerAddress.State));
                 cmd.Parameters.Add(new MySqlParameter("@zip", customerAddress.ZipCode));
+                cmd.Parameters.Add(new MySqlParameter("@country", customerAddress.Country));
                 cmd.Parameters.Add(new MySqlParameter("@userid", userId));
                 cmd.ExecuteNonQuery();
                 status = true;

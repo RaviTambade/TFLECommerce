@@ -42,6 +42,40 @@ public class CustomerAddressController : Controller
     }
 
 
+    public IActionResult AddAddress(int id)
+    {
+        return View();
+    }
+
+
+    [HttpPost]
+    public IActionResult AddAddress(int addressid, string address, string city, string state, int zipcode, string country)
+    {
+        string email = HttpContext.Session.GetString("Email");
+        Customer customer = _AuthSrv.getCustomerByEmail(email);
+
+        ShippingAddress shippingAddress = new ShippingAddress
+        {
+            AddressId = addressid,
+            Address = address,
+            City = city,
+            State = state,
+            Country = country,
+            ZipCode = zipcode
+        };
+
+        bool status = _Addrepo.addCustomerAddress(shippingAddress,customer.CustomerId);
+        if (status)
+        {
+            return RedirectToAction("index", "CustomerAddress");
+        }
+        else
+        {
+            return RedirectToAction("AddAddress", "CustomerAddress");
+        }
+    }
+
+
 
     public IActionResult UpdateAddress(int id)
     {
@@ -78,15 +112,15 @@ public class CustomerAddressController : Controller
     }
 
 
-    // public IActionResult Delete(int id)
-    // {
-    //     bool status = _cartsrv.deleteItem(id);
-    //     if (status)
-    //     {
-    //         return RedirectToAction("Index", "ShoppingCart");
-    //     }
-    //     return RedirectToAction("Index");
-    // }
+    public IActionResult DeleteAddress(int id)
+    {
+        bool status = _Addrepo.deleteCustomerAddress(id);
+        if (status)
+        {
+            return RedirectToAction("Index", "Profile");
+        }
+        return RedirectToAction("Index");
+    }
 
 
 
