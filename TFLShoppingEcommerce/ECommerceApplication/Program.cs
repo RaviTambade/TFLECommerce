@@ -17,6 +17,8 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
 builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+builder.Services.AddScoped<IOrderProcessingRepository, OrderProcessingRepository>();
+builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
 
 // register distributed cache memory for session management
 builder.Services.AddDistributedMemoryCache();
