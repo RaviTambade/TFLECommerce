@@ -3,123 +3,600 @@
 }
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #3f51b5, #5a55ae);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+
+        /* Fixed: Proper background covering full viewport */
+    }
+
+    .fullbody {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 00px;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(135deg, #3f51b5 0%, #5a55ae 100%);
+    }
+
+    @@keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        100% {
+            transform: translateY(-60px);
+        }
     }
 
     .register-container {
-        margin-left: 500px;
-        margin-top: 80px;
-        background-color: #fff;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        padding: 40px 30px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        /* Fixed: Center properly without problematic margins */
+        margin: 20px;
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.2);
+        padding: 48px 40px;
         width: 100%;
         max-width: 500px;
+        transform: translateY(0);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        z-index: 1;
+
+    }
+
+    .register-container:hover {
+        transform: translateY(-5px);
+        box-shadow:
+            0 30px 60px rgba(0, 0, 0, 0.15),
+            0 0 0 1px rgba(255, 255, 255, 0.3);
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .logo-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #3f51b5, #5a55ae);
+        border-radius: 16px;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+        font-weight: bold;
     }
 
     .register-container h2 {
         text-align: center;
-        margin-bottom: 30px;
-        color: #333;
+        margin: 0 0 8px 0;
+        color: #1a1a1a;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 15px;
+        margin-bottom: 32px;
+        font-weight: 400;
     }
 
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 24px;
+        position: relative;
     }
 
     .form-group label {
         display: block;
         font-weight: 600;
-        margin-bottom: 6px;
-        color: #555;
+        margin-bottom: 8px;
+        color: #374151;
+        font-size: 14px;
+        letter-spacing: 0.025em;
+    }
+
+    .input-wrapper {
+        position: relative;
     }
 
     .form-group input {
         width: 100%;
-        padding: 12px 14px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 15px;
-        transition: border 0.3s;
+        padding: 16px 20px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background-color: #fafafa;
+        color: #1a1a1a;
     }
 
     .form-group input:focus {
         border-color: #3f51b5;
         outline: none;
+        background-color: #fff;
+        box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .form-group input:valid {
+        border-color: #10b981;
+    }
+
+    .input-icon {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        transition: color 0.3s ease;
+        font-size: 16px;
+    }
+
+    .form-group input:focus+.input-icon {
+        color: #3f51b5;
+    }
+
+    /* Form grid layout for better organization */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    @@media (max-width: 600px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
     }
 
     .btn-register {
         width: 100%;
-        padding: 12px;
-        background-color: #3f51b5;
+        padding: 16px;
+        background: linear-gradient(135deg, #3f51b5 0%, #5a55ae 100%);
         border: none;
         color: white;
         font-size: 16px;
         font-weight: 600;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 16px;
+    }
+
+    .btn-register::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-register:hover::before {
+        left: 100%;
     }
 
     .btn-register:hover {
-        background-color: #2e3ea3;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(63, 81, 181, 0.3);
+    }
+
+    .btn-register:active {
+        transform: translateY(0);
+    }
+
+    .error-message {
+        color: #ef4444;
+        font-size: 14px;
+        margin-top: 12px;
+        padding: 12px 16px;
+        background-color: rgba(239, 68, 68, 0.1);
+        border-radius: 8px;
+        border-left: 4px solid #ef4444;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    .success-message {
+        color: #10b981;
+        font-size: 14px;
+        margin-top: 12px;
+        padding: 12px 16px;
+        background-color: rgba(16, 185, 129, 0.1);
+        border-radius: 8px;
+        border-left: 4px solid #10b981;
+    }
+
+    @@keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        75% {
+            transform: translateX(5px);
+        }
     }
 
     .register-footer {
-        margin-top: 20px;
+        margin-top: 32px;
         text-align: center;
-        font-size: 14px;
-        color: #555;
+        font-size: 15px;
+        color: #6b7280;
     }
 
     .register-footer a {
         color: #3f51b5;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .register-footer a:hover {
+        color: #2e3ea3;
+        text-decoration: underline;
+    }
+
+    .divider {
+        margin: 32px 0 24px 0;
+        text-align: center;
+        position: relative;
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+    .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e5e7eb;
+        z-index: 0;
+    }
+
+    .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 16px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Responsive design */
+    @@media (max-width: 480px) {
+        .register-container {
+            margin: 20px;
+            padding: 32px 24px;
+            max-width: none;
+        }
+
+        .register-container h2 {
+            font-size: 24px;
+        }
+    }
+
+    /* Loading state */
+    .btn-register.loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+    .btn-register.loading::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        margin: auto;
+        border: 2px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Additional fixes for full coverage */
+    html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Password strength indicator */
+    .password-strength {
+        margin-top: 8px;
+        font-size: 12px;
+    }
+
+    .strength-bar {
+        height: 4px;
+        background: #e5e7eb;
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 4px;
+    }
+
+    .strength-fill {
+        height: 100%;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .strength-weak {
+        background: #ef4444;
+        width: 25%;
+    }
+
+    .strength-fair {
+        background: #f59e0b;
+        width: 50%;
+    }
+
+    .strength-good {
+        background: #10b981;
+        width: 75%;
+    }
+
+    .strength-strong {
+        background: #059669;
+        width: 100%;
+    }
+
+    /* Form validation styling */
+    .form-group.error input {
+        border-color: #ef4444;
+        background-color: rgba(239, 68, 68, 0.05);
+    }
+
+    .form-group.success input {
+        border-color: #10b981;
+    }
+
+    .field-error {
+        color: #ef4444;
+        font-size: 12px;
+        margin-top: 4px;
+        display: block;
     }
 </style>
-
-<div class="register-container">
-    <h2>Register</h2>
-    <form action="/Authentication/Register" method="post">
-        <div class="form-group">
-            <label for="id">ID</label>
-            <input type="number" name="id" id="id" required />
+<div class="fullbody">
+    <div class="register-container">
+        <div class="logo">
+            <div class="logo-icon">R</div>
         </div>
 
-        <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" name="name" id="name" required />
+        <h2>Create Account</h2>
+        <p class="subtitle">Join us today and get started</p>
+
+        <form action="/Authentication/Register" method="post" id="registerForm">
+            @Html.AntiForgeryToken()
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id">User ID</label>
+                    <div class="input-wrapper">
+                        <input type="number" name="id" id="id" required placeholder="Enter user ID">
+                        <span class="input-icon">#</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" name="name" id="name" required placeholder="Enter your full name">
+                        <span class="input-icon">👤</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <input type="email" name="email" id="email" required placeholder="Enter your email">
+                    <span class="input-icon">@@</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" name="password" id="password" required placeholder="Enter your password">
+                    <span class="input-icon">🔒</span>
+                </div>
+                <div class="password-strength" id="passwordStrength" style="display: none;">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <span id="strengthText"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <div class="input-wrapper">
+                    <input type="text" name="city" id="city" required placeholder="Enter your city">
+                    <span class="input-icon">🏙️</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-register" id="registerBtn">
+                Create Account
+            </button>
+
+            <!-- Error message display -->
+            @if (ViewBag.Error != null)
+            {
+                <div class="error-message" id="errorMessage">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <!-- Success message display -->
+            @if (ViewBag.Success != null)
+            {
+                <div class="success-message" id="successMessage">
+                    @ViewBag.Success
+                </div>
+            }
+        </form>
+
+        <div class="divider">
+            <span>or</span>
         </div>
 
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required />
+        <div class="register-footer">
+            Already have an account? <a href="/Authentication/Login">Sign In</a>
         </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required />
-        </div>
-
-        <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" name="city" id="city" required />
-        </div>
-
-        <button type="submit" class="btn-register">Register</button>
-    </form>
-
-    <div class="register-footer">
-        Already have an account? <a href="/Authentication/Login">Login</a>
     </div>
 </div>
+
+<script>
+    // Password strength checker
+    function checkPasswordStrength(password) {
+        let score = 0;
+        let feedback = '';
+
+        if (password.length >= 8) score++;
+        if (password.match(/[a-z]/)) score++;
+        if (password.match(/[A-Z]/)) score++;
+        if (password.match(/[0-9]/)) score++;
+        if (password.match(/[^a-zA-Z0-9]/)) score++;
+
+        switch (score) {
+            case 0:
+            case 1:
+                return { strength: 'weak', text: 'Very Weak', class: 'strength-weak' };
+            case 2:
+                return { strength: 'fair', text: 'Fair', class: 'strength-fair' };
+            case 3:
+                return { strength: 'good', text: 'Good', class: 'strength-good' };
+            case 4:
+            case 5:
+                return { strength: 'strong', text: 'Strong', class: 'strength-strong' };
+        }
+    }
+
+    // Add form submission handling with loading state
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        const btn = document.getElementById('registerBtn');
+        btn.classList.add('loading');
+        btn.innerHTML = '';
+    });
+
+    // Add input validation feedback
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function () {
+            const formGroup = this.closest('.form-group');
+            formGroup.classList.remove('error', 'success');
+
+            if (this.value && this.checkValidity()) {
+                formGroup.classList.add('success');
+            } else if (!this.checkValidity() && this.value) {
+                formGroup.classList.add('error');
+            }
+        });
+
+        // Reset styling when typing
+        input.addEventListener('input', function () {
+            const formGroup = this.closest('.form-group');
+            formGroup.classList.remove('error', 'success');
+        });
+    });
+
+    // Password strength indicator
+    const passwordInput = document.getElementById('password');
+    const strengthIndicator = document.getElementById('passwordStrength');
+    const strengthFill = document.getElementById('strengthFill');
+    const strengthText = document.getElementById('strengthText');
+
+    passwordInput.addEventListener('input', function () {
+        const password = this.value;
+        if (password.length > 0) {
+            strengthIndicator.style.display = 'block';
+            const result = checkPasswordStrength(password);
+
+            strengthFill.className = 'strength-fill ' + result.class;
+            strengthText.textContent = result.text;
+        } else {
+            strengthIndicator.style.display = 'none';
+        }
+    });
+
+
+    // Add smooth animations on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.querySelector('.register-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+            container.style.transition = 'all 0.6s ease';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        }, 100);
+    });
+
+    // Form validation before submit
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        let isValid = true;
+        const requiredFields = this.querySelectorAll('input[required]');
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+            alert('Please fill in all required fields');
+            document.getElementById('registerBtn').classList.remove('loading');
+            document.getElementById('registerBtn').innerHTML = 'Create Account';
+        }
+    });
+</script>
