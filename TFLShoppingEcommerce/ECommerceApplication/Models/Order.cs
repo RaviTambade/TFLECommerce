@@ -9,5 +9,6 @@ namespace ECommerceApplication.Models
         public double TotalAmount { get; set; }
         public DateOnly ShippingDate { get; set; }
         public string status { get; set; }
+        public string Address{ get; set; }
     }
 }

@@ -13,6 +13,11 @@ namespace ECommerceApplication.Services
             _orderRepo = repo;
         }
 
+        public List<Order> getOrderByUserId(int userId)
+        {
+            return _orderRepo.getOrderByUserId(userId);
+        }
+
         public bool placeOrder(int userid, int shipping_address_id)
         {
             return _orderRepo.placeOrder(userid, shipping_address_id);

@@ -39,7 +39,17 @@ public class OrderProcessingController : Controller
         }
     }
 
-    
+    public IActionResult OrdersDetails()
+    {
+        string email = HttpContext.Session.GetString("Email");
+        Customer customers = _AuthSrv.getCustomerByEmail(email);
+
+        List<Order> orders = _orderSrv.getOrderByUserId(customers.CustomerId);
+        ViewData["allCustomerOrders"] = orders;
+        return View();
+    }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
