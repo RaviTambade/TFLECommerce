@@ -123,7 +123,7 @@
         color: #ffffff;
     }
 
-      .status-processing {
+    .status-processing {
         background: linear-gradient(135deg, #efe444, #e9d209);
         color: #ffffff;
     }
@@ -183,6 +183,33 @@
         font-size: 14px;
         color: #cbd5e1;
         line-height: 1.6;
+    }
+
+    .view-items-btn {
+        width: 100%;
+        padding: 14px 24px;
+        margin-top: 20px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #0f172a;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+    }
+
+    .view-items-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(251, 191, 36, 0.5);
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+
+    .view-items-btn:active {
+        transform: translateY(0);
     }
 
     .no-orders-container {
@@ -293,6 +320,12 @@
                             <div class="address-label">Delivery Address</div>
                             <div class="address-text">@order.Address</div>
                         </div>
+
+                        <a href="/OrderProcessing/OrderItemDetails/@order.OrderId" style="text-decoration: none;">
+                            <button class="view-items-btn">
+                                View Order Items
+                            </button>
+                        </a>
                     </div>
                 </div>
             }

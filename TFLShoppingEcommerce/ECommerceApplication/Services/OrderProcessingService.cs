@@ -22,5 +22,10 @@ namespace ECommerceApplication.Services
         {
             return _orderRepo.placeOrder(userid, shipping_address_id);
         }
+
+        public List<OrderItem> getOrderItem(int orderid)
+        {
+            return _orderRepo.getOrderItem(orderid);
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace ECommerceApplication.Repository.Interfaces
     {
         bool placeOrder(int userid, int shipping_address_i);
         List<Order> getOrderByUserId(int userId);
+        List<OrderItem> getOrderItem(int orderid);
     }
 }

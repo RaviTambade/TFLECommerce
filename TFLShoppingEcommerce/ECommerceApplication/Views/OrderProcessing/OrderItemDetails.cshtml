@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "order items";
+}
+<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+<div class="main">
+    <h1>Order items</h1>
+    @{
+        List<OrderItem> items = (List<OrderItem>)ViewData["allOrdersItems"];
+        <div class="container">
+            @foreach (OrderItem item in items)
+            {
+                var product = item.product;
+                var quantity = item.Quantity;
+                <div class="order orderItem">
+                    <h2>@product.ProductTitle</h2>
+                    <img src="@product.ProductImage" width="150" height="150" />
+                    <p><b>Product Title:</b>@product.ProductTitle</p>
+                    <p><b>Quantity:</b>@quantity</p>
+                    <p><b>Unit Price:</b>@product.UnitPrice</p>
+                </div>
+            }
+
+        </div>
+    }
+</div>

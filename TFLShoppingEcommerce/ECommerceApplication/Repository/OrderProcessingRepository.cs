@@ -32,7 +32,7 @@ namespace ECommerceApplication.Repository
                     order.Address = reader.GetString(reader.GetOrdinal("address"));
                     orders.Add(order);
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -54,7 +54,7 @@ namespace ECommerceApplication.Repository
                 cmd.CommandText = "Place_Order";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-               // Add parameters in the correct order
+                // Add parameters in the correct order
                 cmd.Parameters.Add(new MySqlParameter("userid", userid));
                 cmd.Parameters.Add(new MySqlParameter("odate", DateTime.Now.Date));
                 cmd.Parameters.Add(new MySqlParameter("shipdate", DateTime.Now.Date.AddDays(7)));
@@ -69,6 +69,38 @@ namespace ECommerceApplication.Repository
                 Console.WriteLine(e);
             }
             return status;
+        }
+
+        public List<OrderItem> getOrderItem(int orderid)
+        {
+            List<OrderItem> orders = new List<OrderItem>();
+            IDbConnection conn = DatabaseConnection.getConnection();
+            IDbCommand cmd = new MySqlCommand();
+            try
+            {
+                conn.Open();
+                cmd.CommandText = "select oi.id, cp.name, cp.image,cp.Price,oi.quantity from order_items oi join categoryproduct cp on cp.id = oi.item_id where oi.order_id = @orderid; ";
+                cmd.Connection = conn;
+                cmd.Parameters.Add(new MySqlParameter("@orderid", orderid));
+                IDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    OrderItem order = new OrderItem();
+
+                    order.OrderItemId = reader.GetInt32(reader.GetOrdinal("id"));
+                    order.product.ProductTitle = reader["name"].ToString();
+                    order.product.ProductImage = reader["image"].ToString();
+                    order.product.UnitPrice =int.Parse(reader["price"].ToString());
+                    order.Quantity = int.Parse(reader["quantity"].ToString());
+                    orders.Add(order);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return orders;
         }
     }
 }

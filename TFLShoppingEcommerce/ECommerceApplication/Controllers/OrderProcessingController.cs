@@ -49,6 +49,12 @@ public class OrderProcessingController : Controller
         return View();
     }
 
+    public IActionResult OrderItemDetails(int id)
+    {
+        List<OrderItem> orderItems = _orderSrv.getOrderItem(id);
+        ViewData["allOrdersItems"] = orderItems;
+        return View();
+    }
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
