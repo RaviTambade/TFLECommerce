@@ -8,102 +8,302 @@
 
 <style>
     body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f4f6f8;
+        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        background-color: #0f172a;
         margin: 0;
         padding: 0;
+        min-height: 100vh;
     }
 
     .main {
-        padding: 30px 50px;
+        padding: 50px 20px;
+        max-width: 1310px;
+        margin: 0 auto;
+    }
+
+    .header-section {
+        margin-bottom: 50px;
+        animation: slideIn 0.6s ease-out;
     }
 
     .page-title {
-        font-size: 36px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #333;
-        text-align: center;
+        font-size: 56px;
+        font-weight: 750;
+        background: linear-gradient(135deg, #b610ab, #685cb7, #c90d0d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        letter-spacing: -2px;
     }
 
-    .table-container {
-        width: 100%;
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        overflow-x: auto;
+    .orders-count {
+        font-size: 25px;
+        color: #617590;
+        font-weight: 500;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 12px;
+    .orders-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        gap: 24px;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .order-card {
+        background: linear-gradient(145deg, #1e293b, #0f172a);
+        border-radius: 16px;
+        padding: 28px;
+        border: 1px solid #334155;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
         overflow: hidden;
     }
 
-    thead {
-        background-color: #000003;
-        color: white;
+    .order-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b, #ef4444);
     }
 
-    thead:hover {
-        background-color: #ffffff;
-        color: black;
+    .order-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        border-color: #fbbf24;
     }
 
-    th,
-    td {
-        padding: 16px 20px;
-        text-align: left;
-        font-size: 15px;
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #334155;
     }
 
-    th {
+    .order-id {
+        font-size: 14px;
+        color: #64748b;
         font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-pill {
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-pending {
+        background: linear-gradient(135deg, #d2d4d7, #6e6d6c);
+        color: #2f2f2f;
+    }
+
+    .status-shipped {
+        background:  linear-gradient(135deg, #10b981, #059669);
+        color: #ffffff;
+    }
+
+    .status-delivered {
+        background: linear-gradient(135deg, #81c846, #619303);
+        color: #ffffff;
+    }
+
+    .status-cancelled {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #ffffff;
+    }
+
+      .status-processing {
+        background: linear-gradient(135deg, #efe444, #e9d209);
+        color: #ffffff;
+    }
+
+    .order-body {
+        display: grid;
+        gap: 16px;
+    }
+
+    .order-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .order-label {
+        font-size: 13px;
+        color: #94a3b8;
+        font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
+    .order-value {
+        font-size: 15px;
+        color: #e2e8f0;
+        font-weight: 600;
     }
 
-    tr:hover {
-        background-color: #eef2ff;
+    .order-amount {
+        font-size: 32px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
-    table tr:last-child td {
-        text-align: left;
+    .order-address {
+        background: #0f172a;
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid #334155;
+        margin-top: 8px;
+    }
+
+    .address-label {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .address-text {
+        font-size: 14px;
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    .no-orders-container {
+        text-align: center;
+        padding: 100px 20px;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .no-orders-icon {
+        font-size: 120px;
+        margin-bottom: 24px;
+        opacity: 0.3;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .no-orders-title {
+        font-size: 32px;
+        color: #e2e8f0;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .no-orders-text {
+        font-size: 18px;
+        color: #64748b;
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .orders-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-title {
+            font-size: 36px;
+        }
+
+        .order-card {
+            padding: 20px;
+        }
     }
 </style>
 
 <div class="main">
-    <h1 class="page-title">All Orders</h1>
-
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Total Amount</th>
-                    <th>Order Date</th>
-                    <th>Shipping Date</th>
-                    <th>Address</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Order order in orders)
-                {
-                    <tr>
-                        <td>@order.status</td>
-                        <td>@order.TotalAmount</td>
-                        <td>@order.orderDate</td>
-                        <td>@order.ShippingDate</td>
-                        <td>@order.Address</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="header-section">
+        <h1 class="page-title">Order History</h1>
+        <p class="orders-count">Total Orders: @(orders?.Count ?? 0) </p>
     </div>
+
+    @if (orders != null && orders.Count > 0)
+    {
+        <div class="orders-grid">
+            @foreach (Order order in orders)
+            {
+                <div class="order-card">
+                    <div class="order-header">
+                        <span class="order-id">Order #@order.OrderId</span>
+                        <span class="status-pill status-@order.status.ToLower()">
+                            @order.status
+                        </span>
+                    </div>
+
+                    <div class="order-body">
+                        <div class="order-row">
+                            <span class="order-label">Total Amount</span>
+                            <span class="order-amount">₹@order.TotalAmount.ToString("N0")</span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Order Date</span>
+                            <span class="order-value">@order.orderDate.ToString("MMM dd, yyyy")</span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Shipping Date</span>
+                            <span class="order-value">@(order.ShippingDate.HasValue ? order.ShippingDate.Value.ToString("MMM dd, yyyy") : "Not Shipped Yet")</span>
+                        </div>
+
+                        <div class="order-address">
+                            <div class="address-label">Delivery Address</div>
+                            <div class="address-text">@order.Address</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-orders-container">
+            <div class="no-orders-icon">🛍️</div>
+            <h2 class="no-orders-title">No Orders Found</h2>
+            <p class="no-orders-text">Your order history will appear here once you make a purchase</p>
+        </div>
+    }
 </div>
