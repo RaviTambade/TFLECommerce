@@ -1,25 +1,629 @@
 @{
-    ViewData["Title"] = "order items";
+    ViewData["Title"] = "Order Items";
+    List<OrderItem> items = (List<OrderItem>)ViewData["allOrdersItems"];
+    Order order = (Order)ViewData["order"]; // Assuming you pass the order object
 }
+
 <link rel="stylesheet" href="~/css/CatelogStyle.css" />
+<link rel="stylesheet" href="~/css/NavBarStyle.css" />
+
+<style>
+    body {
+        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        background-color: #0f172a;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .main {
+        padding: 40px 20px;
+        max-width: 1310px;
+        margin: 0 auto;
+    }
+
+    .invoice-container {
+        background: #1e293b;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .invoice-header {
+        background: linear-gradient(135deg, #b610ab, #685cb7, #c90d0d);
+        padding: 48px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .invoice-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    .back-link:hover {
+        transform: translateX(-4px);
+    }
+
+    .invoice-title {
+        font-size: 48px;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0 0 8px 0;
+        letter-spacing: -1px;
+    }
+
+    .invoice-subtitle {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+    }
+
+    .order-info-section {
+        padding: 40px 48px;
+        border-bottom: 1px solid #334155;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 32px;
+    }
+
+    .info-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .info-title {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .info-content {
+        font-size: 16px;
+        color: #e2e8f0;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+
+    .info-highlight {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-pending {
+        background: #6b7280;
+        color: #ffffff;
+    }
+
+    .status-shipped {
+        background: #10b981;
+        color: #ffffff;
+    }
+
+    .status-delivered {
+        background: #84cc16;
+        color: #ffffff;
+    }
+
+    .status-cancelled {
+        background: #ef4444;
+        color: #ffffff;
+    }
+
+    .status-processing {
+        background: #eab308;
+        color: #0f172a;
+    }
+
+    .items-table-section {
+        padding: 48px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin: 0 0 32px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(180deg, #fbbf24, #f59e0b);
+        border-radius: 2px;
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    .table-header {
+        background: #0f172a;
+        border-radius: 12px;
+    }
+
+    .table-header th {
+        padding: 16px 20px;
+        text-align: left;
+        font-size: 12px;
+        color: #94a3b8;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+    }
+
+    .table-header th:first-child {
+        border-radius: 12px 0 0 12px;
+    }
+
+    .table-header th:last-child {
+        border-radius: 0 12px 12px 0;
+        text-align: right;
+    }
+
+    .item-row {
+        background: #0f172a;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .item-row:hover {
+        transform: translateX(4px);
+        box-shadow: 0 4px 20px rgba(251, 191, 36, 0.1);
+    }
+
+    .item-row td {
+        padding: 20px;
+        border: none;
+        vertical-align: middle;
+    }
+
+    .item-row td:first-child {
+        border-radius: 12px 0 0 12px;
+    }
+
+    .item-row td:last-child {
+        border-radius: 0 12px 12px 0;
+        text-align: right;
+    }
+
+    .product-cell {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 2px solid #334155;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .product-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #e2e8f0;
+        line-height: 1.3;
+    }
+
+    .product-meta {
+        font-size: 13px;
+        color: #64748b;
+    }
+
+    .quantity-cell {
+        font-size: 16px;
+        color: #e2e8f0;
+        font-weight: 600;
+    }
+
+    .price-cell {
+        font-size: 15px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .subtotal-cell {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fbbf24;
+    }
+
+    .summary-section {
+        padding: 0 48px 48px 48px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .summary-box {
+        width: 100%;
+        max-width: 450px;
+        background: #0f172a;
+        border-radius: 16px;
+        padding: 32px;
+        border: 2px solid #334155;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    .summary-row:last-child {
+        border-bottom: none;
+        padding-top: 24px;
+        margin-top: 8px;
+        border-top: 2px solid #334155;
+    }
+
+    .summary-label {
+        font-size: 15px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .summary-value {
+        font-size: 16px;
+        color: #e2e8f0;
+        font-weight: 700;
+    }
+
+    .summary-total .summary-label {
+        font-size: 18px;
+        color: #e2e8f0;
+        font-weight: 700;
+    }
+
+    .summary-total .summary-value {
+        font-size: 32px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 100px 20px;
+    }
+
+    .empty-icon {
+        font-size: 100px;
+        margin-bottom: 24px;
+        opacity: 0.3;
+    }
+
+    .empty-title {
+        font-size: 28px;
+        color: #e2e8f0;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .empty-text {
+        font-size: 16px;
+        color: #64748b;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .invoice-header,
+        .order-info-section,
+        .items-table-section,
+        .summary-section {
+            padding: 24px;
+        }
+
+        .invoice-title {
+            font-size: 32px;
+        }
+
+        .order-info-section {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .items-table {
+            display: none;
+        }
+
+        .mobile-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-item-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-product {
+            display: flex;
+            gap: 16px;
+        }
+
+        .mobile-product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .mobile-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .mobile-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-detail-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mobile-detail-value {
+            font-size: 14px;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .summary-box {
+            max-width: 100%;
+        }
+    }
+
+    @@media (min-width: 769px) {
+        .mobile-items {
+            display: none;
+        }
+    }
+</style>
+
 <div class="main">
-    <h1>Order items</h1>
-    @{
-        List<OrderItem> items = (List<OrderItem>)ViewData["allOrdersItems"];
-        <div class="container">
-            @foreach (OrderItem item in items)
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="invoice-header">
+            <div class="header-content">
+                <a href="@Url.Action("OrderItemDetails", "OrderProcessing")" class="back-link">
+                    ← All Orders
+                </a>
+                <h1 class="invoice-title">Order Receipt</h1>
+                <p class="invoice-subtitle">Thank you for your purchase</p>
+            </div>
+        </div>
+
+        <!-- Order Information -->
+        @if (order != null)
+        {
+            <div class="order-info-section">
+                <div class="info-block">
+                    <div class="info-title">Order Number</div>
+                    <div class="info-highlight">#@order.OrderId</div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Order Date</div>
+                    <div class="info-content">@order.orderDate.ToString("MMMM dd, yyyy")</div>
+                    <div class="info-content" style="font-size: 14px; color: #64748b;">@order.orderDate.ToString("hh:mm tt")</div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Status</div>
+                    <div>
+                        <span class="status-badge status-@order.status.ToLower()">
+                            @order.status
+                        </span>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Delivery Address</div>
+                    <div class="info-content">@order.Address</div>
+                </div>
+
+                @if (order.ShippingDate.HasValue)
+                {
+                    <div class="info-block">
+                        <div class="info-title">Shipped On</div>
+                        <div class="info-content">@order.ShippingDate.Value.ToString("MMMM dd, yyyy")</div>
+                    </div>
+                }
+            </div>
+        }
+
+        <!-- Items Section -->
+        @if (items != null && items.Count > 0)
+        {
+            <div class="items-table-section">
+                <h2 class="section-title">Order Items (@items.Count)</h2>
+
+                <!-- Desktop Table View -->
+                <table class="items-table">
+                    <thead>
+                        <tr class="table-header">
+                            <th>Product</th>
+                            <th style="text-align: center;">Quantity</th>
+                            <th style="text-align: center;">Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            double calculatedTotal = 0;
+                        }
+                        @foreach (OrderItem item in items)
+                        {
+                            var product = item.product;
+                            var quantity = item.Quantity;
+                            var subtotal = product.UnitPrice * quantity;
+                            calculatedTotal += subtotal;
+
+                            <tr class="item-row">
+                                <td>
+                                    <div class="product-cdell">
+                                        <img src="@product.ProductImage" alt="@product.ProductTitle" class="product-image" />
+                                        <div class="product-info">
+                                            <div class="product-name">@product.ProductTitle</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;">
+                                    <span class="quantity-cell">@quantity</span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <span class="price-cell">₹@product.UnitPrice.ToString("N2")</span>
+                                </td>
+                                <td>
+                                    <span class="subtotal-cell">₹@subtotal.ToString("N2")</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Mobile Card View -->
+                <div class="mobile-items">
+                    @foreach (OrderItem item in items)
+                    {
+                        var product = item.product;
+                        var quantity = item.Quantity;
+                        var subtotal = product.UnitPrice * quantity;
+
+                        <div class="mobile-item-card">
+                            <div class="mobile-product">
+                                <img src="@product.ProductImage" alt="@product.ProductTitle" class="mobile-product-image" />
+                                <div class="product-info">
+                                    <div class="product-name">@product.ProductTitle</div>
+                                </div>
+                            </div>
+                            <div class="mobile-details">
+                                <div class="mobile-detail">
+                                    <span class="mobile-detail-label">Quantity</span>
+                                    <span class="mobile-detail-value">@quantity</span>
+                                </div>
+                                <div class="mobile-detail">
+                                    <span class="mobile-detail-label">Unit Price</span>
+                                    <span class="mobile-detail-value">₹@product.UnitPrice.ToString("N2")</span>
+                                </div>
+                                <div class="mobile-detail" style="grid-column: 1 / -1;">
+                                    <span class="mobile-detail-label">Subtotal</span>
+                                    <span class="mobile-detail-value" style="color: #fbbf24; font-size: 18px;">₹@subtotal.ToString("N2")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            @if (order != null)
             {
-                var product = item.product;
-                var quantity = item.Quantity;
-                <div class="order orderItem">
-                    <h2>@product.ProductTitle</h2>
-                    <img src="@product.ProductImage" width="150" height="150" />
-                    <p><b>Product Title:</b>@product.ProductTitle</p>
-                    <p><b>Quantity:</b>@quantity</p>
-                    <p><b>Unit Price:</b>@product.UnitPrice</p>
+                <div class="summary-section">
+                    <div class="summary-box">
+                        <div class="summary-row">
+                            <span class="summary-label">Items Total</span>
+                            <span class="summary-value">₹@calculatedTotal.ToString("N2")</span>
+                        </div>
+
+                        <div class="summary-row summary-total">
+                            <span class="summary-label">Order Total</span>
+                            <span class="summary-value">₹@order.TotalAmount.ToString("N0")</span>
+                        </div>
+                    </div>
                 </div>
             }
-
-        </div>
-    }
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">📦</div>
+                <h2 class="empty-title">No Items in this Order</h2>
+                <p class="empty-text">There are no items associated with this order</p>
+            </div>
+        }
+    </div>
 </div>
