@@ -8,137 +8,297 @@
 
 <style>
     body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f4f6f8;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #f1f5f9;
         margin: 0;
         padding: 0;
+        min-height: 100vh;
     }
 
     .main {
-        padding: 30px 50px;
+        padding: 40px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        gap: 20px;
     }
 
     .page-title {
         font-size: 36px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #333;
-        text-align: center;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
     }
 
-    .table-container {
-        width: 100%;
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        overflow-x: auto;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    thead {
-        background-color: #000003;
+    .add-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #10b981, #059669);
         color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        border: none;
+        cursor: pointer;
     }
 
-    thead:hover {
-        background-color: #ffffff;
-        color: black;
+    .add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
     }
 
-    th,
-    td {
-        padding: 16px 20px;
-        text-align: left;
-        font-size: 15px;
+    .addresses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 24px;
     }
 
-    th {
+    .address-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .address-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        border-color: #e0e7ff;
+    }
+
+    .address-header {
+        display: flex;
+        align-items: start;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+
+    .address-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .address-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0 0 4px 0;
+    }
+
+    .address-subtitle {
+        font-size: 13px;
+        color: #64748b;
+        margin: 0;
+    }
+
+    .address-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .detail-row {
+        display: flex;
+        gap: 12px;
+    }
+
+    .detail-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-width: 80px;
+        flex-shrink: 0;
+    }
+
+    .detail-value {
+        font-size: 14px;
         font-weight: 600;
+        color: #1e293b;
+        flex: 1;
+    }
+
+    .address-actions {
+        display: flex;
+        gap: 12px;
+        padding-top: 16px;
+        border-top: 2px solid #f1f5f9;
+    }
+
+    .action-btn {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
+    .btn-update {
+        background: #f1f5f9;
+        color: #667eea;
     }
 
-    tr:hover {
-        background-color: #eef2ff;
-    }
-
-    table tr:last-child td {
-        text-align: left;
-    }
-
-    .button-container {
-        display: flex;
-        justify-content: flex-end;
-        /* pushes button to right */
-        margin-bottom: 15px;
-        /* spacing below */
-    }
-
-    .button-container button {
-        padding: 10px 18px;
-        border: none;
-        border-radius: 8px;
-        background-color: rgb(5, 152, 10);
+    .btn-update:hover {
+        background: #667eea;
         color: white;
-        font-size: 14px;
-        cursor: pointer;
-        transition: background 0.3s ease;
     }
 
-    .button-container button:hover {
-        background-color: #333;
+    .btn-delete {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-delete:hover {
+        background: #dc2626;
+        color: white;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-icon {
+        font-size: 80px;
+        margin-bottom: 24px;
+        opacity: 0.4;
+    }
+
+    .empty-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #334155;
+        margin: 0 0 8px 0;
+    }
+
+    .empty-text {
+        color: #94a3b8;
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    @@media (max-width: 768px) {
+        .addresses-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .header-section {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .add-btn {
+            justify-content: center;
+        }
+
+        .page-title {
+            font-size: 28px;
+        }
     }
 </style>
 
 <div class="main">
-    <h1 class="page-title">All Customers</h1>
-    <div class="button-container">
-        <a href="/CustomerAddress/AddAddress/"><button>Add New Address</button></a>
+    <div class="header-section">
+        <h1 class="page-title">My Addresses</h1>
+        <a href="/CustomerAddress/AddAddress/" class="add-btn">
+            ➕ Add New Address
+        </a>
     </div>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip code</th>
-                    <th>Country</th>
-                    <th>Action</th>
-                   
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (ShippingAddress custAdd in customerAddresses)
-                {
-                    <tr>
-                        <td>@custAdd.Address</td>
-                        <td>@custAdd.City</td>
-                        <td>@custAdd.State</td>
-                        <td>@custAdd.ZipCode</td>
-                        <td>@custAdd.Country</td>
-                        <td>
-                            <a href="/CustomerAddress/UpdateAddress/@custAdd.AddressId">
-                                <button class="update-btn">Update</button>
-                            </a>
 
-                            <a href="/CustomerAddress/DeleteAddress/@custAdd.AddressId">
-                                <button class="update-btn">Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    @if (customerAddresses != null && customerAddresses.Count > 0)
+    {
+        <div class="addresses-grid">
+            @foreach (ShippingAddress custAdd in customerAddresses)
+            {
+                <div class="address-card">
+                    <div class="address-header">
+                        <div class="address-icon">📍</div>
+                        <div>
+                            <h3 class="address-title">@custAdd.City</h3>
+                            <p class="address-subtitle">@custAdd.Country</p>
+                        </div>
+                    </div>
+
+                    <div class="address-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Address</span>
+                            <span class="detail-value">@custAdd.Address</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">City</span>
+                            <span class="detail-value">@custAdd.City</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">State</span>
+                            <span class="detail-value">@custAdd.State</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Zip Code</span>
+                            <span class="detail-value">@custAdd.ZipCode</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Country</span>
+                            <span class="detail-value">@custAdd.Country</span>
+                        </div>
+                    </div>
+
+                    <div class="address-actions">
+                        <a href="/CustomerAddress/UpdateAddress/@custAdd.AddressId" class="action-btn btn-update">
+                            Update
+                        </a>
+                        <a href="/CustomerAddress/DeleteAddress/@custAdd.AddressId" class="action-btn btn-delete">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h2 class="empty-title">No Addresses Found</h2>
+            <p class="empty-text">Add your first shipping address to get started</p>
+            <a href="/CustomerAddress/AddAddress/" class="add-btn">
+                ➕ Add New Address
+            </a>
+        </div>
+    }
 </div>

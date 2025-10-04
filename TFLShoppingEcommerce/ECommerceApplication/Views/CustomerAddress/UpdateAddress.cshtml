@@ -1,38 +1,280 @@
 @model ECommerceApplication.Models.ShippingAddress
 
-<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+@* <link rel="stylesheet" href="~/css/CatelogStyle.css" /> *@
 
-<div class="data">
-    <h1>UPDATE EXISTING ADDRESS</h1>
-    <form asp-action="UpdateAddress" asp-controller="CustomerAddress" method="post">
-        <table>
-            <input type="hidden" asp-for="AddressId" />
-            <tr>
-                <td>Address:</td>
-                <td><input type="text" name="address" value="@Model.Address" required /></td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td><input type="text" name="city" value="@Model.City" required /></td>
-            </tr>
-        
-            <tr>
-                <td>State:</td>
-                <td><input type="text" name="state" value="@Model.State" required /></td>
-            </tr>
-            <tr>
-                <td>Zip Code:</td>
-                <td><input type="text" name="zipCode" value="@Model.ZipCode" required /></td>
-            </tr>
-            <tr>
-                <td>Country:</td>
-                <td><input type="text" name="country" value="@Model.Country" required /></td>
-            </tr>
-           
-            <tr>
-                <td></td>
-                <td><input type="submit" class="submitButton" value="Update" /></td>
-            </tr>
-        </table>
-    </form>
+<style>
+    body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .form-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 700px;
+        overflow: hidden;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 40px;
+        text-align: center;
+        color: white;
+    }
+
+    .form-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .form-title {
+        font-size: 32px;
+        font-weight: 800;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-subtitle {
+        font-size: 14px;
+        margin-top: 8px;
+        opacity: 0.9;
+    }
+
+    .form-body {
+        padding: 40px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #334155;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1e293b;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        pointer-events: none;
+    }
+
+    .input-wrapper .form-input {
+        padding-left: 48px;
+    }
+
+    .form-actions {
+        margin-top: 32px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+        background: #f8fafc;
+    }
+
+    .address-preview {
+        background: #f8fafc;
+        border-left: 4px solid #667eea;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+    }
+
+    .preview-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .preview-text {
+        font-size: 15px;
+        color: #1e293b;
+        line-height: 1.6;
+    }
+
+    @@media (max-width: 768px) {
+        .form-container {
+            border-radius: 0;
+            min-height: 100vh;
+        }
+
+        .form-header {
+            padding: 32px 24px;
+        }
+
+        .form-title {
+            font-size: 24px;
+        }
+
+        .form-body {
+            padding: 24px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="form-wrapper">
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-icon">📍</div>
+            <h1 class="form-title">Update Address</h1>
+            <p class="form-subtitle">Modify your shipping address details</p>
+        </div>
+
+        <div class="form-body">
+            <form asp-action="UpdateAddress" asp-controller="CustomerAddress" method="post">
+                <input type="hidden" asp-for="AddressId" />
+
+                <div class="form-group full-width">
+                    <label class="form-label">Street Address</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🏠</span>
+                        <input type="text" name="address" value="@Model.Address" class="form-input" required placeholder="Enter your street address" />
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🏙️</span>
+                            <input type="text" name="city" value="@Model.City" class="form-input" required placeholder="City" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">State</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🗺️</span>
+                            <input type="text" name="state" value="@Model.State" class="form-input" required placeholder="State" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Zip Code</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📮</span>
+                            <input type="text" name="zipCode" value="@Model.ZipCode" class="form-input" required placeholder="Zip Code" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🌍</span>
+                            <input type="text" name="country" value="@Model.Country" class="form-input" required placeholder="Country" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
