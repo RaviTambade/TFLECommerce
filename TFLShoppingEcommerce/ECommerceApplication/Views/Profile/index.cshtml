@@ -5,30 +5,319 @@
 
 <link rel="stylesheet" href="~/css/CatelogStyle.css" />
 <link rel="stylesheet" href="~/css/NavBarStyle.css" />
-<link rel="stylesheet" href="~/css/ProfileStyle.css" />
+
+<style>
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .main {
+        padding: 60px 20px;
+        max-width: 1510px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title {
+        text-align: center;
+        color: white;
+        font-size: 42px;
+        font-weight: 800;
+        margin: 0 0 48px 0;
+        text-shadow: -1px 15px 12px rgb(0 0 0 / 30%);
+        color: black;
+    }
+
+    .profile-layout {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+
+    .profile-sidebar {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    .avatar-section {
+        margin-bottom: 28px;
+    }
+
+    .avatar-wrapper {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 6px;
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .avatar-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        background: white;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .user-name {
+        font-size: 28px;
+        font-weight: 800;
+        color: #1e293b;
+        margin: 0 0 8px 0;
+    }
+
+    .user-id {
+        display: inline-block;
+        font-size: 13px;
+        color: #667eea;
+        background: #f1f5f9;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+
+    .action-buttons {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn1 {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary::after,
+    .btn-outline-primary::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: skewX(-10deg);
+        transition: left 0.5s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .info-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .info-card {
+        background: white;
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .card-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .info-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .info-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #94a3b8;
+        font-weight: 700;
+    }
+
+    .info-value {
+        font-size: 16px;
+        color: #1e293b;
+        font-weight: 600;
+        background: #f8fafc;
+        padding: 12px 16px;
+        border-radius: 8px;
+    }
+
+    .password-value {
+        font-family: monospace;
+        letter-spacing: 3px;
+    }
+
+    @@media (max-width: 1024px) {
+        .profile-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-sidebar {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    }
+
+    @@media (max-width: 640px) {
+        .page-title {
+            font-size: 32px;
+        }
+
+        .profile-sidebar,
+        .info-card {
+            padding: 24px;
+        }
+
+        .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+        }
+
+        .user-name {
+            font-size: 24px;
+        }
+    }
+</style>
 
 <div class="main">
-    <div class="profile-container">
-        <div class="profile-card">
-            <div class="profile-header">
-                <img src="~/images/user.jpg" alt="Profile Picture" class="profile-pic" />
-                <h2>@customer.UserName</h2>
-                <span class="customer-id">ID: @customer.CustomerId</span>
-            </div>
-            <div class="profile-info">
-                <p><strong>City:</strong> @customer.Address</p>
-                <p><strong>Email:</strong> @customer.Email</p>
-                <p><strong>Password:</strong> @customer.Password</p>
-            </div>
-            <div class="profile-actions">
-                <a href="/Customer/UpdateProfile/@customer.CustomerId">
-                    <button class="update-btn">Update Profile</button>
-                </a>
+    <h1 class="page-title">My Profile</h1>
 
+    <div class="profile-layout">
+        <div class="profile-sidebar">
+            <div class="avatar-section">
+                <div class="avatar-wrapper">
+                    <div class="avatar-inner">
+                        <img src="~/images/user.jpg" alt="Profile Picture" class="avatar-img" />
+                    </div>
+                </div>
+                <h2 class="user-name">@customer.UserName</h2>
+                <span class="user-id">ID: @customer.CustomerId</span>
+            </div>
 
-                <a href="/CustomerAddress/index/@customer.CustomerId">
-                    <button class="update-btn">Manage Address</button>
+            <div class="action-buttons">
+                <a href="/Customer/UpdateProfile/@customer.CustomerId" class="btn1 btn-primary">
+                    Update Profile
                 </a>
+                <a href="/CustomerAddress/index/@customer.CustomerId" class="btn1 btn-secondary">
+                    Manage Address
+                </a>
+            </div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon">📧</div>
+                    <h3 class="card-title">Contact Information</h3>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Email Address</span>
+                        <span class="info-value">@customer.Email</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon">📍</div>
+                    <h3 class="card-title">Location</h3>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">City</span>
+                        <span class="info-value">@customer.Address</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title">Security</h3>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Password</span>
+                        <span class="info-value password-value">@customer.Password</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

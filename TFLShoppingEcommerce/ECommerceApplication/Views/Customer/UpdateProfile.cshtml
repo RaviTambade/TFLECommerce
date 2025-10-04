@@ -1,37 +1,257 @@
 @model ECommerceApplication.Models.Customer
 
-<link rel="stylesheet" href="~/css/CatelogStyle.css" />
+@* <link rel="stylesheet" href="~/css/CatelogStyle.css" /> *@
 
-<div class="data">
-    <h1>UPDATE PROFILE</h1>
-    <form asp-action="Update" asp-controller="Customer" method="post">
-        <table>
-            <tr>
-                <td>Customer Id:</td>
-                <td><input type="text" name="id" value="@Model.CustomerId" readonly /></td>
-            </tr>
-            <tr>
-                <td>Name:</td>
-                <td><input type="text" name="name" value="@Model.UserName" required /></td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td><input type="text" name="city" value="@Model.Address" required /></td>
-            </tr>
-        
-            <tr>
-                <td>Email:</td>
-                <td><input type="email" name="email" value="@Model.Email" required /></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="password" name="password" value="@Model.Password" required /></td>
-            </tr>
-           
-            <tr>
-                <td></td>
-                <td><input type="submit" class="submitButton" value="Update" /></td>
-            </tr>
-        </table>
-    </form>
+<style>
+    body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .form-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 600px;
+        overflow: hidden;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 40px;
+        text-align: center;
+        color: white;
+    }
+
+    .form-title {
+        font-size: 32px;
+        font-weight: 800;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-subtitle {
+        font-size: 14px;
+        margin-top: 8px;
+        opacity: 0.9;
+    }
+
+    .form-body {
+        padding: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #334155;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1e293b;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-input:disabled,
+    .form-input[readonly] {
+        background: #f1f5f9;
+        color: #94a3b8;
+        cursor: not-allowed;
+    }
+
+    .id-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .id-label {
+        font-size: 12px;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .id-value {
+        font-size: 18px;
+    }
+
+    .form-actions {
+        margin-top: 32px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        background: #667eea;
+       color: white;
+        border: 2px solid #667eea;
+    }
+
+    .input-icon {
+        position: relative;
+    }
+
+    .input-icon::before {
+        content: attr(data-icon);
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        pointer-events: none;
+    }
+
+    .input-icon .form-input {
+        padding-left: 48px;
+    }
+
+    @@media (max-width: 640px) {
+        .form-container {
+            border-radius: 0;
+            min-height: 100vh;
+        }
+
+        .form-header {
+            padding: 32px 24px;
+        }
+
+        .form-title {
+            font-size: 24px;
+        }
+
+        .form-body {
+            padding: 24px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="form-wrapper">
+    <div class="form-container">
+        <div class="form-header">
+            <h1 class="form-title">Update Profile</h1>
+            <p class="form-subtitle">Update your account information</p>
+        </div>
+
+        <div class="form-body">
+            @* <div class="id-badge">
+                <span class="id-label">Customer ID:</span>
+                <span class="id-value">@Model.CustomerId</span>
+            </div> *@
+
+            <form asp-action="Update" asp-controller="Customer" method="post">
+                <input type="hidden" name="id" value="@Model.CustomerId" />
+
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-icon" data-icon="👤">
+                        <input type="text" name="name" value="@Model.UserName" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <div class="input-icon" data-icon="📧">
+                        <input type="email" name="email" value="@Model.Email" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <div class="input-icon" data-icon="📍">
+                        <input type="text" name="city" value="@Model.Address" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-icon" data-icon="🔒">
+                        <input type="password" name="password" value="@Model.Password" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
