@@ -1,30 +1,439 @@
 @{
-    ViewData["Title"]="Shopping Cart";
+    ViewData["Title"] = "Shopping Cart";
 }
-<link rel="stylesheet" href="~/css/CatelogStyle.css"/>
-<div class="main">
-    <h1>Shopping cart</h1>
-    @{
-        List<Item> items=(List<Item>)ViewData["allItems"];
-            <div class="container">
-                @foreach(Item item in items)
-                {
-                    var product=item.product;
-                    var quantity=item.Quantity;
-                    <div class="cart cartItem">
-                        <h2>@product.ProductTitle</h2>
-                        <img src="@product.ProductImage" width="150" height="150"/>
-                        <p><b>Product id:</b>@product.ProductId</p>
-                        <p><b>Product Title:</b>@product.ProductTitle</p>
-                        <p><b>Quantity:</b>@quantity</p>
-                        <p><b>Unit Price:</b>@product.UnitPrice</p>
-                    <a href="/ShoppingCart/Update/@product.ProductId"> <button>Update</button></a>
-                    <a href="/ShoppingCart/Delete/@product.ProductId"> <button>Delete</button></a>
+<link rel="stylesheet" href="~/css/CatelogStyle.css" />
 
+<style>
+    body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .page-header {
+        margin-bottom: 40px;
+    }
+
+    .page-title {
+        font-size: 36px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0 0 8px 0;
+    }
+
+    .item-count {
+        font-size: 16px;
+        color: #64748b;
+    }
+
+    .cart-layout {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .cart-item {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        display: grid;
+        grid-template-columns: 140px 1fr auto;
+        gap: 24px;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .cart-item:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .item-image-wrapper {
+        width: 140px;
+        height: 140px;
+        border-radius: 12px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .item-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .item-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .item-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0;
+    }
+
+    .item-id {
+        font-size: 12px;
+        color: #64748b;
+        background: #f1f5f9;
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 6px;
+        width: fit-content;
+    }
+
+    .item-specs {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .spec-label {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .spec-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .item-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 120px;
+    }
+
+    .action-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-update {
+        background: #f1f5f9;
+        color: #3b82f6;
+    }
+
+    .btn-update:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .btn-delete {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-delete:hover {
+        background: #dc2626;
+        color: white;
+    }
+
+    .cart-summary {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        position: sticky;
+        top: 20px;
+    }
+
+    .summary-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0 0 24px 0;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+    .summary-label {
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .summary-value {
+        color: #0f172a;
+        font-weight: 700;
+    }
+
+    .summary-divider {
+        height: 1px;
+        background: #e2e8f0;
+        margin: 16px 0;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0 24px 0;
+        border-top: 2px solid #e2e8f0;
+        margin-top: 16px;
+    }
+
+    .total-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: #334155;
+    }
+
+    .total-value {
+        font-size: 32px;
+        font-weight: 900;
+        color: #0f172a;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        grid-column: 1 / -1;
+    }
+
+    .empty-icon {
+        font-size: 80px;
+        margin-bottom: 24px;
+        opacity: 0.4;
+    }
+
+    .empty-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #334155;
+        margin: 0 0 8px 0;
+    }
+
+    .empty-text {
+        color: #94a3b8;
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    .shop-btn {
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 700;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .shop-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    @@media (max-width: 1024px) {
+        .cart-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .cart-summary {
+            position: static;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .cart-item {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .item-image-wrapper {
+            margin: 0 auto;
+        }
+
+        .item-specs {
+            justify-content: center;
+        }
+
+        .item-actions {
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<div class="main">
+    <div class="page-header">
+        <h1 class="page-title">Shopping Cart</h1>
+        @{
+            List<Item> items = (List<Item>)ViewData["allItems"];
+            <p class="item-count">@items.Count item(s) in your cart</p>
+        }
+    </div>
+
+    @if (items != null && items.Count > 0)
+    {
+        <div class="cart-layout">
+            <div class="cart-items">
+                @{
+                    double totalAmount = 0;
+                }
+                @foreach (Item item in items)
+                {
+                    var product = item.product;
+                    var quantity = item.Quantity;
+                    var subtotal = product.UnitPrice * quantity;
+                    totalAmount += subtotal;
+
+                    <div class="cart-item">
+                        <div class="item-image-wrapper">
+                            <img src="@product.ProductImage" alt="@product.ProductTitle" class="item-image" />
+                        </div>
+
+                        <div class="item-details">
+                            <h2 class="item-title">@product.ProductTitle</h2>
+                            <span class="item-id">ID: @product.ProductId</span>
+                            
+                            <div class="item-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">Quantity</span>
+                                    <span class="spec-value">@quantity</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Unit Price</span>
+                                    <span class="spec-value">₹@product.UnitPrice.ToString("N2")</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Subtotal</span>
+                                    <span class="spec-value">₹@subtotal.ToString("N2")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item-actions">
+                            <a href="/ShoppingCart/Update/@product.ProductId" class="action-btn btn-update">
+                                Update
+                            </a>
+                            <a href="/ShoppingCart/Delete/@product.ProductId" class="action-btn btn-delete">
+                                Delete
+                            </a>
+                        </div>
                     </div>
                 }
-
-            <a href="/OrderProcessing/PlaceOrder/"> <button>Place order</button></a>
             </div>
+
+            <div class="cart-summary">
+                <h3 class="summary-title">Order Summary</h3>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-value">₹@totalAmount.ToString("N2")</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Shipping</span>
+                    <span class="summary-value">Free</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Tax</span>
+                    <span class="summary-value">Included</span>
+                </div>
+
+                <div class="summary-total">
+                    <span class="total-label">Total</span>
+                    <span class="total-value">₹@totalAmount.ToString("N0")</span>
+                </div>
+
+                <a href="/OrderProcessing/PlaceOrder/" class="checkout-btn">
+                    Place Order
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="cart-layout">
+            <div class="empty-cart">
+                <div class="empty-icon">🛒</div>
+                <h2 class="empty-title">Your Cart is Empty</h2>
+                <p class="empty-text">Add some products to get started!</p>
+                <a href="/Product/Index" class="shop-btn">Continue Shopping</a>
+            </div>
+        </div>
     }
 </div>
