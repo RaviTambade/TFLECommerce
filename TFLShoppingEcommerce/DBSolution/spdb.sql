@@ -135,7 +135,7 @@ BEGIN
 		select sum(p.price*ci.quantity) into total_price
 		from cart c
 		join cart_items ci on ci.cart_id=c.cart_id
-		join products p on p.id=ci.product_id
+		join categoryproduct p on p.id=ci.product_id
 		group by customer_id
 		having c.customer_id=userid;
 
@@ -159,7 +159,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL Place_Order(2, '2025-08-06', '2025-09-07', 3);
+CALL Place_Order(5, '2025-08-06', '2025-09-07', 9);
 
 
 drop procedure AddToCart;

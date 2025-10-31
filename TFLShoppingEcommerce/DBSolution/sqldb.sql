@@ -39,3 +39,9 @@ join cart_items ci on ci.cart_id=c.cart_id
 join products p on p.id=ci.product_id
 group by customer_id
 having c.customer_id=2;
+
+-- get cart items by order id
+select oi.id, cp.name, cp.image,cp.Price,oi.quantity
+from order_items oi
+join categoryproduct cp on cp.id=oi.item_id
+where oi.order_id=10;

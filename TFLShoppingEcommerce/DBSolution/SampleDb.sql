@@ -480,4 +480,4 @@ INSERT INTO price_changes (product_id, old_price, new_price, change_date) VALUES
 
 
 
-update shipping_addresses set userid=1 where shipping_address_id=6;
+update shipping_addresses set userid=2 where shipping_address_id=6;

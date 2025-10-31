@@ -365,6 +365,32 @@
         color: #64748b;
     }
 
+   .cancelorder {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.cancel-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.cancel-btn:hover {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+
     @@keyframes fadeIn {
         from {
             opacity: 0;
@@ -515,6 +541,7 @@
             </div>
         }
 
+       
         <!-- Items Section -->
         @if (items != null && items.Count > 0)
         {
@@ -565,6 +592,8 @@
                     </tbody>
                 </table>
 
+                
+
                 <!-- Mobile Card View -->
                 <div class="mobile-items">
                     @foreach (OrderItem item in items)
@@ -597,9 +626,26 @@
                         </div>
                     }
                 </div>
+
+
+
+                @if (order != null &&
+                            order.status.ToLower() != "delivered" &&
+                            order.status.ToLower() != "cancelled")
+                {
+                    <div class="cancelorder">
+                        <form asp-action="CancelOrder" asp-controller="OrderProcessing" method="post">
+                            <input type="hidden" name="orderId" value="@order.OrderId" />
+                            <button type="submit" class="cancel-btn">Cancel Order</button>
+                        </form>
+                    </div>
+                }
+
+
+
             </div>
 
-            <!-- Summary Section -->
+            @* <!-- Summary Section -->
             @if (order != null)
             {
                 <div class="summary-section">
@@ -615,7 +661,9 @@
                         </div>
                     </div>
                 </div>
-            }
+            } *@
+
+
         }
         else
         {
@@ -625,5 +673,14 @@
                 <p class="empty-text">There are no items associated with this order</p>
             </div>
         }
-    </div>
 </div>
+</div>
+@* 
+
+    <script>
+        document.querySelector('.cancel-btn')?.addEventListener('click', function (e) {
+            if (!confirm("Are you sure you want to cancel this order?")) {
+                e.preventDefault();
+            }
+        });
+    </script> *@
