@@ -256,10 +256,13 @@
     }
 
     @@keyframes pulse-dot {
-        0%, 100% {
+
+        0%,
+        100% {
             opacity: 1;
             transform: scale(1);
         }
+
         50% {
             opacity: 0.5;
             transform: scale(1.2);
@@ -323,11 +326,19 @@
 
     @{
         Product product = (Product)ViewData["productById"];
-        
+
         <div class="product-container">
             <div class="product-layout">
                 <div class="product-gallery">
-                    <span class="gallery-badge">In Stock</span>
+                    @if (product.Quantity > 0)
+                    {
+                        <span class="gallery-badge in-stock">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="gallery-badge out-stock">Out of Stock</span>
+                    }
+
                     <img src="@product.ProductImage" alt="@product.ProductTitle" class="product-image" />
                 </div>
 

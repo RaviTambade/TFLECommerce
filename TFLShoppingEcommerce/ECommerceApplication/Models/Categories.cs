@@ -5,8 +5,6 @@ namespace ECommerceApplication.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
 
-
-
         public Categories()
         {
             CategoryId = 0;

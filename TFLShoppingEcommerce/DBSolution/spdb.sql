@@ -114,8 +114,13 @@ BEGIN
         declare cartid int;
 		declare count int;
         Declare orderid int;
+         Declare stock int;
+         DECLARE insufficient INT;
+         
 		set count=0;
 		set total_price=0;
+       
+        set stock=0;
         
         -- get user cart
          SELECT cart_id INTO cartid
@@ -138,6 +143,7 @@ BEGIN
 		join categoryproduct p on p.id=ci.product_id
 		group by customer_id
 		having c.customer_id=userid;
+        
 
 
 		-- insert order into table
@@ -148,8 +154,23 @@ BEGIN
         
      -- insert cart_item into order_items table
 			INSERT INTO order_items (order_id, item_id, quantity) select orderid, product_id,quantity from cart_items where cart_id=cartid;
+		
+         SELECT COUNT(*) INTO insufficient
+		FROM cart_items ci
+		JOIN categoryproduct p ON p.id = ci.product_id
+		WHERE ci.cart_id = cartId
+		AND p.stock < ci.quantity;
 
-        
+		IF insufficient > 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Insufficient stock';
+		ELSE
+			UPDATE categoryproduct p
+			JOIN cart_items ci ON p.id = ci.product_id
+			SET p.stock = p.stock - ci.quantity
+			WHERE ci.cart_id = cartId;
+		END IF;
+			
 
 		-- Clear cart items
 		DELETE FROM cart_items WHERE cart_id = cartid;
