@@ -27,5 +27,10 @@ namespace ECommerceApplication.Services
         {
             return _orderRepo.getOrderItem(orderid);
         }
+
+        public bool cancelOrder(int orderid)
+        {
+            return _orderRepo.cancelOrder(orderid);
+        }
     }
 }

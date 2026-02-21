@@ -3,7 +3,6 @@
     List<Order> orders = (List<Order>)ViewData["allCustomerOrders"];
 }
 
-<link rel="stylesheet" href="~/css/CatelogStyle.css" />
 <link rel="stylesheet" href="~/css/NavBarStyle.css" />
 
 <style>
@@ -17,117 +16,101 @@
 
     .main {
         padding: 50px 20px;
-        max-width: 1310px;
-        margin: 0 auto;
+        max-width: 1300px;
+        margin: auto;
     }
 
-    .header-section {
-        margin-bottom: 50px;
-        animation: slideIn 0.6s ease-out;
-    }
-
+    /* ---------- HEADER ---------- */
     .page-title {
-        font-size: 56px;
-        font-weight: 750;
-        background: linear-gradient(135deg, #b610ab, #685cb7, #c90d0d);
+        font-size: 52px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 8px;
-        letter-spacing: -2px;
+        margin-bottom: 10px;
     }
 
     .orders-count {
-        font-size: 25px;
-        color: #617590;
-        font-weight: 500;
+        font-size: 20px;
+        color: #94a3b8;
     }
 
+    /* ---------- GRID ---------- */
     .orders-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
         gap: 24px;
-        animation: fadeIn 0.8s ease-out;
+        margin-top: 40px;
     }
 
+    /* ---------- CARD ---------- */
     .order-card {
-        background: linear-gradient(275deg, #8697e1, #b06bf7);
-        border-radius: 16px;
+        background: linear-gradient(145deg, #1e293b, #0f172a);
+        border-radius: 18px;
         padding: 28px;
         border: 1px solid #334155;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .order-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, #fbbf24, #f59e0b, #ef4444);
+        transition: all 0.35s ease;
     }
 
     .order-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        transform: translateY(-6px);
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
         border-color: #fbbf24;
     }
 
+    /* ---------- CARD HEADER ---------- */
     .order-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 24px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid #334155;
+        padding-bottom: 14px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.15);
     }
 
     .order-id {
-        font-size: 14px;
-        color: black;
+        font-size: 13px;
+        color: #94a3b8;
         font-weight: 600;
-        text-transform: uppercase;
         letter-spacing: 1px;
     }
 
+    /* ---------- STATUS ---------- */
     .status-pill {
-        padding: 8px 20px;
+        padding: 8px 18px;
         border-radius: 50px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 700;
-        text-transform: uppercase;
         letter-spacing: 1px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-transform: uppercase;
     }
 
     .status-pending {
-        background: linear-gradient(135deg, #d2d4d7, #6e6d6c);
-        color: #2f2f2f;
+        background: #64748b;
+        color: #0f172a;
+    }
+
+    .status-processing {
+        background: #fbbf24;
+        color: #0f172a;
     }
 
     .status-shipped {
-        background:  linear-gradient(135deg, #10b981, #059669);
+        background: #10b981;
         color: #ffffff;
     }
 
     .status-delivered {
-        background: linear-gradient(135deg, #81c846, #619303);
+        background: #22c55e;
         color: #ffffff;
     }
 
     .status-cancelled {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: #ef4444;
         color: #ffffff;
     }
 
-    .status-processing {
-        background: linear-gradient(135deg, #efe444, #e9d209);
-        color: #ffffff;
-    }
-
+    /* ---------- BODY ---------- */
     .order-body {
         display: grid;
         gap: 16px;
@@ -140,157 +123,137 @@
     }
 
     .order-label {
-        font-size: 13px;
-        color: black;
-        font-weight: 500;
+        font-size: 12px;
+        color: #94a3b8;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-weight: 600;
     }
 
     .order-value {
         font-size: 15px;
-        color: #e2e8f0;
+        color: #e5e7eb;
         font-weight: 600;
     }
 
     .order-amount {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 800;
-        background: linear-gradient(135deg, #c59313, #633125);
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
 
+    /* ---------- ADDRESS ---------- */
     .order-address {
-        background: linear-gradient(101deg, #000001, #5e1ca1);
+        background: rgba(30, 41, 59, 0.8);
         padding: 16px;
-        border-radius: 12px;
+        border-radius: 14px;
         border: 1px solid #334155;
-        margin-top: 8px;
     }
 
     .address-label {
         font-size: 11px;
-        color: #64748b;
-        font-weight: 600;
-        text-transform: uppercase;
+        color: #fbbf24;
+        font-weight: 700;
         letter-spacing: 1px;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .address-text {
         font-size: 14px;
-        color: #cbd5e1;
+        color: #cbd5f5;
         line-height: 1.6;
     }
 
-    .view-items-btn {
-        width: 100%;
-        padding: 14px 24px;
-        margin-top: 20px;
+    /* ---------- ACTIONS ---------- */
+    .order-action {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    .action-btn {
+        flex: 1;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .btn-primary {
         background: linear-gradient(135deg, #fbbf24, #f59e0b);
         color: #0f172a;
-        border: none;
-        border-radius: 12px;
-        font-size: 15px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
     }
 
-    .view-items-btn:hover {
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #ffffff;
+    }
+
+    .action-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(251, 191, 36, 0.5);
-        background: linear-gradient(135deg, #f59e0b, #fbbf24);
     }
 
-    .view-items-btn:active {
-        transform: translateY(0);
+    .action-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
     }
 
+    /* ---------- EMPTY STATE ---------- */
     .no-orders-container {
         text-align: center;
-        padding: 100px 20px;
-        animation: fadeIn 1s ease-out;
+        padding: 120px 20px;
     }
 
     .no-orders-icon {
-        font-size: 120px;
-        margin-bottom: 24px;
+        font-size: 90px;
         opacity: 0.3;
-        animation: float 3s ease-in-out infinite;
+        margin-bottom: 20px;
     }
 
     .no-orders-title {
-        font-size: 32px;
-        color: #e2e8f0;
+        font-size: 30px;
+        color: #e5e7eb;
         font-weight: 700;
-        margin-bottom: 12px;
     }
 
     .no-orders-text {
+        color: #94a3b8;
+        margin-top: 10px;
         font-size: 18px;
-        color: #64748b;
     }
 
-    @@keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @@keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @@keyframes float {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
-    }
-
-    @@media (max-width: 768px) {
+    /* ---------- RESPONSIVE ---------- */
+    @@media
+    (max-width: 768px) {
         .orders-grid {
             grid-template-columns: 1fr;
+        }
+
+        .order-action {
+            flex-direction: column;
         }
 
         .page-title {
             font-size: 36px;
         }
-
-        .order-card {
-            padding: 20px;
-        }
     }
 </style>
 
 <div class="main">
-    <div class="header-section">
-        <h1 class="page-title">Order History</h1>
-        <p class="orders-count">Total Orders: @(orders?.Count ?? 0) </p>
-    </div>
+    <h1 class="page-title">Order History</h1>
+    <p class="orders-count">Total Orders: @(orders?.Count ?? 0)</p>
 
     @if (orders != null && orders.Count > 0)
     {
         <div class="orders-grid">
-            @foreach (Order order in orders)
+            @foreach (var order in orders)
             {
                 <div class="order-card">
                     <div class="order-header">
@@ -313,7 +276,11 @@
 
                         <div class="order-row">
                             <span class="order-label">Shipping Date</span>
-                            <span class="order-value">@(order.ShippingDate.HasValue ? order.ShippingDate.Value.ToString("MMM dd, yyyy") : "Not Shipped Yet")</span>
+                            <span class="order-value">
+                                @(order.ShippingDate.HasValue
+                                    ? order.ShippingDate.Value.ToString("MMM dd, yyyy")
+                                    : "Not Shipped Yet")
+                            </span>
                         </div>
 
                         <div class="order-address">
@@ -321,13 +288,39 @@
                             <div class="address-text">@order.Address</div>
                         </div>
 
-                        <a href="/OrderProcessing/OrderItemDetails/@order.OrderId" style="text-decoration: none;">
-                            <button class="view-items-btn">
-                                View Order Items
-                            </button>
-                        </a>
+                       
+
+                            <div class="order-action">
+                                <a href="/OrderProcessing/OrderItemDetails/@order.OrderId">
+                                    <button class="action-btn btn-primary">View Items</button>
+                                </a>
+
+                                @{
+                                    bool canCancel =
+                                    !string.IsNullOrEmpty(order.status) &&
+                                    order.status.Equals("Pending", StringComparison.OrdinalIgnoreCase);
+                                }
+
+                                @if (canCancel)
+                                {
+                                    <form asp-action="CancelOrder" asp-controller="OrderProcessing" method="post"
+                                          onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                                        <button type="submit" class="action-btn btn-danger">
+                                            Cancel Order
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="action-btn btn-danger" disabled>
+                                        Cancel Order
+                                    </button>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
+               
             }
         </div>
     }
@@ -335,8 +328,10 @@
     {
         <div class="no-orders-container">
             <div class="no-orders-icon">🛍️</div>
-            <h2 class="no-orders-title">No Orders Found</h2>
-            <p class="no-orders-text">Your order history will appear here once you make a purchase</p>
+            <div class="no-orders-title">No Orders Found</div>
+            <div class="no-orders-text">
+                Your order history will appear here once you make a purchase
+            </div>
         </div>
     }
 </div>

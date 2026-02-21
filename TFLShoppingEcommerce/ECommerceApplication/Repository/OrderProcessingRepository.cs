@@ -56,7 +56,7 @@ namespace ECommerceApplication.Repository
 
                 // Add parameters in the correct order
                 cmd.Parameters.Add(new MySqlParameter("userid", userid));
-                cmd.Parameters.Add(new MySqlParameter("odate", DateTime.Now.Date));
+                cmd.Parameters.Add(new MySqlParameter("odate", DateTime.Now));
                 cmd.Parameters.Add(new MySqlParameter("shipdate", DateTime.Now.Date.AddDays(7)));
                 cmd.Parameters.Add(new MySqlParameter("shipId", shipping_address_id));
 
@@ -101,6 +101,30 @@ namespace ECommerceApplication.Repository
                 Console.WriteLine(e);
             }
             return orders;
+        }
+
+        public bool cancelOrder(int orderid)
+        {
+            bool status = false;
+
+            IDbConnection conn = DatabaseConnection.getConnection();
+            IDbCommand cmd = new MySqlCommand();
+
+            try
+            {
+                conn.Open();
+                cmd.Connection = conn;
+                cmd.CommandText= "cancel_order";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("orderid", orderid));
+                cmd.ExecuteNonQuery();
+                status = true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return status;
         }
     }
 }

@@ -1,10 +1,9 @@
 @{
     ViewData["Title"] = "Order Items";
     List<OrderItem> items = (List<OrderItem>)ViewData["allOrdersItems"];
-    Order order = (Order)ViewData["order"]; // Assuming you pass the order object
+    Order order = (Order)ViewData["order"];
 }
 
-<link rel="stylesheet" href="~/css/CatelogStyle.css" />
 <link rel="stylesheet" href="~/css/NavBarStyle.css" />
 
 <style>
@@ -12,104 +11,72 @@
         font-family: 'Poppins', 'Segoe UI', sans-serif;
         background-color: #0f172a;
         margin: 0;
-        padding: 0;
         min-height: 100vh;
     }
 
     .main {
         padding: 40px 20px;
-        max-width: 1310px;
-        margin: 0 auto;
+        max-width: 1300px;
+        margin: auto;
     }
 
+    /* ================= CONTAINER ================= */
     .invoice-container {
-        background: #ffffff;
+        background: #0f172a;
         border-radius: 24px;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        animation: fadeIn 0.6s ease-out;
+        border: 1px solid #334155;
+        animation: fadeIn .5s ease;
     }
 
+    /* ================= HEADER ================= */
     .invoice-header {
-        background: linear-gradient(135deg, #81657f, #9992c8, #c90d0d);
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
         padding: 48px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .invoice-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -10%;
-        width: 400px;
-        height: 400px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-    }
-
-    .header-content {
-        position: relative;
-        z-index: 1;
+        color: #fff;
     }
 
     .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: rgba(255, 255, 255, 0.9);
+        display: inline-block;
+        color: rgba(255, 255, 255, .9);
         text-decoration: none;
-        font-size: 14px;
         font-weight: 600;
-        margin-bottom: 24px;
-        transition: transform 0.3s ease;
-    }
-
-    .back-link:hover {
-        transform: translateX(-4px);
+        margin-bottom: 20px;
     }
 
     .invoice-title {
-        font-size: 48px;
+        font-size: 42px;
         font-weight: 800;
-        color: #ffffff;
-        margin: 0 0 8px 0;
-        letter-spacing: -1px;
-    }
-
-    .invoice-subtitle {
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.8);
         margin: 0;
     }
 
-    .order-info-section {
-        padding: 40px 48px;
-        border-bottom: 1px solid #334155;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 32px;
+    .invoice-subtitle {
+        opacity: .85;
+        margin-top: 6px;
     }
 
-    .info-block {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+    /* ================= ORDER INFO ================= */
+    .order-info-section {
+        padding: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 32px;
+        border-bottom: 1px solid #334155;
     }
 
     .info-title {
         font-size: 12px;
-        color: #64748b;
+        color: #94a3b8;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
     }
 
     .info-content {
         font-size: 16px;
-        color: #e2e8f0;
+        color: #e5e7eb;
         font-weight: 600;
-        line-height: 1.5;
+        margin-top: 6px;
     }
 
     .info-highlight {
@@ -118,12 +85,11 @@
         background: linear-gradient(135deg, #fbbf24, #f59e0b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
 
+    /* ================= STATUS ================= */
     .status-badge {
-        display: inline-block;
-        padding: 8px 20px;
+        padding: 8px 18px;
         border-radius: 50px;
         font-size: 12px;
         font-weight: 700;
@@ -132,113 +98,69 @@
     }
 
     .status-pending {
-        background: #6b7280;
-        color: #ffffff;
+        background: #64748b;
+        color: #fff;
+    }
+
+    .status-processing {
+        background: #fbbf24;
+        color: #0f172a;
     }
 
     .status-shipped {
         background: #10b981;
-        color: #ffffff;
+        color: #fff;
     }
 
     .status-delivered {
-        background: #84cc16;
-        color: #ffffff;
+        background: #22c55e;
+        color: #fff;
     }
 
     .status-cancelled {
         background: #ef4444;
-        color: #ffffff;
+        color: #fff;
     }
 
-    .status-processing {
-        background: #eab308;
-        color: #0f172a;
-    }
-
+    /* ================= ITEMS ================= */
     .items-table-section {
-        padding: 48px;
+        padding: 40px;
     }
 
     .section-title {
         font-size: 20px;
         font-weight: 700;
-        color: #74787d;
-        margin: 0 0 32px 0;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        color: #e5e7eb;
+        margin-bottom: 30px;
     }
 
-    .section-title::before {
-        content: '';
-        width: 4px;
-        height: 24px;
-        background: linear-gradient(180deg, #fbbf24, #f59e0b);
-        border-radius: 2px;
-    }
-
-    .items-table {
+    table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0 12px;
     }
 
-    .table-header {
-        background: linear-gradient(275deg, #a27cc3, #000000);
-        border-radius: 12px;
-    }
-
-    .table-header th {
-        padding: 16px 20px;
-        text-align: left;
+    thead th {
+        padding: 16px;
         font-size: 12px;
-        color: #ffffff;
-        font-weight: 700;
+        color: #94a3b8;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        border: none;
-    }
-
-    .table-header th:first-child {
-        border-radius: 12px 0 0 12px;
-    }
-
-    .table-header th:last-child {
-        border-radius: 0 12px 12px 0;
-        text-align: right;
+        text-align: left;
     }
 
     .item-row {
-        background: linear-gradient(89deg, #8697e1, #b786e9);
-        border-radius: 12px;
-        transition: all 0.3s ease;
-    }
-
-    .item-row:hover {
-        transform: translateX(4px);
-        box-shadow: 0 4px 20px rgba(251, 191, 36, 0.1);
+        background: #1e293b;
+        border-radius: 14px;
     }
 
     .item-row td {
-        padding: 20px;
-        border: none;
-        vertical-align: middle;
-    }
-
-    .item-row td:first-child {
-        border-radius: 12px 0 0 12px;
-    }
-
-    .item-row td:last-child {
-        border-radius: 0 12px 12px 0;
-        text-align: right;
+        padding: 18px;
     }
 
     .product-cell {
         display: flex;
+        gap: 18px;
         align-items: center;
-        gap: 20px;
     }
 
     .product-image {
@@ -246,244 +168,76 @@
         height: 80px;
         border-radius: 12px;
         object-fit: cover;
-        border: 2px solid #334155;
-    }
-
-    .product-info {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
     }
 
     .product-name {
         font-size: 16px;
         font-weight: 600;
-        color: black;
-        line-height: 1.3;
+        color: #e5e7eb;
     }
 
-    .product-meta {
-        font-size: 13px;
-        color: #64748b;
-    }
-
-    .quantity-cell {
-        font-size: 16px;
-        color: #303131;
+    .price,
+    .qty {
+        color: #cbd5e1;
         font-weight: 600;
     }
 
-    .price-cell {
-        font-size: 15px;
-        color: black;
-        font-weight: 500;
-    }
-
-    .subtotal-cell {
+    .subtotal {
+        font-weight: 800;
+        color: #fbbf24;
         font-size: 18px;
-        font-weight: 700;
-        color: #040404;
+        text-align: right;
     }
 
-    .summary-section {
-        padding: 0 48px 48px 48px;
+    /* ================= CANCEL ================= */
+    .cancelorder {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
+        padding: 40px;
     }
 
-    .summary-box {
-        width: 100%;
-        max-width: 450px;
-        background: #0f172a;
-        border-radius: 16px;
-        padding: 32px;
-        border: 2px solid #334155;
-    }
-
-    .summary-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 0;
-        border-bottom: 1px solid #1e293b;
-    }
-
-    .summary-row:last-child {
-        border-bottom: none;
-        padding-top: 24px;
-        margin-top: 8px;
-        border-top: 2px solid #334155;
-    }
-
-    .summary-label {
-        font-size: 15px;
-        color: #94a3b8;
-        font-weight: 500;
-    }
-
-    .summary-value {
+    .cancel-btn {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        border: none;
+        padding: 14px 40px;
         font-size: 16px;
-        color: #e2e8f0;
         font-weight: 700;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: .3s;
     }
 
-    .summary-total .summary-label {
-        font-size: 18px;
-        color: #e2e8f0;
-        font-weight: 700;
+    .cancel-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(239, 68, 68, .5);
     }
 
-    .summary-total .summary-value {
-        font-size: 32px;
-        font-weight: 900;
-        background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
+    /* ================= EMPTY ================= */
     .empty-state {
-        text-align: center;
         padding: 100px 20px;
+        text-align: center;
+        color: #94a3b8;
     }
 
-    .empty-icon {
-        font-size: 100px;
-        margin-bottom: 24px;
-        opacity: 0.3;
-    }
-
-    .empty-title {
-        font-size: 28px;
-        color: #e2e8f0;
-        font-weight: 700;
-        margin-bottom: 12px;
-    }
-
-    .empty-text {
-        font-size: 16px;
-        color: #64748b;
-    }
-
-   .cancelorder {
-    display: flex;
-    justify-content: center;
-    padding: 40px 0;
-}
-
-.cancel-btn {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: #fff;
-    border: none;
-    padding: 14px 40px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-}
-
-.cancel-btn:hover {
-    background: linear-gradient(135deg, #f87171, #dc2626);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
-}
-
-
-    @@keyframes fadeIn {
+    /* ================= ANIM ================= */
+    @@keyframes
+    fadeIn {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
 
-    @@media (max-width: 768px) {
-        .invoice-header,
-        .order-info-section,
-        .items-table-section,
-        .summary-section {
-            padding: 24px;
-        }
-
-        .invoice-title {
-            font-size: 32px;
-        }
-
-        .order-info-section {
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        .items-table {
-            display: none;
-        }
-
-        .mobile-items {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .mobile-item-card {
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .mobile-product {
-            display: flex;
-            gap: 16px;
-        }
-
-        .mobile-product-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .mobile-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #1e293b;
-        }
-
-        .mobile-detail {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .mobile-detail-label {
-            font-size: 11px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .mobile-detail-value {
-            font-size: 14px;
-            color: #e2e8f0;
-            font-weight: 600;
-        }
-
-        .summary-box {
-            max-width: 100%;
-        }
-    }
-
-    @@media (min-width: 769px) {
-        .mobile-items {
+    /* ================= MOBILE ================= */
+    @@media
+    (max-width: 768px) {
+        table {
             display: none;
         }
     }
@@ -491,196 +245,93 @@
 
 <div class="main">
     <div class="invoice-container">
-        <!-- Header -->
+
         <div class="invoice-header">
-            <div class="header-content">
-                <a href="@Url.Action("OrderItemDetails", "OrderProcessing")" class="back-link">
-                    ← All Orders
-                </a>
-                <h1 class="invoice-title">Order Receipt</h1>
-                <p class="invoice-subtitle">Thank you for your purchase</p>
-            </div>
+            <a href="/OrderProcessing/Orders" class="back-link">← Back to Orders</a>
+            <h1 class="invoice-title">Order Receipt</h1>
+            <p class="invoice-subtitle">Thank you for your purchase</p>
         </div>
 
-        <!-- Order Information -->
         @if (order != null)
         {
             <div class="order-info-section">
-                <div class="info-block">
+                <div>
                     <div class="info-title">Order Number</div>
                     <div class="info-highlight">#@order.OrderId</div>
                 </div>
 
-                <div class="info-block">
+                <div>
                     <div class="info-title">Order Date</div>
-                    <div class="info-content">@order.orderDate.ToString("MMMM dd, yyyy")</div>
-                    <div class="info-content" style="font-size: 14px; color: #64748b;">@order.orderDate.ToString("hh:mm tt")</div>
+                    <div class="info-content">@order.orderDate.ToString("MMM dd, yyyy")</div>
                 </div>
 
-                <div class="info-block">
+                <div>
                     <div class="info-title">Status</div>
-                    <div>
-                        <span class="status-badge status-@order.status.ToLower()">
-                            @order.status
-                        </span>
-                    </div>
+                    <span class="status-badge status-@order.status.ToLower()">@order.status</span>
                 </div>
 
-                <div class="info-block">
+                <div>
                     <div class="info-title">Delivery Address</div>
                     <div class="info-content">@order.Address</div>
                 </div>
-
-                @if (order.ShippingDate.HasValue)
-                {
-                    <div class="info-block">
-                        <div class="info-title">Shipped On</div>
-                        <div class="info-content">@order.ShippingDate.Value.ToString("MMMM dd, yyyy")</div>
-                    </div>
-                }
             </div>
         }
 
-       
-        <!-- Items Section -->
         @if (items != null && items.Count > 0)
         {
             <div class="items-table-section">
                 <h2 class="section-title">Order Items (@items.Count)</h2>
 
-                <!-- Desktop Table View -->
-                <table class="items-table">
+                <table>
                     <thead>
-                        <tr class="table-header">
+                        <tr>
                             <th>Product</th>
-                            <th style="text-align: center;">Quantity</th>
-                            <th style="text-align: center;">Unit Price</th>
-                            <th>Subtotal</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th style="text-align:right;">Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-                            double calculatedTotal = 0;
-                        }
-                        @foreach (OrderItem item in items)
+                        @foreach (var item in items)
                         {
-                            var product = item.product;
-                            var quantity = item.Quantity;
-                            var subtotal = product.UnitPrice * quantity;
-                            calculatedTotal += subtotal;
-
+                            var subtotal = item.product.UnitPrice * item.Quantity;
                             <tr class="item-row">
                                 <td>
-                                    <div class="product-cdell">
-                                        <img src="@product.ProductImage" alt="@product.ProductTitle" class="product-image" />
-                                        <div class="product-info">
-                                            <div class="product-name">@product.ProductTitle</div>
-                                        </div>
+                                    <div class="product-cell">
+                                        <img src="@item.product.ProductImage" class="product-image" />
+                                        <div class="product-name">@item.product.ProductTitle</div>
                                     </div>
                                 </td>
-                                <td style="text-align: center;">
-                                    <span class="quantity-cell">@quantity</span>
-                                </td>
-                                <td style="text-align: center;">
-                                    <span class="price-cell">₹@product.UnitPrice.ToString("N2")</span>
-                                </td>
-                                <td>
-                                    <span class="subtotal-cell">₹@subtotal.ToString("N2")</span>
-                                </td>
+                                <td class="qty">@item.Quantity</td>
+                                <td class="price">₹@item.product.UnitPrice.ToString("N2")</td>
+                                <td class="subtotal">₹@subtotal.ToString("N2")</td>
                             </tr>
                         }
                     </tbody>
                 </table>
 
-                
-
-                <!-- Mobile Card View -->
-                <div class="mobile-items">
-                    @foreach (OrderItem item in items)
-                    {
-                        var product = item.product;
-                        var quantity = item.Quantity;
-                        var subtotal = product.UnitPrice * quantity;
-
-                        <div class="mobile-item-card">
-                            <div class="mobile-product">
-                                <img src="@product.ProductImage" alt="@product.ProductTitle" class="mobile-product-image" />
-                                <div class="product-info">
-                                    <div class="product-name">@product.ProductTitle</div>
-                                </div>
-                            </div>
-                            <div class="mobile-details">
-                                <div class="mobile-detail">
-                                    <span class="mobile-detail-label">Quantity</span>
-                                    <span class="mobile-detail-value">@quantity</span>
-                                </div>
-                                <div class="mobile-detail">
-                                    <span class="mobile-detail-label">Unit Price</span>
-                                    <span class="mobile-detail-value">₹@product.UnitPrice.ToString("N2")</span>
-                                </div>
-                                <div class="mobile-detail" style="grid-column: 1 / -1;">
-                                    <span class="mobile-detail-label">Subtotal</span>
-                                    <span class="mobile-detail-value" style="color: #fbbf24; font-size: 18px;">₹@subtotal.ToString("N2")</span>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-
-
-
-                @if (order != null &&
-                            order.status.ToLower() != "delivered" &&
-                            order.status.ToLower() != "cancelled")
-                {
-                    <div class="cancelorder">
-                        <form asp-action="CancelOrder" asp-controller="OrderProcessing" method="post">
-                            <input type="hidden" name="orderId" value="@order.OrderId" />
-                            <button type="submit" class="cancel-btn">Cancel Order</button>
-                        </form>
-                    </div>
-                }
-
-
-
+                                @if (order != null
+                                            && !string.IsNullOrEmpty(order.status)
+                                            && order.status.ToLower() != "delivered"
+                                    && order.status.ToLower() != "cancelled")
+                                {
+                                    <div class="cancelorder">
+                                        <form asp-action="CancelOrder" asp-controller="OrderProcessing" method="post"
+                                              onsubmit="return confirm('Cancel this order?');">
+                                            <input type="hidden" name="orderId" value="@order.OrderId" />
+                                            <button class="cancel-btn">Cancel Order</button>
+                                        </form>
+                                    </div>
+                                }
             </div>
-
-            @* <!-- Summary Section -->
-            @if (order != null)
-            {
-                <div class="summary-section">
-                    <div class="summary-box">
-                        <div class="summary-row">
-                            <span class="summary-label">Items Total</span>
-                            <span class="summary-value">₹@calculatedTotal.ToString("N2")</span>
-                        </div>
-
-                        <div class="summary-row summary-total">
-                            <span class="summary-label">Order Total</span>
-                            <span class="summary-value">₹@order.TotalAmount.ToString("N0")</span>
-                        </div>
-                    </div>
-                </div>
-            } *@
-
-
         }
         else
         {
             <div class="empty-state">
-                <div class="empty-icon">📦</div>
-                <h2 class="empty-title">No Items in this Order</h2>
-                <p class="empty-text">There are no items associated with this order</p>
+                <h2>No items found</h2>
+                <p>This order has no items.</p>
             </div>
         }
-</div>
-</div>
-@* 
 
-    <script>
-        document.querySelector('.cancel-btn')?.addEventListener('click', function (e) {
-            if (!confirm("Are you sure you want to cancel this order?")) {
-                e.preventDefault();
-            }
-        });
-    </script> *@
+    </div>
+</div>

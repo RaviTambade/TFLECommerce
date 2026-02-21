@@ -56,6 +56,19 @@ public class OrderProcessingController : Controller
         return View();
     }
 
+    public IActionResult CancelOrder(int id)
+    {
+        bool status = _orderSrv.cancelOrder(id);
+        if(status)
+        {
+            return RedirectToAction("OrdersDetails", "OrderProcessing");
+        }
+        else
+        {
+            return RedirectToAction("OrdersDetails", "OrderProcessing");
+        }
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -182,7 +182,28 @@ DELIMITER ;
 
 CALL Place_Order(5, '2025-08-06', '2025-09-07', 9);
 
+DELIMITER //
+create procedure cancel_order(
+In orderid int
+)
+begin
+declare orderitem int;
+
+             UPDATE categoryproduct p
+			JOIN order_items oi ON p.id = oi.item_id
+			SET p.stock = p.stock + oi.quantity
+			WHERE oi.order_id = orderid;
+            
+	delete from order_items where order_id=orderid;
+    delete from orders where id=orderid;
+end
+//
+
+call cancel_order(44);
 
 drop procedure AddToCart;
 drop procedure RemoveFromCart;
 drop procedure Place_Order;
+drop procedure cancel_order;
+
+SET SQL_SAFE_UPDATES = 0;

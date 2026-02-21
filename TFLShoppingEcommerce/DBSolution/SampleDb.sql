@@ -261,14 +261,14 @@ INSERT INTO shipping_addresses (order_id, address, city, state, zip_code, countr
 
 
 -- insert into orders
-INSERT INTO orders (customer_id, order_date, shipping_address, total_amount, shipping_date, status) VALUES
-(1, '2025-07-28', '78 Patel Nagar, Pune', 529.98, '2024-07-29', 'Processing'), -- Order with Tablet and Jeans
-(2, '2025-07-29', '90 Ambedkar Road, Bangalore', 179.98, '2024-07-30', 'Cancelled'), -- Order with E-book Reader and Shirt
-(3, '2025-07-30', '123 Ashok Marg, Jaipur', 179.98, '2024-07-31', 'Shipped'), -- Order with Headphones and Cookbook
-(4, '2025-07-31', '456 Charminar, Hyderabad', 99.98, '2024-08-01', 'Delivered'), -- Order with Bluetooth Speaker and Cookbook
-(5, '2025-08-01', '789 MG Road, Chennai', 499.98, '2024-08-02', 'Processing'), -- Order with Historical Novel and Trousers
-(6, '2025-08-02', '101 Nehru Place, Delhi', 449.98, '2024-08-03', 'Shipped'), -- Order with Camera and Dress
-(7, '2025-08-03', '123 Banjara Hills, Hyderabad', 389.98, '2024-08-04', 'Processing'); -- Order with Smart TV and Shirt
+INSERT INTO orders (customer_id, order_date, shipping_address_id, total_amount, shipping_date, status) VALUES
+(1, '2025-07-28', 1, 529.98, '2024-07-29', 'Processing'), -- Order with Tablet and Jeans
+(2, '2025-07-29', 2, 179.98, '2024-07-30', 'Cancelled'), -- Order with E-book Reader and Shirt
+(3, '2025-07-30', 3, 179.98, '2024-07-31', 'Shipped'), -- Order with Headphones and Cookbook
+(4, '2025-07-31', 4, 99.98, '2024-08-01', 'Delivered'), -- Order with Bluetooth Speaker and Cookbook
+(5, '2025-08-01', 4, 499.98, '2024-08-02', 'Processing'), -- Order with Historical Novel and Trousers
+(6, '2025-08-02', 6, 449.98, '2024-08-03', 'Shipped'), -- Order with Camera and Dress
+(7, '2025-08-03', 1, 389.98, '2024-08-04', 'Processing'); -- Order with Smart TV and Shirt
 
 update orders set shipping_address_id=1 where id=1;
 update orders set shipping_address_id=2 where id=2;
