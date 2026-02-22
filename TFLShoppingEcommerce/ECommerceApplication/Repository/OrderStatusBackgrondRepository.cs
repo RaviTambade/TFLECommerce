@@ -27,11 +27,11 @@ public class OrderStatusBackgroundRepository :IOrderStatusBackgroundRepository
                 AND order_date <= DATE_SUB(NOW(), INTERVAL 24 HOUR);
             ";
 
-            cmd.ExecuteNonQuery();
-        }
+            cmd.ExecuteNonQuery(); 
+        } 
         catch (Exception ex)
         {
             Console.WriteLine("Background Service Error: " + ex.Message);
         }
     }
-}
+}    

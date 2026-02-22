@@ -1,0 +1,149 @@
+@{
+    Layout = null;   // remove if you already use _Layout.cshtml
+    List<Item> items = (List<Item>)ViewData["allItems"];
+    List<ShippingAddress> addresses = (List<ShippingAddress>)ViewData["allcustomeraddress"];
+    double total = 0;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Confirm Order</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- PAGE CSS -->
+    <style>
+        body {
+            background-color: #f5f6f8;
+        }
+
+        .address-card {
+            display: flex;
+            gap: 12px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #fff;
+        }
+
+        .address-card:hover {
+            border-color: #198754;
+            background-color: #f8fff9;
+        }
+
+        .address-card input {
+            margin-top: 6px;
+        }
+
+        .address-card input:checked + .address-content {
+            font-weight: 600;
+        }
+
+        .address-content {
+            line-height: 1.5;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">🛒 Order Summary</h5>
+                </div>
+
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in items)
+                            {
+                                var subtotal = item.product.UnitPrice * item.Quantity;
+                                total += subtotal;
+                                <tr>
+                                    <td>@item.product.ProductTitle</td>
+                                    <td class="text-center">@item.Quantity</td>
+                                    <td class="text-end">₹@subtotal</td>
+                                </tr>
+                            }
+
+                            <tr class="fw-bold table-light">
+                                <td colspan="2">Total</td>
+                                <td class="text-end text-success">₹@total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADDRESS SELECTION -->
+        <div class="col-lg-5">
+            <form method="post" id="orderForm">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">🚚 Delivery Address</h5>
+                    </div>
+
+                    <div class="card-body">
+                        @foreach (var address in addresses)
+                        {
+                            <label class="address-card">
+                                <input type="radio"
+                                       name="SelectedAddressId"
+                                       value="@address.AddressId"
+                                       required />
+
+                                <div class="address-content">
+                                    <strong>@address.Address</strong><br />
+                                    @address.City, @address.State - @address.ZipCode
+                                </div>
+                            </label>
+                        }
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            ✅ Confirm & Place Order
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- PAGE SCRIPT -->
+<script>
+document.getElementById("orderForm").addEventListener("submit", function () {
+    var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
+    if (selected) {
+        this.action = "/OrderProcessing/PlaceOrder/" + selected.value;
+    }
+});
+</script>
+
+</body>
+</html>
