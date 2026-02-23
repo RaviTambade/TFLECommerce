@@ -16,6 +16,15 @@ public class OrderStatusBackgroundService
         _scopeFactory = scopeFactory;
     }
 
+    public void UpdateShippedOrders()
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var repo = scope.ServiceProvider
+                        .GetRequiredService<IOrderStatusBackgroundRepository>();
+
+        repo.UpdateShippedOrders();
+    }
+
     public void UpdatePendingOrders()
     {
         using var scope = _scopeFactory.CreateScope();
@@ -30,8 +39,18 @@ public class OrderStatusBackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             UpdatePendingOrders();
-
+            UpdateShippedOrders();
+            UpdateProcessingOrders();
             await Task.Delay(TimeSpan.FromMinutes(3), stoppingToken); // dev: 3 min
         }
+    }
+
+    public void UpdateProcessingOrders()
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var repo = scope.ServiceProvider
+                        .GetRequiredService<IOrderStatusBackgroundRepository>();
+
+        repo.UpdateProcessingOrders();
     }
 }
