@@ -25,7 +25,7 @@ public class OrderProcessingController : Controller
     }
 
 
-    [HttpPost]
+    // [HttpPost]
     public IActionResult PlaceOrder(int SelectedAddressId)
     {
         string email = HttpContext.Session.GetString("Email");

@@ -72,10 +72,10 @@ public class OrderStatusBackgroundRepository : IOrderStatusBackgroundRepository
             cmd.Connection = conn;
 
             cmd.CommandText = @"
-                UPDATE orders
-    SET status = 'shipped'
-    WHERE status = 'processing'
-    AND NOW() >= DATE_SUB(shipping_date, INTERVAL 2 DAY);d
+                        UPDATE orders
+            SET status = 'shipped'
+            WHERE status = 'processing'
+            AND NOW() >= DATE_SUB(shipping_date, INTERVAL 2 DAY);
             ";
 
             cmd.ExecuteNonQuery();

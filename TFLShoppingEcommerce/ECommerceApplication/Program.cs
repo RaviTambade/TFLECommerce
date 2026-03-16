@@ -22,6 +22,10 @@ builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
 builder.Services.AddScoped<IOrderStatusBackgroundRepository,OrderStatusBackgroundRepository>();
 builder.Services.AddScoped<IOrderStatusBackgroundService, OrderStatusBackgroundService>();
 builder.Services.AddHostedService<OrderStatusBackgroundService>();
+
+builder.Services.AddScoped<OtpService>();
+builder.Services.AddScoped<EmailService>();
+
 // register distributed cache memory for session management
 builder.Services.AddDistributedMemoryCache();
 

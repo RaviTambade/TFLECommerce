@@ -1,0 +1,475 @@
+@{
+    ViewData["Title"] = "Verify OTP";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+    <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --bg: #0a0a0f;
+                --surface: #111118;
+                --border: #1e1e2e;
+                --accent: #e8ff47;
+                --accent-dim: rgba(232, 255, 71, 0.12);
+                --accent-glow: rgba(232, 255, 71, 0.35);
+                --text-primary: #f0f0f8;
+                --text-muted: #6b6b80;
+                --error: #ff5f5f;
+                --input-bg: #15151f;
+            }
+
+            body {
+                background-color: var(--bg);
+                color: var(--text-primary);
+                font-family: 'DM Sans', sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+            }
+
+            body::before {
+                content: '';
+                position: fixed;
+                top: -40%;
+                left: -20%;
+                width: 70%;
+                height: 70%;
+                background: radial-gradient(ellipse, rgba(232, 255, 71, 0.06) 0%, transparent 65%);
+                pointer-events: none;
+                animation: drift 12s ease-in-out infinite alternate;
+            }
+
+            body::after {
+                content: '';
+                position: fixed;
+                bottom: -30%;
+                right: -10%;
+                width: 55%;
+                height: 55%;
+                background: radial-gradient(ellipse, rgba(100, 80, 255, 0.07) 0%, transparent 65%);
+                pointer-events: none;
+                animation: drift 16s ease-in-out infinite alternate-reverse;
+            }
+
+            @@keyframes drift {
+                from {
+                    transform: translate(0, 0) scale(1);
+                }
+                to {
+                    transform: translate(3%, 4%) scale(1.05);
+                }
+            }
+
+            .grid-bg {
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+                background-size: 48px 48px;
+                pointer-events: none;
+            }
+
+            .card {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                max-width: 420px;
+                padding: 48px 44px 44px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                margin-left: 30%;
+                margin-top: 5%;
+                border-radius: 20px;
+                box-shadow:
+                    0 0 0 1px rgba(232, 255, 71, 0.04),
+                    0 32px 80px rgba(0, 0, 0, 0.55),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+                animation: cardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            @@keyframes cardIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                background: var(--accent-dim);
+                border: 1px solid rgba(232, 255, 71, 0.22);
+                border-radius: 100px;
+                padding: 5px 13px 5px 9px;
+                margin-bottom: 28px;
+                animation: cardIn 0.65s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .badge-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--accent);
+                box-shadow: 0 0 8px var(--accent-glow);
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            @@keyframes pulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                50% {
+                    opacity: 0.6;
+                    transform: scale(0.85);
+                }
+            }
+
+            .badge-text {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 11.5px;
+                font-weight: 500;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--accent);
+            }
+
+            .heading {
+                font-family: 'Syne', sans-serif;
+                font-size: 30px;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1.1;
+                color: var(--text-primary);
+                margin-bottom: 10px;
+                animation: cardIn 0.65s 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .heading span {
+                color: var(--accent);
+            }
+
+            .subtext {
+                font-size: 14px;
+                font-weight: 300;
+                color: var(--text-muted);
+                line-height: 1.6;
+                margin-bottom: 36px;
+                animation: cardIn 0.65s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .subtext strong {
+                color: var(--text-primary);
+                font-weight: 500;
+            }
+
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--border), transparent);
+                margin-bottom: 32px;
+                animation: cardIn 0.65s 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .form-group {
+                margin-bottom: 24px;
+                animation: cardIn 0.65s 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            label {
+                display: block;
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                margin-bottom: 10px;
+            }
+
+            .otp-row {
+                display: flex;
+                gap: 10px;
+            }
+
+            .otp-box {
+                flex: 1;
+                height: 58px;
+                width: 5px;
+                background: var(--input-bg);
+                border: 1.5px solid var(--border);
+                border-radius: 10px;
+                color: var(--text-primary);
+                font-family: 'Syne', sans-serif;
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                text-align: center;
+                outline: none;
+                transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+                caret-color: var(--accent);
+            }
+
+            .otp-box:focus {
+                border-color: var(--accent);
+                background: rgba(232, 255, 71, 0.04);
+                box-shadow: 0 0 0 3px var(--accent-dim), 0 0 20px rgba(232, 255, 71, 0.08);
+            }
+
+            #otpHidden {
+                display: none;
+            }
+
+            .btn-submit {
+                width: 100%;
+                padding: 16px;
+                background: var(--accent);
+                color: #0a0a0f;
+                border: none;
+                border-radius: 10px;
+                font-family: 'Syne', sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                cursor: pointer;
+                transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+                box-shadow: 0 4px 24px rgba(232, 255, 71, 0.25);
+                animation: cardIn 0.65s 0.34s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .btn-submit:hover {
+                background: #f2ff6e;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(232, 255, 71, 0.38);
+            }
+
+            .btn-submit:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 12px rgba(232, 255, 71, 0.2);
+            }
+
+            .error-msg {
+                margin-top: 18px;
+                padding: 12px 16px;
+                background: rgba(255, 95, 95, 0.08);
+                border: 1px solid rgba(255, 95, 95, 0.25);
+                border-radius: 8px;
+                color: var(--error);
+                font-size: 13.5px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+            }
+
+            @@keyframes shake {
+
+                0%,
+                100% {
+                    transform: translateX(0);
+                }
+                20% {
+                    transform: translateX(-6px);
+                }
+
+                40% {
+                    transform: translateX(6px);
+                }
+                60% {
+                    transform: translateX(-4px);
+                }
+                80% {
+                    transform: translateX(4px);
+                }
+            }
+
+            .resend-row {
+                text-align: center;
+                margin-top: 22px;
+                font-size: 13px;
+                color: var(--text-muted);
+                animation: cardIn 0.65s 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+
+            .resend-row a {
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 500;
+                margin-left: 4px;
+                transition: opacity 0.2s;
+            }
+
+            .resend-row a:hover {
+                opacity: 0.75;
+            }
+
+            #timer {
+                color: var(--text-muted);
+                font-size: 12px;
+                margin-top: 6px;
+                text-align: center;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="card">
+        <div class="badge">
+            <span class="badge-dot"></span>
+            <span class="badge-text">Secure Verification</span>
+        </div>
+        <form method="post" id="otpForm">
+        <h2 class="heading">Enter your <span>OTP</span></h2>
+        <p class="subtext">
+            A 6-digit code was sent to <strong>@Model?.Email</strong>.<br />
+            Enter it below to continue.
+        </p>
+
+        <div class="divider"></div>
+
+       
+            <input type="hidden" name="Email" value="@Model?.Email" />
+            <input type="hidden" name="Otp" id="otpHidden" />
+
+            <div class="form-group">
+                <label>Verification Code</label>
+                <div class="otp-row" id="otpRow">
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                           autocomplete="one-time-code" />
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+                    <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Verify &amp; Continue →</button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Error as string))
+        {
+            <div class="error-msg">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="#ff5f5f" stroke-width="1.5" />
+                    <path d="M7.5 4.5v3.5" stroke="#ff5f5f" stroke-width="1.5" stroke-linecap="round" />
+                    <circle cx="7.5" cy="10.5" r="0.75" fill="#ff5f5f" />
+                </svg>
+                @ViewBag.Error
+            </div>
+        }
+
+        <div class="resend-row">
+            Didn't receive the code?
+            <a href="#" id="resendLink">Resend OTP</a>
+        </div>
+        <p id="timer"></p>
+    </div>
+
+    <script>
+            const boxes = document.querySelectorAll('.otp-box');
+            const hidden = document.getElementById('otpHidden');
+            const form = document.getElementById('otpForm');
+
+            boxes.forEach((box, i) => {
+                box.addEventListener('input', e => {
+                    const val = e.target.value.replace(/\D/g, '');
+                    box.value = val.slice(-1);
+                    if (val && i < boxes.length - 1) boxes[i + 1].focus();
+                    syncHidden();
+                });
+
+                box.addEventListener('keydown', e => {
+                    if (e.key === 'Backspace' && !box.value && i > 0) {
+                        boxes[i - 1].focus();
+                    }
+                });
+
+                box.addEventListener('paste', e => {
+                    e.preventDefault();
+                    const pasted = (e.clipboardData || window.clipboardData)
+                        .getData('text').replace(/\D/g, '').slice(0, 6);
+                    [...pasted].forEach((ch, idx) => {
+                        if (boxes[idx]) boxes[idx].value = ch;
+                    });
+                    const next = Math.min(pasted.length, boxes.length - 1);
+                    boxes[next].focus();
+                    syncHidden();
+                });
+            });
+
+            function syncHidden() {
+                hidden.value = [...boxes].map(b => b.value).join('');
+            }
+
+            form.addEventListener('submit', e => {
+                syncHidden();
+                if (hidden.value.length < 6) {
+                    e.preventDefault();
+                    boxes[hidden.value.length].focus();
+                }
+            });
+
+            // Resend countdown
+            const resendLink = document.getElementById('resendLink');
+            const timerEl = document.getElementById('timer');
+            let countdown = 30;
+
+            function startTimer() {
+                resendLink.style.pointerEvents = 'none';
+                resendLink.style.opacity = '0.4';
+                const iv = setInterval(() => {
+                    timerEl.textContent = `Resend available in ${countdown}s`;
+                    countdown--;
+                    if (countdown < 0) {
+                        clearInterval(iv);
+                        countdown = 30;
+                        timerEl.textContent = '';
+                        resendLink.style.pointerEvents = '';
+                        resendLink.style.opacity = '';
+                    }
+                }, 1000);
+            }
+
+            startTimer();
+            resendLink.addEventListener('click', e => {
+                e.preventDefault();
+                startTimer();
+                // wire up your resend AJAX / form post here
+            });
+    </script>
+</body>
+
+</html>

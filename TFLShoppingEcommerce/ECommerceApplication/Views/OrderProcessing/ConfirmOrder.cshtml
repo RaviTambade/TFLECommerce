@@ -137,12 +137,27 @@
 
 <!-- PAGE SCRIPT -->
 <script>
-document.getElementById("orderForm").addEventListener("submit", function () {
+@* document.getElementById("orderForm").addEventListener("submit", function () {
     var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
     if (selected) {
         this.action = "/OrderProcessing/PlaceOrder/" + selected.value;
     }
+}); *@
+
+document.getElementById("orderForm").addEventListener("submit", function () {
+
+    var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
+
+    if (!selected) {
+        alert("Please select an address");
+        event.preventDefault();
+        return;
+    }
+
+    // set action to OTP controller
+    this.action = "/Otp/SendOtp";
 });
+
 </script>
 
 </body>
