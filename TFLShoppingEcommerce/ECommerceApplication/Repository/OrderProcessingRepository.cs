@@ -42,9 +42,42 @@ namespace ECommerceApplication.Repository
 
         }
 
-        public bool placeOrder(int userid, int shipping_address_id)
+        public int GetOrderIdFromOrderItem(int orderItemId)
         {
-            bool status = false;
+            int orderId = 0;
+
+            IDbConnection conn = DatabaseConnection.getConnection();
+            IDbCommand cmd = new MySqlCommand();
+
+            try
+            {
+                conn.Open();
+
+                cmd.Connection = conn;
+                cmd.CommandText = "SELECT order_id FROM order_items WHERE id = @id";
+                cmd.Parameters.Add(new MySqlParameter("@id", orderItemId));
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    orderId = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return orderId;
+        }
+        public int placeOrder(int userid, int shipping_address_id)
+        {
+            int orderId = 0;
             IDbConnection conn = DatabaseConnection.getConnection();
             IDbCommand cmd = new MySqlCommand();
             try
@@ -61,14 +94,23 @@ namespace ECommerceApplication.Repository
                 cmd.Parameters.Add(new MySqlParameter("shipId", shipping_address_id));
 
                 cmd.ExecuteNonQuery();
-                status = true;
 
+                cmd.Parameters.Clear();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT LAST_INSERT_ID();";
+
+
+
+               int orderitemId = Convert.ToInt32(cmd.ExecuteScalar());  // ✅ GET ORDER ID
+
+              orderId= GetOrderIdFromOrderItem(orderitemId);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            return status;
+
+            return orderId;
         }
 
         public List<OrderItem> getOrderItem(int orderid)
@@ -76,30 +118,48 @@ namespace ECommerceApplication.Repository
             List<OrderItem> orders = new List<OrderItem>();
             IDbConnection conn = DatabaseConnection.getConnection();
             IDbCommand cmd = new MySqlCommand();
+
             try
             {
                 conn.Open();
-                cmd.CommandText = "select oi.id, cp.name, cp.image,cp.Price,oi.quantity from order_items oi join categoryproduct cp on cp.id = oi.item_id where oi.order_id = @orderid; ";
+
+                cmd.CommandText = @"SELECT oi.id, cp.name, cp.image, cp.price, oi.quantity 
+                            FROM order_items oi 
+                            JOIN categoryproduct cp ON cp.id = oi.item_id 
+                            WHERE oi.order_id = @orderid";
+
                 cmd.Connection = conn;
                 cmd.Parameters.Add(new MySqlParameter("@orderid", orderid));
+
                 IDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     OrderItem order = new OrderItem();
 
+                    // ✅ IMPORTANT: Initialize product object
+                    order.product = new Product();
+
                     order.OrderItemId = reader.GetInt32(reader.GetOrdinal("id"));
                     order.product.ProductTitle = reader["name"].ToString();
                     order.product.ProductImage = reader["image"].ToString();
-                    order.product.UnitPrice =int.Parse(reader["price"].ToString());
-                    order.Quantity = int.Parse(reader["quantity"].ToString());
+                    order.product.UnitPrice = Convert.ToDouble(reader["price"]);
+                    order.Quantity = Convert.ToInt32(reader["quantity"]);
+
                     orders.Add(order);
                 }
 
+                reader.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
+            finally
+            {
+                conn.Close(); // ✅ always close connection
+            }
+
             return orders;
         }
 
@@ -126,5 +186,7 @@ namespace ECommerceApplication.Repository
             }
             return status;
         }
+    
+    
     }
 }

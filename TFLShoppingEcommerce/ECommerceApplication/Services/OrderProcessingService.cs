@@ -18,7 +18,7 @@ namespace ECommerceApplication.Services
             return _orderRepo.getOrderByUserId(userId);
         }
 
-        public bool placeOrder(int userid, int shipping_address_id)
+        public int placeOrder(int userid, int shipping_address_id)
         {
             return _orderRepo.placeOrder(userid, shipping_address_id);
         }
@@ -31,6 +31,22 @@ namespace ECommerceApplication.Services
         public bool cancelOrder(int orderid)
         {
             return _orderRepo.cancelOrder(orderid);
+        }
+
+        public double GetOrderTotal(int orderid)
+        {
+            var items = getOrderItem(orderid);
+
+            double total = 0;
+
+            foreach (var item in items)
+            {
+                double price = item.product.UnitPrice;
+                double amount = price * item.Quantity;
+                total = total + amount;
+            }
+
+            return total;
         }
     }
 }

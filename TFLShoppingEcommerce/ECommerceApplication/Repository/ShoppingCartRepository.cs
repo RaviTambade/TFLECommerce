@@ -237,5 +237,7 @@ namespace ECommerceApplication.Repository.Interfaces
             }
             return status;
         }
+
+      
     }
 }

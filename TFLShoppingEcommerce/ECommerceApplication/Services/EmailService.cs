@@ -14,7 +14,12 @@ public class EmailService
     {
         var email = new MimeMessage();
 
-        email.From.Add(MailboxAddress.Parse(_config["EmailSettings:Email"]));
+        string emailby = _config["EmailService:email"];
+        string password = _config["EmailService:password"];
+        string host = _config["EmailService:host"];
+        int port = int.Parse(_config["EmailService:port"]);
+
+        email.From.Add(MailboxAddress.Parse(emailby));
         email.To.Add(MailboxAddress.Parse(toEmail));
         email.Subject = "OTP Verification";
 
@@ -25,14 +30,14 @@ public class EmailService
 
         using var smtp = new SmtpClient();
         smtp.Connect(
-            _config["EmailSettings:Host"],
-            int.Parse(_config["EmailSettings:Port"]),
+            host,
+           port,
             false
         );
 
         smtp.Authenticate(
-            _config["EmailSettings:Email"],
-            _config["EmailSettings:Password"]
+            emailby,
+            password
         );
 
         smtp.Send(email);

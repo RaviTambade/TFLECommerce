@@ -21,6 +21,8 @@ builder.Services.AddScoped<IOrderProcessingRepository, OrderProcessingRepository
 builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
 builder.Services.AddScoped<IOrderStatusBackgroundRepository,OrderStatusBackgroundRepository>();
 builder.Services.AddScoped<IOrderStatusBackgroundService, OrderStatusBackgroundService>();
+builder.Services.AddScoped<IPaymentProcessingRepository,PaymentProcessingRepository>();
+builder.Services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
 builder.Services.AddHostedService<OrderStatusBackgroundService>();
 
 builder.Services.AddScoped<OtpService>();

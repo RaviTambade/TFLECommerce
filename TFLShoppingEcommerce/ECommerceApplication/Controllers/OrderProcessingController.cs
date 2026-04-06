@@ -32,10 +32,11 @@ public class OrderProcessingController : Controller
         Customer customers = _AuthSrv.getCustomerByEmail(email);
 
         // ShippingAddress shippingAddress = _custAddRepo.getAllCustomerAddresses(customers.CustomerId);
-        bool status = _orderSrv.placeOrder(customers.CustomerId, SelectedAddressId);
-        if (status)
+        int orderid = _orderSrv.placeOrder(customers.CustomerId, SelectedAddressId);
+        HttpContext.Session.SetInt32("OrderId", orderid);
+        if (orderid>0)
         {
-            return RedirectToAction("index", "Catelog");
+            return RedirectToAction("CreateOrder", "PaymentProcessing");
         }
         else
         {

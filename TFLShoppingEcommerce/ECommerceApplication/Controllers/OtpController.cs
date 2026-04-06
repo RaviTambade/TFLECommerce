@@ -59,7 +59,7 @@ public class OtpController : Controller
 
         ViewBag.Message = "OTP Verified Successfully";
 
-        return RedirectToAction("PlaceOrder","OrderProcessing",
+        return RedirectToAction("PlaceOrder", "OrderProcessing",
           new { SelectedAddressId = addressId });
     }
 }

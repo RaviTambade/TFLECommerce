@@ -1,0 +1,218 @@
+<style>
+    .checkout-page {
+        max-width: 1080px;
+        margin: 24px auto;
+        padding: 0 16px 24px;
+        font-family: Arial, sans-serif;
+        color: #1e293b;
+    }
+
+    .checkout-title {
+        margin: 0 0 6px;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .checkout-subtitle {
+        margin: 0 0 20px;
+        color: #64748b;
+    }
+
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        max-width: 460px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .checkout-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        margin-bottom: 16px;
+    }
+
+    .checkout-card h4 {
+        margin: 0 0 12px;
+        font-size: 17px;
+    }
+
+    .address-select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    .item-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .item-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .item-row:last-child {
+        border-bottom: 0;
+    }
+
+    .item-name {
+        font-weight: 600;
+    }
+
+    .item-meta {
+        color: #64748b;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .summary-box {
+        background: #f8fafc;
+    }
+
+    .summary-line {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 12px;
+        border-top: 1px dashed #cbd5e1;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .method-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .method-option:hover {
+        border-color: #94a3b8;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 10px;
+        padding: 12px 14px;
+        background: #2563eb;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background .2s ease;
+    }
+
+    .checkout-btn:hover {
+        background: #1d4ed8;
+    }
+
+ 
+</style>
+
+<div class="checkout-page">
+    <h2 class="checkout-title">Checkout</h2>
+    <p class="checkout-subtitle">Choose a payment method and place your order.</p>
+
+    <div class="checkout-grid">
+        <div class="checkout-card summary-box">
+            <h4>Payment</h4>
+
+                <label class="method-option">
+                    <input type="radio" name="payment" value="COD" checked />
+                    <span>Cash on Delivery</span>
+                </label>
+
+                <label class="method-option">
+                    <input type="radio" name="payment" value="ONLINE" />
+                    <span>Pay Now (Razorpay)</span>
+                </label>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span>₹@ViewBag.Amount</span>
+                </div>
+                <div class="summary-line">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>₹@ViewBag.Amount</span>
+                </div>
+
+            <div style="margin-top: 14px;">
+                <button class="checkout-btn" onclick="proceedPayment()">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    function proceedPayment() {
+
+    var method = document.querySelector('input[name="payment"]:checked').value;
+
+    if (method === "COD") {
+    // ✅ COD flow
+    fetch('/PaymentProcessing/SaveCodPayment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json())
+    .then(data => {
+    window.location.href = data.redirectUrl;
+    })
+    .catch(() => {
+    alert("COD payment save failed. Please try again.");
+    });
+    }
+    else {
+    // ✅ Razorpay flow
+    var options = {
+    "key": "@ViewBag.Key",
+    "amount": "@(ViewBag.Amount * 100)",
+    "currency": "INR",
+    "order_id": "@ViewBag.OrderId",
+
+    "handler": function (response) {
+    fetch('/PaymentProcessing/Verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(response)
+    }).then(res => res.json())
+    .then(data => {
+    window.location.href = data.redirectUrl;   // ✅ redirect here
+    })
+    .catch(() => {
+    alert("Payment verification failed. Please try again.");
+    });
+    }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.open();
+    }
+    }
+</script>
