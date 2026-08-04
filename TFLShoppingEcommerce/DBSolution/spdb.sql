@@ -107,6 +107,7 @@ CREATE PROCEDURE Place_Order
  IN odate DATE,
  IN shipdate date,
  IN shipId int
+ 
 )
 BEGIN
 		DECLARE total_price double;

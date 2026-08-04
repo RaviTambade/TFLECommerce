@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Wishlist";
+    List<WishlistItem> items = ViewData["wishlistItems"] as List<WishlistItem> ?? new List<WishlistItem>();
+}
+
+<div class="container mt-4">
+    <h2>My Wishlist</h2>
+    @if (items.Count == 0)
+    {
+        <p>Your wishlist is empty.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in items)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <img src="@item.Product.ProductImage" class="card-img-top" style="height:180px;object-fit:contain;" />
+                        <div class="card-body">
+                            <h6>@item.Product.ProductTitle</h6>
+                            <p>₹@item.Product.UnitPrice</p>
+                            <a href="/Catelog/DetailsWithId/@item.Product.ProductId" class="btn btn-sm btn-primary">View</a>
+                            <a href="/Wishlist/Remove?productId=@item.Product.ProductId" class="btn btn-sm btn-danger">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

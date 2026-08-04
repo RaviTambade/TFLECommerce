@@ -1,0 +1,50 @@
+@model List<ECommerceApplication.ViewModels.AdminUserListItem>
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Users</h2>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th style="width:90px;">ID</th>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th class="text-end">Orders</th>
+                        <th class="text-end">Total Spent</th>
+                        <th class="text-end" style="width:220px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td>@u.CustomerId</td>
+                        <td class="fw-semibold">@u.UserName</td>
+                        <td>@u.Email</td>
+                        <td>@u.Address</td>
+                        <td class="text-end">@u.OrdersCount</td>
+                        <td class="text-end">₹@u.TotalSpent.ToString("0.00")</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" asp-action="ViewDetails" asp-route-id="@u.CustomerId">View</a>
+                            <form asp-action="Delete" asp-route-id="@u.CustomerId" method="post" class="d-inline"
+                                  onsubmit="return confirm('Delete user #@u.CustomerId? This may fail if FK constraints exist.');">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

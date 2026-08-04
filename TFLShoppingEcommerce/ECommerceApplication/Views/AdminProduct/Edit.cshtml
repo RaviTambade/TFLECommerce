@@ -1,0 +1,112 @@
+@model ECommerceApplication.ViewModels.AdminProductEditViewModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Edit Product</h2>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="ProductId" />
+                <input type="hidden" asp-for="ExistingImagePath" />
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Name</label>
+                        <input asp-for="ProductTitle" class="form-control" />
+                        <span class="text-danger" asp-validation-for="ProductTitle"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Price</label>
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span class="text-danger" asp-validation-for="UnitPrice"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Stock</label>
+                        <input asp-for="Quantity" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Quantity"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Category</label>
+                        <select id="categorySelect" asp-for="CategoryId" class="form-select">
+                            <option value="">Select category</option>
+                            @foreach (var c in (IEnumerable<ECommerceApplication.Repository.Interfaces.IdNameOption>)ViewBag.Categories)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Subcategory</label>
+                        <select id="subCategorySelect" asp-for="SubcategoryId" class="form-select">
+                            <option value="">Select subcategory</option>
+                            @foreach (var s in (IEnumerable<ECommerceApplication.Repository.Interfaces.IdNameOption>)ViewBag.Subcategories)
+                            {
+                                <option value="@s.Id">@s.Name</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="SubcategoryId"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Replace Image</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*" />
+                        @if (!string.IsNullOrWhiteSpace(Model.ExistingImagePath))
+                        {
+                            <div class="mt-2">
+                                <img src="@Model.ExistingImagePath" alt="Current image" style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
+                                <div class="text-muted small mt-1">Current image</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            const categorySelect = document.getElementById('categorySelect');
+            const subSelect = document.getElementById('subCategorySelect');
+
+            async function refreshSubcategories(categoryId, selectedValue) {
+                subSelect.innerHTML = '<option value="">Select subcategory</option>';
+                if (!categoryId) return;
+                const url = `/AdminProduct/GetSubcategoriesByCategory?categoryId=${encodeURIComponent(categoryId)}`;
+                const res = await fetch(url);
+                if (!res.ok) return;
+                const data = await res.json();
+                for (const s of data) {
+                    const opt = document.createElement('option');
+                    opt.value = s.id;
+                    opt.textContent = s.name;
+                    if (selectedValue && String(selectedValue) === String(s.id)) opt.selected = true;
+                    subSelect.appendChild(opt);
+                }
+            }
+
+            categorySelect?.addEventListener('change', function () {
+                refreshSubcategories(this.value, null);
+            });
+        })();
+    </script>
+}
+

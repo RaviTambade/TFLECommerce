@@ -1,0 +1,322 @@
+@model ECommerceApplication.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var labels = Model.RevenueChartData.Select(x => x.Date.ToString("yyyy-MM-dd")).ToList();
+    var values = Model.RevenueChartData.Select(x => x.Revenue).ToList();
+
+    var topLabels = Model.TopProducts.Select(x => x.ProductName).ToList();
+    var topValues = Model.TopProducts.Select(x => x.TotalSold).ToList();
+
+    var payLabels = Model.PaymentStatus.Select(x => x.Status).ToList();
+    var payValues = Model.PaymentStatus.Select(x => x.Count).ToList();
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Admin Dashboard</h2>
+        <div class="d-flex align-items-center gap-3">
+            <div class="text-muted small">Auto-refreshing overview (every ~7s)</div>
+            <a href="/Authentication/Logout" class="btn btn-sm btn-outline-danger">Logout</a>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted">Total Sales</div>
+                    <div id="totalSales" class="display-6 fw-bold">₹@Model.TotalSales.ToString("0.00")</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted">Total Orders</div>
+                    <div id="totalOrders" class="display-6 fw-bold">@Model.TotalOrders</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted">Total Users</div>
+                    <div id="totalUsers" class="display-6 fw-bold">@Model.TotalUsers</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted">Revenue Today</div>
+                    <div id="revenueToday" class="display-6 fw-bold">₹@Model.RevenueToday.ToString("0.00")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Top Products</strong>
+                </div>
+                <div class="table-responsive">
+                    <table class="table mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-end">Sold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if (Model.TopProducts.Count == 0)
+                        {
+                            <tr><td colspan="2" class="text-muted">No data.</td></tr>
+                        }
+                        else
+                        {
+                            @foreach (var p in Model.TopProducts)
+                            {
+                                <tr>
+                                    <td>@p.ProductName</td>
+                                    <td class="text-end fw-semibold">@p.TotalSold</td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Revenue over time</strong>
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueChart" height="130"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+        <div class="col-lg-7">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Top products (chart)</strong>
+                </div>
+                <div class="card-body">
+                    <canvas id="topProductsChart" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Payment status</strong>
+                </div>
+                <div class="card-body">
+                    <canvas id="paymentStatusChart" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Low stock products</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model.LowStockProducts.Count == 0)
+                    {
+                        <div class="text-muted">No low stock items.</div>
+                    }
+                    else
+                    {
+                        <ul id="lowStockList" class="list-group">
+                            @foreach (var p in Model.LowStockProducts)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>@p.ProductName</span>
+                                    <span class="badge bg-danger">@p.Stock</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Coupon usage</strong>
+                </div>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Coupon</th>
+                                <th class="text-end">Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="couponUsageBody">
+                            @if (Model.CouponUsage.Count == 0)
+                            {
+                                <tr><td colspan="2" class="text-muted">No data.</td></tr>
+                            }
+                            else
+                            {
+                                @foreach (var c in Model.CouponUsage.Take(8))
+                                {
+                                    <tr>
+                                        <td>@c.CouponCode</td>
+                                        <td class="text-end fw-semibold">@c.UsageCount</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (function () {
+            const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(labels));
+            const values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(values));
+            const topLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(topLabels));
+            const topValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(topValues));
+            const payLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(payLabels));
+            const payValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(payValues));
+
+            const ctx = document.getElementById('revenueChart');
+            const revenueChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Revenue',
+                        data: values,
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79,70,229,0.15)',
+                        fill: true,
+                        tension: 0.35
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            const topCtx = document.getElementById('topProductsChart');
+            const topChart = new Chart(topCtx, {
+                type: 'bar',
+                data: {
+                    labels: topLabels,
+                    datasets: [{
+                        label: 'Sold',
+                        data: topValues,
+                        backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                        borderColor: '#f59e0b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: true } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+            const payCtx = document.getElementById('paymentStatusChart');
+            const paymentChart = new Chart(payCtx, {
+                type: 'pie',
+                data: {
+                    labels: payLabels,
+                    datasets: [{
+                        data: payValues,
+                        backgroundColor: ['#22c55e', '#f59e0b', '#ef4444', '#64748b', '#38bdf8']
+                    }]
+                },
+                options: { responsive: true }
+            });
+
+            function formatMoney(x) {
+                const n = Number(x || 0);
+                return `₹${n.toFixed(2)}`;
+            }
+
+            async function refresh() {
+                const res = await fetch('/AdminDashboard/GetDashboardStats', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return;
+                const data = await res.json();
+
+                document.getElementById('totalSales').textContent = formatMoney(data.totalSales);
+                document.getElementById('totalOrders').textContent = data.totalOrders;
+                document.getElementById('totalUsers').textContent = data.totalUsers;
+                document.getElementById('revenueToday').textContent = formatMoney(data.revenueToday);
+
+                // Revenue line
+                const rLabels = (data.revenueChartData || []).map(x => (x.date || '').slice(0, 10));
+                const rValues = (data.revenueChartData || []).map(x => x.revenue || 0);
+                revenueChart.data.labels = rLabels;
+                revenueChart.data.datasets[0].data = rValues;
+                revenueChart.update();
+
+                // Top products bar
+                const tLabels = (data.topProducts || []).map(x => x.productName);
+                const tValues = (data.topProducts || []).map(x => x.totalSold);
+                topChart.data.labels = tLabels;
+                topChart.data.datasets[0].data = tValues;
+                topChart.update();
+
+                // Payment status pie
+                const pLabels = (data.paymentStatus || []).map(x => x.status);
+                const pValues = (data.paymentStatus || []).map(x => x.count);
+                paymentChart.data.labels = pLabels;
+                paymentChart.data.datasets[0].data = pValues;
+                paymentChart.update();
+
+                // Low stock list
+                const low = data.lowStockProducts || [];
+                const ul = document.getElementById('lowStockList');
+                if (ul) {
+                    ul.innerHTML = low.map(p =>
+                        `<li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>${p.productName}</span>
+                            <span class="badge bg-danger">${p.stock}</span>
+                         </li>`
+                    ).join('');
+                }
+
+                // Coupon usage
+                const coupons = (data.couponUsage || []).slice(0, 8);
+                const tbody = document.getElementById('couponUsageBody');
+                if (tbody) {
+                    tbody.innerHTML = coupons.length
+                        ? coupons.map(c => `<tr><td>${c.couponCode}</td><td class="text-end fw-semibold">${c.usageCount}</td></tr>`).join('')
+                        : `<tr><td colspan="2" class="text-muted">No data.</td></tr>`;
+                }
+            }
+
+            setInterval(refresh, 7000);
+        })();
+    </script>
+}
+

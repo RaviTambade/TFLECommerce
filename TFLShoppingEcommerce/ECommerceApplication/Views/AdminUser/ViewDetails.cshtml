@@ -1,0 +1,78 @@
+@model ECommerceApplication.ViewModels.AdminUserDetailsViewModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="mb-1">@Model.UserName</h2>
+            <div class="text-muted">User #@Model.CustomerId</div>
+        </div>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Email</div>
+                    <div class="fw-semibold">@Model.Email</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Address</div>
+                    <div class="fw-semibold">@Model.Address</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white">
+            <strong>Order History</strong>
+        </div>
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th class="text-end">Total</th>
+                        <th class="text-end">Discount</th>
+                        <th class="text-end">Final</th>
+                        <th>Payment</th>
+                        <th class="text-end">Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.Orders.Count == 0)
+                {
+                    <tr><td colspan="8" class="text-muted">No orders found.</td></tr>
+                }
+                else
+                {
+                    @foreach (var o in Model.Orders)
+                    {
+                        <tr>
+                            <td>#@o.OrderId</td>
+                            <td>@o.orderDate.ToString("MMM dd, yyyy")</td>
+                            <td>@o.status</td>
+                            <td class="text-end">₹@o.TotalAmount.ToString("0.00")</td>
+                            <td class="text-end">₹@o.DiscountAmount.ToString("0.00")</td>
+                            <td class="text-end">₹@o.FinalAmount.ToString("0.00")</td>
+                            <td>@o.PaymentStatus</td>
+                            <td class="text-end">-</td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
