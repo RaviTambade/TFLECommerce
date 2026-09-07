@@ -159,7 +159,6 @@ CREATE TABLE refunds (
         ON DELETE CASCADE
 );
 
-drop table refunds;
 
 -- Create order_fulfillment table
 CREATE TABLE order_fulfillment (
@@ -285,8 +284,6 @@ CREATE TABLE reviews (
         ON DELETE CASCADE
 );
 
-drop tables reviews;
-
 -- Create shipping_methods table
 CREATE TABLE shipping_methods (
     shipping_method_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -404,11 +401,6 @@ ALTER TABLE shipping_addresses
 ADD CONSTRAINT fk_user_shipping
 FOREIGN KEY (UserId) REFERENCES users(id);
 
-drop table subcategories;
-drop table products;
-drop table cart_items;
-drop table subcategories;
-drop table orders;
 
 
 
