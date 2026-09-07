@@ -7,7 +7,7 @@ insert into categories values(2, "Electronic Devices");
 insert into categories values(3, "Fashion");
 insert into categories values(4, "Home & Furniture");
 insert into categories values(5, "Beauty & Personal care");
-insert into categories values(6, "Toys & Books");
+insert into categories values(6, "Toys & Books");	
 insert into categories values(7, "Grocery");
 
 
@@ -251,7 +251,7 @@ VALUES  (2, 9, 2, '/images/flowers/RainbowSorbet.jpeg');        -- RainbowSorbet
 INSERT INTO cart_items (cart_id, product_id, quantity, ItemImage)
 VALUES  (3, 27, 1, '/images/Beauty_PersonalCare/facewash.jpeg');        -- face wash
 
-INSERT INTO shipping_addresses (order_id, address, city, state, zip_code, country) VALUES
+INSERT INTO shipping_addresses (shipping_address_id, address, city, state, zip_code, country) VALUES
 (1, '123 Elm Street', 'Springfield', 'IL', '62701', 'USA'),
 (2, '456 Oak Avenue', 'Metropolis', 'NY', '10001', 'USA'),
 (3, '789 Pine Road', 'Gotham', 'NJ', '07001', 'USA'),
@@ -446,7 +446,7 @@ INSERT INTO returns (order_id, product_id, return_reason, return_date, status) V
 (7, 10, 'Product not as described', '2024-08-02', 'Pending'); -- Return for Bluetooth Speaker in Order 7
 
 -- Insert sample data into the closed_dates table:
-INSERT INTO closed_dates(close_date, event_name) values
+INSERT INTO closed_dates(closed_dates, events) values
 ('2025-10-15', "Diwali"),
 ('2025-09-18', "Dussehra"); 
 
