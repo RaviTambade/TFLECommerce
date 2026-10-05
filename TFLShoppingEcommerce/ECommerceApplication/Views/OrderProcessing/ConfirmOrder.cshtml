@@ -1,5 +1,5 @@
 @{
-    Layout = null;   // remove if you already use _Layout.cshtml
+    Layout = null;
     List<Item> items = (List<Item>)ViewData["allItems"];
     List<ShippingAddress> addresses = (List<ShippingAddress>)ViewData["allcustomeraddress"];
     double total = 0;
@@ -10,155 +10,243 @@
 <head>
     <meta charset="utf-8" />
     <title>Confirm Order</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- PAGE CSS -->
     <style>
         body {
-            background-color: #f5f6f8;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
-        .address-card {
-            display: flex;
-            gap: 12px;
-            border: 1px solid #ddd;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            background-color: #fff;
+        .checkout-shell {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 16px 24px;
         }
 
-        .address-card:hover {
-            border-color: #198754;
-            background-color: #f8fff9;
+        .page-title {
+            font-size: 34px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
         }
 
-        .address-card input {
-            margin-top: 6px;
+        .page-subtitle {
+            color: #64748b;
+            margin-bottom: 22px;
         }
 
-        .address-card input:checked + .address-content {
-            font-weight: 600;
+        .glass-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            background: rgba(255,255,255,.92);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
         }
 
-        .address-content {
-            line-height: 1.5;
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
         }
 
-        .table th, .table td {
+        .table thead th {
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            font-size: 12px;
+        }
+
+        .table td {
             vertical-align: middle;
+        }
+
+        .address-option {
+            display: block;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: .2s ease;
+            background: #fff;
+        }
+
+        .address-option:hover {
+            border-color: #60a5fa;
+            background: #f8fbff;
+        }
+
+        .address-option input {
+            margin-right: 8px;
+        }
+
+        .totals-box {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .final-total {
+            font-size: 26px;
+            font-weight: 800;
+            color: #059669;
         }
     </style>
 </head>
 
 <body>
+    <div class="checkout-shell">
+        <h1 class="page-title">Confirm Your Order</h1>
+        <p class="page-subtitle">Review cart, apply coupon, choose address, then continue securely.</p>
 
-<div class="container my-5">
-    <div class="row g-4">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="glass-card p-3 p-md-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="section-title mb-0">Order Summary</h5>
+                        <span class="badge text-bg-dark">@items.Count item(s)</span>
+                    </div>
 
-        <!-- ORDER SUMMARY -->
-        <div class="col-lg-7">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">🛒 Order Summary</h5>
-                </div>
-
-                <div class="card-body p-0">
-                    <table class="table mb-0">
-                        <thead class="table-light">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
                             <tr>
                                 <th>Product</th>
                                 <th class="text-center">Qty</th>
                                 <th class="text-end">Subtotal</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in items)
-                            {
-                                var subtotal = item.product.UnitPrice * item.Quantity;
-                                total += subtotal;
+                            </thead>
+                            <tbody>
+                                @foreach (var item in items)
+                                {
+                                    var subtotal = item.product.UnitPrice * item.Quantity;
+                                    total += subtotal;
                                 <tr>
-                                    <td>@item.product.ProductTitle</td>
+                                    <td>
+                                        <div class="fw-semibold">@item.product.ProductTitle</div>
+                                        <div class="text-muted small">₹@item.product.UnitPrice.ToString("0.00") each</div>
+                                    </td>
                                     <td class="text-center">@item.Quantity</td>
-                                    <td class="text-end">₹@subtotal</td>
+                                    <td class="text-end fw-semibold">₹@subtotal.ToString("0.00")</td>
                                 </tr>
-                            }
+                                }
 
-                            <tr class="fw-bold table-light">
-                                <td colspan="2">Total</td>
-                                <td class="text-end text-success">₹@total</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <tr class="table-light fw-bold">
+                                    <td colspan="2">Subtotal</td>
+                                    <td class="text-end">₹<span id="orderTotalText">@total.ToString("0.00")</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ADDRESS SELECTION -->
-        <div class="col-lg-5">
-            <form method="post" id="orderForm">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-dark text-white">
-                        <h5 class="mb-0">🚚 Delivery Address</h5>
-                    </div>
+            <div class="col-lg-5">
+                <form method="post" id="orderForm">
+                    <div class="glass-card p-3 p-md-4">
+                        <h5 class="section-title mb-3">Coupon & Delivery</h5>
 
-                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Coupon Code</label>
+                            <div class="input-group">
+                                <input type="text" id="couponCode" class="form-control" placeholder="e.g. SAVE10" />
+                                <button type="button" id="applyCouponBtn" class="btn btn-outline-primary">Apply</button>
+                            </div>
+                            <small id="couponMessage" class="d-block mt-2"></small>
+                        </div>
+
+                        <div class="totals-box mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Subtotal</span>
+                                <span>₹@total.ToString("0.00")</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Discount</span>
+                                <span>- ₹<span id="discountText">0.00</span></span>
+                            </div>
+                            <hr class="my-2" />
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-semibold">Final Total</span>
+                                <span class="final-total">₹<span id="finalTotalText">@total.ToString("0.00")</span></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="currentTotal" value="@total.ToString("0.00")" />
+
+                        <label class="form-label fw-semibold">Select Delivery Address</label>
                         @foreach (var address in addresses)
                         {
-                            <label class="address-card">
+                            <label class="address-option">
                                 <input type="radio"
                                        name="SelectedAddressId"
                                        value="@address.AddressId"
                                        required />
-
-                                <div class="address-content">
-                                    <strong>@address.Address</strong><br />
+                                <strong>@address.Address</strong><br />
+                                <span class="text-muted small">
                                     @address.City, @address.State - @address.ZipCode
-                                </div>
+                                </span>
                             </label>
                         }
-                    </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success btn-lg w-100">
-                            ✅ Confirm & Place Order
+                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold mt-2">
+                            Confirm & Place Order
                         </button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-
     </div>
-</div>
-
-<!-- PAGE SCRIPT -->
 <script>
-@* document.getElementById("orderForm").addEventListener("submit", function () {
-    var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
-    if (selected) {
-        this.action = "/OrderProcessing/PlaceOrder/" + selected.value;
-    }
-}); *@
+    document.getElementById("orderForm").addEventListener("submit", function (event) {
+        var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
+        if (!selected) {
+            event.preventDefault();
+            alert("Please select a delivery address.");
+            return;
+        }
 
-document.getElementById("orderForm").addEventListener("submit", function () {
+        this.action = "/Otp/SendOtp";
+    });
 
-    var selected = document.querySelector('input[name="SelectedAddressId"]:checked');
+    document.getElementById("applyCouponBtn").addEventListener("click", function () {
+        var code = document.getElementById("couponCode").value.trim();
+        var totalAmount = document.getElementById("currentTotal").value;
+        var msg = document.getElementById("couponMessage");
 
-    if (!selected) {
-        alert("Please select an address");
-        event.preventDefault();
-        return;
-    }
+        if (!code) {
+            msg.textContent = "Enter a coupon code first.";
+            msg.className = "text-danger d-block mt-2";
+            return;
+        }
 
-    // set action to OTP controller
-    this.action = "/Otp/SendOtp";
-});
+        var formData = new URLSearchParams();
+        formData.append("code", code);
+        formData.append("totalAmount", totalAmount);
 
+        fetch("/Coupon/Apply", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData.toString()
+        })
+        .then(res => res.json())
+        .then(data => {
+            msg.textContent = data.message;
+            msg.className = data.success ? "text-success d-block mt-2" : "text-danger d-block mt-2";
+
+            if (data.success) {
+                document.getElementById("discountText").textContent = Number(data.discount).toFixed(2);
+                document.getElementById("finalTotalText").textContent = Number(data.finalAmount).toFixed(2);
+            } else {
+                document.getElementById("discountText").textContent = "0.00";
+                document.getElementById("finalTotalText").textContent = Number(totalAmount).toFixed(2);
+            }
+        })
+        .catch(() => {
+            msg.textContent = "Unable to apply coupon right now.";
+            msg.className = "text-danger d-block mt-2";
+        });
+    });
 </script>
-
 </body>
 </html>

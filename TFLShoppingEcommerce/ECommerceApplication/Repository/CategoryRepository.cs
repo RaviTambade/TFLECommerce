@@ -145,8 +145,7 @@ namespace ECommerceApplication.Repository
             try
             {
                 conn.Open();
-                string query = "insert into categories values(@id,@name)";
-                cmd.Parameters.Add(new MySqlParameter("@id", categories.CategoryId));
+                string query = "insert into categories (name) values(@name)";
                 cmd.Parameters.Add(new MySqlParameter("@name", categories.CategoryName));
 
                 cmd.CommandText = query;

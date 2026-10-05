@@ -247,7 +247,7 @@
     <div class="invoice-container">
 
         <div class="invoice-header">
-            <a href="/OrderProcessing/Orders" class="back-link">← Back to Orders</a>
+            <a href="/OrderProcessing/OrdersDetails" class="back-link">← Back to Orders</a>
             <h1 class="invoice-title">Order Receipt</h1>
             <p class="invoice-subtitle">Thank you for your purchase</p>
         </div>
@@ -281,6 +281,14 @@
         {
             <div class="items-table-section">
                 <h2 class="section-title">Order Items (@items.Count)</h2>
+                @if (TempData["ReviewError"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ReviewError"]</div>
+                }
+                @if (TempData["ReviewMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["ReviewMessage"]</div>
+                }
 
                 <table>
                     <thead>
@@ -305,6 +313,24 @@
                                 <td class="qty">@item.Quantity</td>
                                 <td class="price">₹@item.product.UnitPrice.ToString("N2")</td>
                                 <td class="subtotal">₹@subtotal.ToString("N2")</td>
+                            </tr>
+                            <tr class="item-row">
+                                <td colspan="4">
+                                    <form method="post" action="/Review/AddReview" style="display:grid;gap:8px;grid-template-columns:120px 1fr 180px;">
+                                        <input type="hidden" name="productId" value="@item.product.ProductId" />
+                                        <input type="hidden" name="orderId" value="@order?.OrderId" />
+                                        <select name="rating" class="form-control" required>
+                                            <option value="">Rating</option>
+                                            <option value="5">5</option>
+                                            <option value="4">4</option>
+                                            <option value="3">3</option>
+                                            <option value="2">2</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                        <input type="text" name="reviewText" class="form-control" placeholder="Write review for @item.product.ProductTitle" required />
+                                        <button type="submit" class="cancel-btn" style="background:linear-gradient(135deg,#16a34a,#15803d);">Add Review</button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                     </tbody>

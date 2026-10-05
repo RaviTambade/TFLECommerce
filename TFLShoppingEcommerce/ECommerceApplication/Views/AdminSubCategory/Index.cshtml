@@ -4,6 +4,11 @@
 }
 
 <div class="container py-4">
+    @if (TempData["SubcategoryDeleteError"] != null)
+    {
+        <div class="alert alert-warning">@TempData["SubcategoryDeleteError"]</div>
+    }
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">Subcategories</h2>
         <a class="btn btn-primary" asp-action="Create">Add Subcategory</a>
@@ -17,6 +22,7 @@
                         <th style="width:90px;">ID</th>
                         <th>Subcategory</th>
                         <th>Category</th>
+                        <th>Product</th>
                         <th class="text-end">Products</th>
                         <th class="text-end" style="width:220px;">Actions</th>
                     </tr>
@@ -28,6 +34,7 @@
                         <td>@s.Id</td>
                         <td class="fw-semibold">@s.Name</td>
                         <td>@s.CategoryName</td>
+                        <td>@(string.IsNullOrWhiteSpace(s.ProductName) ? "-" : s.ProductName)</td>
                         <td class="text-end">@s.ProductsCount</td>
                         <td class="text-end">
                             <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@s.Id">Edit</a>

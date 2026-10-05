@@ -265,8 +265,40 @@
 
                     <div class="order-body">
                         <div class="order-row">
-                            <span class="order-label">Total Amount</span>
+                            <span class="order-label">Total (Before Discount)</span>
                             <span class="order-amount">₹@order.TotalAmount.ToString("N0")</span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Coupon Code</span>
+                            <span class="order-value">
+                                @(string.IsNullOrWhiteSpace(order.CouponCode) ? "No Coupon Applied" : order.CouponCode)
+                            </span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Discount</span>
+                            <span class="order-value">
+                                @order.DiscountPercentage.ToString("0.##")% (₹@order.DiscountAmount.ToString("N2"))
+                            </span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Final Amount</span>
+                            <span class="order-value">₹@order.FinalAmount.ToString("N2")</span>
+                        </div>
+
+                        <div class="order-row">
+                            <span class="order-label">Payment Status</span>
+                            @{
+                                string pStatus = string.IsNullOrWhiteSpace(order.PaymentStatus) ? "Pending" : order.PaymentStatus;
+                                string pClass = pStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase)
+                                    ? "status-delivered"
+                                    : pStatus.Equals("Failed", StringComparison.OrdinalIgnoreCase)
+                                        ? "status-cancelled"
+                                        : "status-processing";
+                            }
+                            <span class="status-pill @pClass">@pStatus</span>
                         </div>
 
                         <div class="order-row">

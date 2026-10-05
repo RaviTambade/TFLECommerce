@@ -63,5 +63,20 @@ namespace ECommerceApplication.Services
             List<Product> products = _productRepository.getCategoriesProduct(pid);
             return products;
         }
+
+        public List<Product> getRecommendedProducts(int productId, int count)
+        {
+            return _productRepository.getRecommendedProducts(productId, count);
+        }
+
+        public List<ProductSearchResult> GetFilteredProducts(string? search, int? categoryId, int? subcategoryId, decimal? minPrice, decimal? maxPrice, int? rating)
+        {
+            return _productRepository.GetFilteredProducts(search, categoryId, subcategoryId, minPrice, maxPrice, rating);
+        }
+
+        public List<string> GetSuggestions(string term, int take = 5)
+        {
+            return _productRepository.GetSuggestions(term, take);
+        }
     }
 }

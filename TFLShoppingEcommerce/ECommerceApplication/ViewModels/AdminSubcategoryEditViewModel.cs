@@ -13,6 +13,9 @@ public class AdminSubcategoryEditViewModel
     [Required]
     public int? CategoryId { get; set; }
 
+    public int? ProductId { get; set; }
+
     public List<SelectListItem> Categories { get; set; } = new();
+    public List<SelectListItem> Products { get; set; } = new();
 }
 

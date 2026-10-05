@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Razorpay.Api;
 using System.Collections.Generic;
 using System.Globalization;
+using ECommerceApplication.Models;
 using ECommerceApplication.Services.Interfaces;
 
 namespace ECommerceApplication.Controllers
@@ -16,13 +17,14 @@ namespace ECommerceApplication.Controllers
         private readonly IShoppingCartService _Cartsrv;
         ICustomerAddressService _custAddRepo;
         IOrderProcessingService _orderSrv;
+        private readonly EmailService _emailService;
 
         public PaymentProcessingController(
             ILogger<PaymentProcessingController> logger,
             IPaymentProcessingService paymentsrv,
             IConfiguration config,
             ICustomerService authSrv,
-            IShoppingCartService cartsrv, ICustomerAddressService custAddRepo, IOrderProcessingService orderSrv)
+            IShoppingCartService cartsrv, ICustomerAddressService custAddRepo, IOrderProcessingService orderSrv, EmailService emailService)
         {
             _config = config;
             _logger = logger;
@@ -31,6 +33,7 @@ namespace ECommerceApplication.Controllers
             _Cartsrv = cartsrv;
             _custAddRepo = custAddRepo;
             _orderSrv = orderSrv;
+            _emailService = emailService;
         }
 
         // ✅ STEP 1: Create Razorpay Order
@@ -40,7 +43,7 @@ namespace ECommerceApplication.Controllers
             var customer = _AuthSrv.getCustomerByEmail(email);
 
             int orderId = HttpContext.Session.GetInt32("OrderId").Value;
-
+            
             double amount = (double)_orderSrv.GetOrderTotal(orderId);
 
             HttpContext.Session.SetString("Amount", amount.ToString());
@@ -61,7 +64,7 @@ namespace ECommerceApplication.Controllers
         { "receipt", "order_" + Guid.NewGuid().ToString("N").Substring(0, 20)}
     };
 
-            Order order = client.Order.Create(options);
+            Razorpay.Api.Order order = client.Order.Create(options);
 
             ViewBag.OrderId = order["id"].ToString();
             ViewBag.Key = key;
@@ -99,6 +102,10 @@ namespace ECommerceApplication.Controllers
 
                 if (status)
                 {
+                    if (statusText.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+                    {
+                        TrySendOrderEmail(orderId, "Online Payment", statusText);
+                    }
                     return Json(new { redirectUrl = Url.Action("Index", "Catelog") });
                 }
             }
@@ -134,6 +141,7 @@ namespace ECommerceApplication.Controllers
 
                 if (status)
                 {
+                    TrySendOrderEmail(orderIdValue.Value, "Cash on Delivery", "Pending");
                     return Json(new { redirectUrl = Url.Action("Index", "Catelog") });
                 }
             }
@@ -143,6 +151,46 @@ namespace ECommerceApplication.Controllers
             }
 
             return Json(new { redirectUrl = Url.Action("Index", "ShoppingCart") });
+        }
+
+        private void TrySendOrderEmail(int orderId, string paymentMethod, string paymentStatus)
+        {
+            try
+            {
+                string? email = HttpContext.Session.GetString("Email");
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return;
+                }
+
+                ECommerceApplication.Models.Customer customer = _AuthSrv.getCustomerByEmail(email);
+                List<OrderItem> items = _orderSrv.getOrderItem(orderId);
+                decimal total = items.Sum(i => Convert.ToDecimal(i.product.UnitPrice) * i.Quantity);
+
+                ECommerceApplication.Models.Order? order = _orderSrv
+                    .getOrderByUserId(customer.CustomerId)
+                    .FirstOrDefault(o => o.OrderId == orderId);
+
+                decimal discount = order?.DiscountAmount ?? 0;
+                decimal final = order?.FinalAmount ?? (total - discount);
+                if (final < 0) final = 0;
+
+                _emailService.SendOrderConfirmationEmail(
+                    toEmail: customer.Email,
+                    customerName: customer.UserName,
+                    orderId: orderId,
+                    paymentMethod: paymentMethod,
+                    paymentStatus: paymentStatus,
+                    items: items,
+                    totalAmount: total,
+                    discountAmount: discount,
+                    finalAmount: final
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Order confirmation email failed for orderId={OrderId}", orderId);
+            }
         }
     }
 

@@ -19,11 +19,24 @@
             <nav class="menu">
                 <a href="/Home/index" class="active">🏠 Dashboard</a>
                 <a href="/Catelog/index">📦 Products</a>
-                <a href="/category/index">🗂️ Categories</a>
-                <a href="/Customer/index">👥 Customers</a>
+                <!-- <a href="/category/index">🗂️ Categories</a>
+                <a href="/Customer/index">👥 Customers</a> -->
                 <a href="/ShoppingCart/index">🛒 Cart</a>
+                <a href="/Wishlist/index">❤️ Wishlist</a>
                 <a href="/OrderProcessing/OrdersDetails">📑 Orders</a>
                 <a href="/profile/index">🙍‍♂️ Profile</a>
+                @{
+                    var role = Context?.Session?.GetString("Role");
+                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <hr />
+                        <a href="/AdminDashboard/Index">🧰 Admin Dashboard</a>
+                        <a href="/AdminProduct/Index">📦 Manage Products</a>
+                        <a href="/AdminCategory/Index">🗂️ Manage Categories</a>
+                        <a href="/AdminSubCategory/Index">🧩 Manage Subcategories</a>
+                        <a href="/AdminUser/Index">👥 Manage Users</a>
+                    }
+                }
                
             </nav>
         </aside>

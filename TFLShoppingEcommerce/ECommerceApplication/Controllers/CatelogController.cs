@@ -11,15 +11,18 @@ public class CatelogController : Controller
 {
     private readonly ILogger<CatelogController> _logger;
     IProductService _srv;
-    IProductRepository repo;
+    ICategoryService _categorySrv;
+    IReviewService _reviewSrv;
 
-    public CatelogController(ILogger<CatelogController> logger,IProductService srv)
+    public CatelogController(ILogger<CatelogController> logger, IProductService srv, ICategoryService categorySrv, IReviewService reviewSrv)
     {
         _logger = logger;
-        _srv =srv;
+        _srv = srv;
+        _categorySrv = categorySrv;
+        _reviewSrv = reviewSrv;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string? search, int? categoryId, int? subcategoryId, decimal? minPrice, decimal? maxPrice, int? rating)
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Email")))
         {
@@ -27,8 +30,15 @@ public class CatelogController : Controller
         }
         else
         {
-            List<Product> products = _srv.getAllProduct();
+            List<ProductSearchResult> products = _srv.GetFilteredProducts(search, categoryId, subcategoryId, minPrice, maxPrice, rating);
             ViewData["allProducts"] = products;
+            ViewData["allCategories"] = _categorySrv.getAllCategories();
+            ViewData["search"] = search;
+            ViewData["categoryId"] = categoryId;
+            ViewData["subcategoryId"] = subcategoryId;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["rating"] = rating;
             return View();
         }
     }
@@ -36,7 +46,13 @@ public class CatelogController : Controller
     public IActionResult DetailsWithId(int id)
     {
         Product product = _srv.getProductById(id);
+        List<Product> recommendations = _srv.getRecommendedProducts(id, 4);
+        List<Review> reviews = _reviewSrv.GetReviews(id);
+        decimal avgRating = _reviewSrv.GetAverageRating(id);
         ViewData["productById"] = product;
+        ViewData["recommendedProducts"] = recommendations;
+        ViewData["reviews"] = reviews;
+        ViewData["avgRating"] = avgRating;
         return View();
     }
 

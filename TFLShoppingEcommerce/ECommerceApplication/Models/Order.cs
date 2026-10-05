@@ -10,5 +10,10 @@ namespace ECommerceApplication.Models
         public DateOnly? ShippingDate { get; set; }
         public string status { get; set; }
         public string Address{ get; set; }
+        public string? CouponCode { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal FinalAmount { get; set; }
+        public string PaymentStatus { get; set; } = "Pending";
     }
 }

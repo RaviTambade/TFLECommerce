@@ -11,11 +11,13 @@ public class AdminSubCategoryController : Controller
 {
     private readonly IAdminSubcategoryService _subService;
     private readonly ICategoryService _categoryService;
+    private readonly IProductService _productService;
 
-    public AdminSubCategoryController(IAdminSubcategoryService subService, ICategoryService categoryService)
+    public AdminSubCategoryController(IAdminSubcategoryService subService, ICategoryService categoryService, IProductService productService)
     {
         _subService = subService;
         _categoryService = categoryService;
+        _productService = productService;
     }
 
     [HttpGet]
@@ -49,7 +51,7 @@ public class AdminSubCategoryController : Controller
             return View(BuildEditVm(model));
         }
 
-        int id = _subService.Create(model.Name, model.CategoryId!.Value);
+        int id = _subService.Create(model.Name, model.CategoryId!.Value, model.ProductId);
         if (id <= 0)
         {
             ModelState.AddModelError(string.Empty, "Failed to create subcategory.");
@@ -69,7 +71,8 @@ public class AdminSubCategoryController : Controller
         {
             Id = sub.Id,
             Name = sub.Name,
-            CategoryId = sub.CategoryId
+            CategoryId = sub.CategoryId,
+            ProductId = sub.ProductId
         };
 
         return View(BuildEditVm(vm));
@@ -93,7 +96,7 @@ public class AdminSubCategoryController : Controller
             return View(BuildEditVm(model));
         }
 
-        bool ok = _subService.Update(model.Id, model.Name, model.CategoryId!.Value);
+        bool ok = _subService.Update(model.Id, model.Name, model.CategoryId!.Value, model.ProductId);
         if (!ok)
         {
             ModelState.AddModelError(string.Empty, "Failed to update subcategory.");
@@ -107,17 +110,29 @@ public class AdminSubCategoryController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id)
     {
-        _subService.Delete(id);
+        bool ok = _subService.Delete(id);
+        if (!ok)
+        {
+            TempData["SubcategoryDeleteError"] = "Cannot delete subcategory because it is assigned to a product.";
+        }
         return RedirectToAction(nameof(Index));
     }
 
     private AdminSubcategoryEditViewModel BuildEditVm(AdminSubcategoryEditViewModel vm)
     {
         var categories = _categoryService.getAllCategories();
+        var products = _productService.getAllProduct();
+
         vm.Categories = categories
             .Select(c => new SelectListItem(c.CategoryName, c.CategoryId.ToString(), vm.CategoryId.HasValue && vm.CategoryId.Value == c.CategoryId))
             .ToList();
         vm.Categories.Insert(0, new SelectListItem("Select category", "", !vm.CategoryId.HasValue));
+
+        vm.Products = products
+            .Select(p => new SelectListItem(p.ProductTitle, p.ProductId.ToString(), vm.ProductId.HasValue && vm.ProductId.Value == p.ProductId))
+            .ToList();
+        vm.Products.Insert(0, new SelectListItem("No product", "", !vm.ProductId.HasValue));
+
         return vm;
     }
 }

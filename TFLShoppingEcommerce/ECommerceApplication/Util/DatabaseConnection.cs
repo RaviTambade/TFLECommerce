@@ -8,7 +8,7 @@ namespace ECommerceApplication.Utils
         public static IDbConnection getConnection()
         {
             IDbConnection conn = new MySqlConnection();
-            conn.ConnectionString = @"server=localhost;port=3306;user=root;password=password;database=TFLShoppingEcommerce";
+            conn.ConnectionString = @"server=localhost;port=3306;user=root;password=password;database=TFLShoppingEcomm";
             return conn;
         }
     }

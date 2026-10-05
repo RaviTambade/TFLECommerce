@@ -337,6 +337,13 @@
 </style>
 
 <div class="main">
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" style="margin-bottom: 16px;">
+            @TempData["Error"]
+        </div>
+    }
+
     <div class="page-header">
         <h1 class="page-title">Shopping Cart</h1>
         @{

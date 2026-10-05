@@ -33,6 +33,16 @@ namespace ECommerceApplication.Services
             return _orderRepo.cancelOrder(orderid);
         }
 
+        public bool saveOrderDiscount(int orderId, string discountCode)
+        {
+            return _orderRepo.saveOrderDiscount(orderId, discountCode);
+        }
+
+        public decimal getOrderDiscountPercentage(int orderId)
+        {
+            return _orderRepo.getOrderDiscountPercentage(orderId);
+        }
+
         public double GetOrderTotal(int orderid)
         {
             var items = getOrderItem(orderid);
@@ -44,6 +54,13 @@ namespace ECommerceApplication.Services
                 double price = item.product.UnitPrice;
                 double amount = price * item.Quantity;
                 total = total + amount;
+            }
+
+            decimal discountPercentage = getOrderDiscountPercentage(orderid);
+            if (discountPercentage > 0)
+            {
+                double discountAmount = total * (double)(discountPercentage / 100m);
+                total = Math.Max(0, total - discountAmount);
             }
 
             return total;

@@ -1,39 +1,316 @@
 @{
-    ViewData["Title"]="product catelog";
+ViewData["Title"] = "Product Catalog";
 }
-<link rel="stylesheet" href="~/css/CatelogStyle.css" />
-<link rel="stylesheet" href="~/css/NavBarStyle.css" />
-<div class="main">
-    @* <h1>All products</h1> *@
 
-    <div class="navbartabs">
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Catalog</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/NavBarStyle.css" />
+<style>
+    body {
+        background: #f5f6fa;
+        font-family: 'Segoe UI', sans-serif;
+        color: #222;
+    }
+
+
+
+    /* FILTER BAR */
+    .filter-bar {
+        display: flex;
+        gap: 10px;
+        padding: 15px;
+        background: white;
+        border-radius: 12px;
+        margin: 15px;
+        flex-wrap: wrap;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background: #fff;
+    }
+
+    .filter-bar button {
+        background: #007bff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        color: white;
+    }
+
+    /* SEARCH SUGGESTIONS */
+    #suggestions {
+        position: absolute;
+        background: white;
+        width: 100%;
+        border-radius: 8px;
+        z-index: 1000;
+        border: 1px solid #ddd;
+    }
+
+    .suggestion-item {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .suggestion-item:hover {
+        background: #f1f1f1;
+    }
+
+    /* GRID */
+    .container-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* CARD */
+    .product-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: 0.3s;
+        border: 1px solid #eee;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    /* IMAGE */
+    .card-img {
+        position: relative;
+        height: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fafafa;
+    }
+
+    .card-img img {
+        max-height: 120px;
+    }
+
+    /* WISHLIST ICON */
+    .wishlist-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ffffff;
+        border-radius: 50%;
+        padding: 8px;
+        text-decoration: none;
+        color: #888;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .wishlist-icon:hover {
+        color: red;
+    }
+
+    /* BODY */
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-body h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    /* PRICE + RATING */
+    .price-rating {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .price {
+        font-weight: bold;
+        font-size: 18px;
+        color: #000;
+    }
+
+    .rating {
+        color: #f39c12;
+    }
+
+    /* BUTTON */
+    .details-btn {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #333;
+        transition: 0.3s;
+    }
+
+    .details-btn:hover {
+        background: #007bff;
+        color: white;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+<!-- YOUR ORIGINAL NAVBAR (UNCHANGED LINKS) -->
+<div class="navbartabs">
         <a href="/catelog/index">All Products</a>
         <a href="/category/Flowers">Flowers</a>
         <a href="/category/Beauty_PersonalCare">Beauty& PersonalCare</a>
         <a href="/category/ElectronicDevices">Electronic Devices</a>
         <a href="/category/Fashion">Fashion</a>
         <a href="/category/Grocery">Grocery</a>
-        <a href="/category/Home_Farniture">Home_Farniture</a>
+        <a href="/category/Home_Farniture">Home_Furniture</a>
         <a href="/category/Toys_Books">Toys_Books</a>
     </div>
 
-    @{
-        List<Product> products = (List<Product>)ViewData["allProducts"];
-        <div class="container">
-            @foreach(Product product in products)
-            {
-                <div class="cart">
-                    <h2>@product.ProductTitle</h2>
-                    <img src="@product.ProductImage" width="80" height="80" />
-                    @* <p><b>ProductId:</b> @product.ProductId</p> *@
-                    <p><b>Title: </b>@product.ProductTitle</p>
-                    @* <p><b>Description:</b> @product.Description</p> *@
-                    <p><b>Price:</b> @product.UnitPrice</p>
-                    @* <p><b>Available stock:</b> @product.Quantity</p> *@
-                    <a href="/Catelog/Details/@product.ProductId"> <button>Details</button></a>
-                    
+@{
+    var products = ViewData["allProducts"] as List<ProductSearchResult> ?? new List<ProductSearchResult>();
+    var categories = ViewData["allCategories"] as List<Categories> ?? new List<Categories>();
+    string search = ViewData["search"]?.ToString() ?? "";
+    int? selectedCategoryId = ViewData["categoryId"] as int?;
+    int? selectedSubcategoryId = ViewData["subcategoryId"] as int?;
+}
+
+<!-- FILTER -->
+<form method="get" action="/Catelog/Index" class="filter-bar">
+    <div style="position:relative;">
+        <input id="searchInput" name="search" value="@search" placeholder="🔍 Search products..." autocomplete="off" />
+        <div id="suggestions"></div>
+    </div>
+
+    <select name="categoryId">
+        <option value="">All Categories</option>
+        @foreach (var cat in categories)
+        {
+            <option value="@cat.CategoryId" selected="@(selectedCategoryId.HasValue && selectedCategoryId.Value == cat.CategoryId)">
+                @cat.CategoryName
+            </option>
+        }
+    </select>
+
+    <select name="subcategoryId" id="subcategorySelect">
+        <option value="">All Subcategories</option>
+    </select>
+
+    <input name="minPrice" type="number" placeholder="Min ₹" />
+    <input name="maxPrice" type="number" placeholder="Max ₹" />
+
+    <select name="rating">
+        <option value="">⭐ Any</option>
+        <option value="4">4+ ⭐</option>
+        <option value="3">3+ ⭐</option>
+    </select>
+
+    <button>Apply</button>
+</form>
+
+<!-- PRODUCTS -->
+<div class="container-grid">
+    @foreach (var product in products)
+    {
+        <div class="product-card">
+
+            <div class="card-img">
+                <img src="@product.ProductImage" />
+
+                <!-- ❤️ Wishlist -->
+                <a href="/Wishlist/Add?productId=@product.ProductId" class="wishlist-icon">
+                    ❤
+                </a>
+            </div>
+
+            <div class="card-body">
+                <h3>@product.ProductTitle</h3>
+
+                <div class="price-rating">
+                    <span class="price">₹@product.UnitPrice</span>
+                    <span class="rating">⭐ @product.AvgRating</span>
                 </div>
-            }
+
+                <a href="/Catelog/DetailsWithId/@product.ProductId" class="details-btn">
+                    View Details →
+                </a>
+            </div>
+
         </div>
     }
 </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(function () {
+    $("#searchInput").on("keyup", function () {
+        const term = $(this).val();
+        const box = $("#suggestions");
+
+        if (!term || term.length < 2) {
+            box.empty();
+            return;
+        }
+
+        $.get("/Product/GetSuggestions", { term: term }, function (data) {
+            box.empty();
+            data.forEach(function (item) {
+                box.append('<div class="suggestion-item">' + item + '</div>');
+            });
+        });
+    });
+
+    $(document).on("click", ".suggestion-item", function () {
+        $("#searchInput").val($(this).text());
+        $("#suggestions").empty();
+    });
+});
+</script>
+
+<script>
+    (function () {
+        const categorySelect = document.querySelector('select[name="categoryId"]');
+        const subSelect = document.getElementById('subcategorySelect');
+        const selectedSubId = '@(selectedSubcategoryId?.ToString() ?? "")';
+
+        async function loadSubcategories(categoryId) {
+            subSelect.innerHTML = '<option value="">All Subcategories</option>';
+            if (!categoryId) return;
+            const res = await fetch(`/AdminProduct/GetSubcategoriesByCategory?categoryId=${encodeURIComponent(categoryId)}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            for (const s of data) {
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = s.name;
+                if (selectedSubId && String(opt.value) === String(selectedSubId)) opt.selected = true;
+                subSelect.appendChild(opt);
+            }
+        }
+
+        categorySelect?.addEventListener('change', () => loadSubcategories(categorySelect.value));
+        if (categorySelect?.value) loadSubcategories(categorySelect.value);
+    })();
+</script>
+
+</body>
+</html>

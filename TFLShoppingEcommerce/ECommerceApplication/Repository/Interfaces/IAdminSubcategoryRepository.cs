@@ -7,8 +7,8 @@ public interface IAdminSubcategoryRepository
     List<Subcategory> GetAll();
     List<Subcategory> GetByCategoryId(int categoryId);
     Subcategory? GetById(int id);
-    int Create(string name, int categoryId);
-    bool Update(int id, string name, int categoryId);
+    int Create(string name, int categoryId, int? productId);
+    bool Update(int id, string name, int categoryId, int? productId);
     bool Delete(int id);
 }
 

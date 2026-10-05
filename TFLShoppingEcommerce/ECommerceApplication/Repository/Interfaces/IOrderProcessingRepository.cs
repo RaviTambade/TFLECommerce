@@ -9,5 +9,7 @@ namespace ECommerceApplication.Repository.Interfaces
         List<OrderItem> getOrderItem(int orderid);
 
         bool cancelOrder(int orderid);
+        bool saveOrderDiscount(int orderId, string discountCode);
+        decimal getOrderDiscountPercentage(int orderId);
     }
 }

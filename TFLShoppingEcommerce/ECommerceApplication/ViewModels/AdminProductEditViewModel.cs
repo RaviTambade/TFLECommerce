@@ -20,7 +20,6 @@ public class AdminProductEditViewModel
     [Required]
     public int? CategoryId { get; set; }
 
-    [Required]
     public int? SubcategoryId { get; set; }
 
     public string? ExistingImagePath { get; set; }

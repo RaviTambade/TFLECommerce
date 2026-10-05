@@ -23,10 +23,24 @@ builder.Services.AddScoped<IOrderStatusBackgroundRepository,OrderStatusBackgroun
 builder.Services.AddScoped<IOrderStatusBackgroundService, OrderStatusBackgroundService>();
 builder.Services.AddScoped<IPaymentProcessingRepository,PaymentProcessingRepository>();
 builder.Services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+builder.Services.AddScoped<IWishlistService, WishlistService>();
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddHostedService<OrderStatusBackgroundService>();
 
 builder.Services.AddScoped<OtpService>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IAdminProductRepository, AdminProductRepository>();
+builder.Services.AddScoped<IAdminProductService, AdminProductService>();
+builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+builder.Services.AddScoped<IAdminDashboardRepository, AdminDashboardRepository>();
+builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
+builder.Services.AddScoped<IAdminSubcategoryRepository, AdminSubcategoryRepository>();
+builder.Services.AddScoped<IAdminSubcategoryService, AdminSubcategoryService>();
 
 // register distributed cache memory for session management
 builder.Services.AddDistributedMemoryCache();
@@ -41,7 +55,6 @@ builder.Services.AddSession(options =>
 
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

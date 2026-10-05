@@ -1,6 +1,6 @@
 @{
     ViewData["Title"] = "Customers";
-    List<Customer> customers = (List<Customer>)ViewData["allCustomers"];
+    List<Customer> customers = ViewData["allCustomers"] as List<Customer> ?? new List<Customer>();
 }
 
 <link rel="stylesheet" href="~/css/CatelogStyle.css" />

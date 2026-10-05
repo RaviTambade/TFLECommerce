@@ -33,9 +33,18 @@ public class OrderProcessingController : Controller
 
         // ShippingAddress shippingAddress = _custAddRepo.getAllCustomerAddresses(customers.CustomerId);
         int orderid = _orderSrv.placeOrder(customers.CustomerId, SelectedAddressId);
-        HttpContext.Session.SetInt32("OrderId", orderid);
         if (orderid>0)
         {
+            string? appliedCoupon = HttpContext.Session.GetString("AppliedCouponCode");
+            if (!string.IsNullOrWhiteSpace(appliedCoupon))
+            {
+                _orderSrv.saveOrderDiscount(orderid, appliedCoupon);
+                HttpContext.Session.Remove("AppliedCouponCode");
+                HttpContext.Session.Remove("AppliedCouponDiscount");
+                HttpContext.Session.Remove("AppliedFinalAmount");
+            }
+
+            HttpContext.Session.SetInt32("OrderId", orderid);
             return RedirectToAction("CreateOrder", "PaymentProcessing");
         }
         else
@@ -56,8 +65,19 @@ public class OrderProcessingController : Controller
 
     public IActionResult OrderItemDetails(int id)
     {
+        string? email = HttpContext.Session.GetString("Email");
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return RedirectToAction("Login", "Authentication");
+        }
+
+        Customer customer = _AuthSrv.getCustomerByEmail(email);
+        List<Order> orders = _orderSrv.getOrderByUserId(customer.CustomerId);
+        Order? order = orders.FirstOrDefault(o => o.OrderId == id);
+
         List<OrderItem> orderItems = _orderSrv.getOrderItem(id);
         ViewData["allOrdersItems"] = orderItems;
+        ViewData["order"] = order;
         return View();
     }
 
